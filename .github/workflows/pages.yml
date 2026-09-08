@@ -1,8 +1,8 @@
 name: Deploy PWA to GitHub Pages
 
+# Solo manual: úsalo si en Settings > Pages eliges "GitHub Actions" como fuente.
+# Si eliges "Deploy from a branch" (opción más simple), este workflow no hace falta.
 on:
-  push:
-    branches: [claude/pwa-merindades-familia-kumae5]
   workflow_dispatch:
 
 permissions:
@@ -25,8 +25,6 @@ jobs:
 
       - name: Configurar Pages
         uses: actions/configure-pages@v5
-        with:
-          enablement: true
 
       # La app es estática: se publica el repo tal cual.
       - name: Preparar artefacto
