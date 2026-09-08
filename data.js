@@ -1,11 +1,15 @@
-// Datos del viaje. Editar aquí para actualizar la app.
-// Nota: los horarios son ORIENTATIVOS y así se muestran en la interfaz.
+// Guía Merindades en Familia — todos los datos del viaje.
+// Los horarios son ORIENTATIVOS a propósito: la app los muestra como tales.
+// Las imágenes son ilustraciones propias (assets/images). Para usar fotos
+// reales basta con dejar el archivo en esa carpeta y cambiar aquí la ruta.
 window.TRIP_DATA = {
   "trip": {
     "title": "Las Merindades en Familia",
-    "dates": "12 - 13 Septiembre 2026",
+    "dates": "12 - 13 septiembre 2026",
+    "places": "Frías · Tobera · Puentedey · Ojo Guareña",
     "group": "2 parejas y 3 niñas (9, 7 y 3 años)",
-    "base": {
+    "hero": "assets/images/hero.svg",
+    "hotel": {
       "name": "Hotel Rural La Torre de Bisjueces",
       "address": "C. San Juan 58, Bisjueces, Burgos",
       "lat": 42.8931,
@@ -16,7 +20,7 @@ window.TRIP_DATA = {
       { "label": "Ruta a Valladolid", "query": "Valladolid" }
     ],
     "weatherSpots": [
-      { "id": "frias",     "label": "Frías / Tobera",       "date": "2026-09-12", "lat": 42.7631, "lng": -3.2972 },
+      { "id": "frias",     "label": "Frías / Tobera",         "date": "2026-09-12", "lat": 42.7631, "lng": -3.2972 },
       { "id": "puentedey", "label": "Puentedey / Ojo Guareña", "date": "2026-09-13", "lat": 42.9756, "lng": -3.6853 }
     ]
   },
@@ -24,26 +28,27 @@ window.TRIP_DATA = {
   "days": [
     {
       "id": "day-1",
-      "date": "2026-09-12",
-      "label": "Sábado 12: Frías y Tobera",
-      "short": "Sábado 12",
+      "tab": "Sábado",
+      "date": "Sábado 12 de septiembre",
+      "title": "Frías y Tobera",
+      "intro": "Un día entero en el mismo rincón: la villa por la mañana y las cascadas después de comer.",
       "weatherSpot": "frias",
       "route": {
         "label": "Ruta del sábado",
-        "note": "Alojamiento → Frías → Tobera → alojamiento",
+        "steps": ["Hotel", "Frías", "Tobera", "Hotel"],
         "origin": "42.8931,-3.5694",
         "waypoints": ["42.7631,-3.2972", "42.7561,-3.3105"],
         "destination": "42.8931,-3.5694"
       },
-      "activities": [
+      "stops": [
         {
+          "id": "frias",
+          "kind": "destino",
+          "name": "Frías",
+          "image": "assets/images/frias.svg",
           "time": "10:30 aprox.",
-          "type": "visita",
-          "title": "Frías",
-          "location": "Villa medieval de Frías",
-          "lat": 42.7631,
-          "lng": -3.2972,
           "duration": "2,5 - 3 h",
+          "intro": "La villa más pequeña de España, colgada sobre la peña. Sin agenda: paseo, miradores y lo que apetezca.",
           "highlights": [
             "Castillo de los Velasco",
             "Casco medieval",
@@ -51,139 +56,146 @@ window.TRIP_DATA = {
             "Miradores",
             "Puente medieval sobre el Ebro"
           ],
-          "description": "Mañana tranquila paseando por la villa, sin prisa y parando donde apetezca.",
-          "logistics": "Calles empinadas y empedradas: mejor de la mano y con calzado cómodo.",
-          "extraLinks": [
-            { "label": "Puente medieval sobre el Ebro", "lat": 42.7697, "lng": -3.2878 }
+          "tags": ["🥾 Terreno irregular", "🚼 Porteo recomendable"],
+          "lat": 42.7631,
+          "lng": -3.2972,
+          "details": [
+            { "title": "Con las niñas", "text": "Calles empinadas y empedradas: mejor de la mano, y la pequeña en porteo en las cuestas." },
+            { "title": "El puente del Ebro", "text": "Queda algo apartado del casco, junto al río y con aparcamiento fácil. Entorno llano para estirar las piernas.", "map": { "lat": 42.7697, "lng": -3.2878, "label": "Ir al puente medieval" } }
           ]
         },
         {
+          "id": "comida-sabado",
+          "kind": "comida",
+          "name": "Comer en Frías",
           "time": "13:30 - 14:00",
-          "type": "comida",
-          "title": "Comida en Frías",
-          "location": "Frías",
-          "lat": 42.7631,
-          "lng": -3.2972,
-          "description": "Tres alternativas en el pueblo. Conviene llamar antes para asegurar mesa para 7.",
+          "intro": "Somos 7. Conviene llamar antes para asegurar mesa.",
           "options": [
-            { "name": "Ortiz Bar Restaurante", "phone": "947 35 70 67", "tel": "+34947357067", "query": "Ortiz Bar Restaurante Frías Burgos", "note": "Primera opción." },
+            { "name": "Ortiz Bar Restaurante", "note": "Primera opción · reservar para 7", "phone": "947 35 70 67", "tel": "+34947357067", "query": "Ortiz Bar Restaurante Frías Burgos" },
             { "name": "Restaurante A Fuego Lento", "phone": "651 90 76 06", "tel": "+34651907606", "query": "Restaurante A Fuego Lento Frías Burgos" },
             { "name": "Restaurante El Albergue", "phone": "627 63 50 60", "tel": "+34627635060", "query": "Restaurante El Albergue Frías Burgos" }
           ]
         },
         {
+          "id": "tobera",
+          "kind": "destino",
+          "name": "Tobera",
+          "image": "assets/images/tobera.svg",
           "time": "Después de comer",
-          "type": "visita",
-          "title": "Tobera",
-          "location": "Tobera (Frías)",
-          "lat": 42.7561,
-          "lng": -3.3105,
           "duration": "1 - 1,5 h",
+          "intro": "A cinco minutos de Frías: un desfiladero pequeño con cascadas, puentes y sombra.",
           "highlights": [
             "Ermita de Santa María de la Hoz",
             "Puente medieval",
             "Cascadas",
             "Paseo junto al río Molinar"
           ],
-          "description": "Paseo corto y muy agradecido con las niñas, a pocos minutos en coche de Frías.",
-          "logistics": "Pasarelas y escalones: la pequeña, de la mano o en porteo."
+          "tags": ["👧 Fácil con niñas", "🥾 Pasarelas y escalones"],
+          "lat": 42.7561,
+          "lng": -3.3105,
+          "details": [
+            { "title": "Con las niñas", "text": "Paseo corto y muy agradecido. Hay escalones y pasarelas de madera: la pequeña de la mano o en porteo." }
+          ]
         },
         {
+          "id": "hotel-sabado",
+          "kind": "descanso",
+          "name": "Vuelta al hotel",
           "time": "Tarde / noche",
-          "type": "relax",
-          "title": "Vuelta al alojamiento",
-          "location": "Hotel Rural La Torre de Bisjueces",
+          "intro": "Regreso sin prisa a Bisjueces y el resto del día juntos, que era de lo que se trataba.",
           "lat": 42.8931,
-          "lng": -3.5694,
-          "description": "Regreso sin prisa y tarde/noche todos juntos en el alojamiento."
+          "lng": -3.5694
         }
       ]
     },
 
     {
       "id": "day-2",
-      "date": "2026-09-13",
-      "label": "Domingo 13: Puentedey y Ojo Guareña",
-      "short": "Domingo 13",
+      "tab": "Domingo",
+      "date": "Domingo 13 de septiembre",
+      "title": "Puentedey y Ojo Guareña",
+      "intro": "Dos paradas por la mañana, comida de despedida y cada familia hacia casa.",
       "weatherSpot": "puentedey",
       "route": {
         "label": "Ruta del domingo",
-        "note": "Alojamiento → Puentedey → Ojo Guareña / San Bernabé",
+        "steps": ["Hotel", "Puentedey", "Ojo Guareña"],
         "origin": "42.8931,-3.5694",
         "waypoints": ["42.9756,-3.6853"],
         "destination": "43.0336,-3.6644"
       },
-      "activities": [
+      "stops": [
         {
+          "id": "puentedey",
+          "kind": "destino",
+          "name": "Puentedey",
+          "image": "assets/images/puentedey.svg",
           "time": "Por la mañana",
-          "type": "visita",
-          "title": "Puentedey",
-          "location": "Puentedey",
-          "lat": 42.9756,
-          "lng": -3.6853,
           "duration": "1 - 1,5 h",
+          "intro": "El pueblo se asienta sobre un puente natural que el río Nela excavó en la roca. Se ve desde arriba y desde abajo.",
           "highlights": [
-            "Puente natural excavado por el río Nela",
+            "Puente natural sobre el Nela",
             "El pueblo",
             "Iglesia de San Pelayo",
             "Miradores",
             "Zona baja junto al río",
             "Paseo corto"
           ],
-          "description": "Primera parada del domingo, con tiempo para bajar al río y ver el puente natural desde abajo.",
-          "logistics": "La senda baja junto al Nela es cómoda; el resto, terreno mixto."
-        },
-        {
-          "time": "Opcional",
-          "type": "bano",
-          "optional": true,
-          "title": "¿Hace bueno? Podemos bañarnos",
-          "location": "Zona de baño del río Nela (Puentedey)",
+          "tags": ["👧 Fácil con niñas"],
           "lat": 42.9756,
           "lng": -3.6853,
-          "description": "Si hace calor, llevamos bañador y toalla. Antes de entrar al agua comprobaremos caudal, temperatura, señalización y estado del río.",
-          "notes": [
-            "Es opcional: solo si apetece y las condiciones acompañan.",
-            "El agua puede estar fría.",
-            "Con las niñas, comprobar el estado del río al llegar.",
-            "Si hubiera señalización que lo impida, no nos bañamos."
-          ],
-          "checklist": ["Bañadores", "Toallas", "Escarpines o calzado de agua", "Muda para las niñas"],
-          "checklistTitle": "Llevar en el coche",
-          "info": "Zona tradicional de baño junto al río Nela, con campa y mesas en el entorno de la bolera."
-        },
-        {
-          "time": "Según reserva",
-          "type": "visita",
-          "title": "Ojo Guareña · Cueva-Ermita de San Bernabé",
-          "location": "Monumento Natural de Ojo Guareña",
-          "lat": 43.0336,
-          "lng": -3.6644,
-          "reserva": true,
-          "reservaNote": "La visita depende del horario y de la reserva de San Bernabé. Comprobar antes de ir; no hay hora confirmada en la app.",
-          "description": "Segunda visita del domingo: recorrido por la cueva-ermita excavada en la roca.",
-          "logistics": "Dentro de la cueva, la pequeña mejor en porteo o de la mano."
-        },
-        {
-          "time": "Comida",
-          "type": "comida",
-          "title": "¿Dónde comemos?",
-          "location": "Por decidir",
-          "open": true,
-          "description": "Último momento todos juntos. Sin restaurante elegido todavía: decidimos sobre la marcha.",
-          "options": [
-            { "name": "La Taxuela", "phone": "947 190 597", "tel": "+34947190597", "query": "La Taxuela restaurante Villarcayo", "note": "Zona Villarcayo / Medina de Pomar. Primera opción para una comida especial de despedida." },
-            { "name": "Mesón Restaurante El Cid", "phone": "947 13 11 71", "tel": "+34947131171", "query": "Mesón Restaurante El Cid Villarcayo" },
-            { "name": "RestoBar La Cucaña", "phone": "654 15 05 15", "tel": "+34654150515", "query": "RestoBar La Cucaña Puentedey", "note": "En Puentedey. Normalmente sin reserva y por orden de llegada: puede no ser cómodo para 7 si está concurrido." }
+          "swim": {
+            "title": "Si hace bueno: posibilidad de baño",
+            "text": "Podemos llevar bañador y decidir allí según temperatura, caudal, estado del río y señalización.",
+            "pack": ["Bañadores", "Toallas", "Escarpines", "Muda para las niñas"]
+          },
+          "details": [
+            { "title": "Con las niñas", "text": "La senda baja junto al Nela es cómoda; el resto del pueblo, terreno mixto." }
           ]
         },
         {
+          "id": "ojoguarena",
+          "kind": "destino",
+          "name": "Ojo Guareña",
+          "subtitle": "Cueva-ermita de San Bernabé",
+          "image": "assets/images/ojoguarena.svg",
+          "time": "Según reserva",
+          "duration": "1 h aprox.",
+          "intro": "Una ermita metida dentro de la roca, en uno de los mayores complejos kársticos de la península.",
+          "highlights": [
+            "Cueva-ermita de San Bernabé",
+            "Pinturas y pasarela interior",
+            "Mirador sobre el karst"
+          ],
+          "tags": ["🚼 Porteo recomendable"],
+          "lat": 43.0336,
+          "lng": -3.6644,
+          "booking": {
+            "title": "Reserva / horario pendiente de confirmar",
+            "text": "La hora de esta visita depende de la reserva. Comprobar horario y disponibilidad antes de ir; en la app no hay hora fijada."
+          },
+          "details": [
+            { "title": "Con las niñas", "text": "Dentro de la cueva la pequeña mejor en porteo o de la mano. Hace fresco todo el año: una chaqueta fina." }
+          ]
+        },
+        {
+          "id": "comida-domingo",
+          "kind": "comida",
+          "name": "Comida de despedida",
+          "time": "Comida",
+          "intro": "Sin elegir todavía: lo decidimos entre todos. El último rato todos juntos.",
+          "open": true,
+          "options": [
+            { "name": "La Taxuela", "note": "Primera opción para una comida especial", "phone": "947 190 597", "tel": "+34947190597", "query": "La Taxuela restaurante Villarcayo" },
+            { "name": "Mesón Restaurante El Cid", "note": "Villarcayo", "phone": "947 13 11 71", "tel": "+34947131171", "query": "Mesón Restaurante El Cid Villarcayo" },
+            { "name": "RestoBar La Cucaña", "note": "En Puentedey · suele ser por orden de llegada", "phone": "654 15 05 15", "tel": "+34654150515", "query": "RestoBar La Cucaña Puentedey" }
+          ]
+        },
+        {
+          "id": "despedida",
+          "kind": "despedida",
+          "name": "Fin del fin de semana",
           "time": "Después de comer",
-          "type": "transporte",
-          "title": "Fin del fin de semana",
-          "location": "Cada familia hacia casa",
-          "description": "Desde la comida, cada familia empieza su regreso.",
-          "farewell": true
+          "intro": "Desde aquí, cada familia empieza su camino de vuelta."
         }
       ]
     }
@@ -192,7 +204,7 @@ window.TRIP_DATA = {
   "info": {
     "packing": [
       "Calzado cómodo",
-      "Sudadera o chaqueta fina",
+      "Sudadera / chaqueta fina",
       "Agua",
       "Crema solar",
       "Gorras",
@@ -200,29 +212,28 @@ window.TRIP_DATA = {
       "Bañadores",
       "Toallas",
       "Escarpines",
-      "Muda de las niñas",
+      "Muda para las niñas",
       "Algo de picoteo",
-      "Mochila de porteo si se considera útil para la pequeña"
+      "Mochila de porteo si resulta útil para la pequeña"
     ],
     "reservas": [
-      "Cueva-Ermita de San Bernabé (Ojo Guareña): comprobar horario y reserva antes de ir. La hora del domingo queda abierta a lo que se confirme.",
-      "Comida del sábado en Frías: conviene llamar para asegurar mesa para 7.",
+      "Cueva-ermita de San Bernabé (Ojo Guareña): horario y reserva pendientes de confirmar.",
+      "Comida del sábado en Frías: llamar para asegurar mesa para 7.",
       "Comida del domingo: sin restaurante elegido todavía."
     ],
     "bano": [
-      "Zona tradicional de baño junto al río Nela, en Puentedey, con campa y mesas en el entorno de la bolera.",
-      "Es una opción, no un plan cerrado: decidimos al llegar.",
-      "Comprobar caudal, temperatura, señalización y estado del río antes de entrar.",
+      "La opción es el río Nela, en Puentedey, y se decide allí mismo.",
+      "Comprobar temperatura, caudal, estado del río y señalización antes de entrar.",
       "El agua puede estar fría, sobre todo por la mañana.",
       "En Tobera no está previsto bañarse."
     ],
-    "contacts": [
-      { "label": "Emergencias", "value": "112", "tel": "112", "emergency": true }
+    "emergencias": [
+      { "label": "Emergencias", "value": "112", "tel": "112" }
     ],
-    "notes": [
+    "notas": [
       "Los horarios son orientativos: la idea es no ir con prisa.",
-      "Cobertura móvil irregular en cañones y valles: esta app funciona sin conexión.",
-      "El sábado es Frías y Tobera; el domingo, Puentedey y Ojo Guareña."
+      "La cobertura falla en cañones y valles; la guía funciona sin conexión.",
+      "El teléfono del hotel no está en la app porque no lo tenemos confirmado."
     ]
   }
 };

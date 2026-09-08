@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Frías: castillo sobre la peña y casas colgadas">
+  <defs>
+    <linearGradient id="fsky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F1E9DA"/><stop offset="1" stop-color="#E0D6C3"/></linearGradient>
+    <linearGradient id="frock" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#CDBB9C"/><stop offset="1" stop-color="#A48F71"/></linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#fsky)"/>
+  <circle cx="640" cy="96" r="38" fill="#EBC98D" opacity=".8"/>
+  <path d="M0 288 L120 250 L250 292 L360 256 L470 296 L600 260 L720 300 L800 276 L800 340 L0 340Z" fill="#9DB0A4" opacity=".8"/>
+  <!-- peña -->
+  <path d="M120 450 L150 300 C 200 236, 300 208, 400 214 C 512 220, 590 262, 640 316 L 672 450Z" fill="url(#frock)"/>
+  <path d="M150 300 C 240 268, 420 262, 520 292 L 540 316 C 420 288, 250 296, 158 326Z" fill="#B9A582" opacity=".7"/>
+  <!-- casas colgadas -->
+  <g fill="#F8F3E9">
+    <path d="M214 268 h46 v58 h-46z"/><path d="M270 262 h40 v62 h-40z"/><path d="M318 258 h36 v66 h-36z"/>
+    <path d="M362 262 h42 v60 h-42z"/><path d="M412 268 h38 v54 h-38z"/>
+  </g>
+  <g fill="#B0553A">
+    <path d="M208 268 l29-19 l29 19z"/><path d="M264 262 l26-18 l26 18z"/>
+    <path d="M312 258 l24-17 l24 17z"/><path d="M356 262 l27-18 l27 18z"/><path d="M406 268 l25-17 l25 17z"/>
+  </g>
+  <g fill="#6E5A44" opacity=".55">
+    <rect x="226" y="286" width="9" height="13"/><rect x="242" y="286" width="9" height="13"/>
+    <rect x="282" y="282" width="9" height="13"/><rect x="330" y="278" width="9" height="13"/>
+    <rect x="376" y="282" width="9" height="13"/><rect x="424" y="286" width="9" height="13"/>
+  </g>
+  <!-- castillo de los Velasco -->
+  <g>
+    <path d="M452 244 h96 v82 h-96z" fill="#EFE7D7"/>
+    <path d="M486 176 h34 v70 h-34z" fill="#F4EDDF"/>
+    <path d="M482 176 h42 v10 h-42z" fill="#D9CDB4"/>
+    <path d="M448 236 h104 v10 h-104z" fill="#D9CDB4"/>
+    <g fill="#D9CDB4"><rect x="452" y="228" width="12" height="10"/><rect x="476" y="228" width="12" height="10"/><rect x="500" y="228" width="12" height="10"/><rect x="524" y="228" width="12" height="10"/></g>
+    <rect x="494" y="198" width="12" height="20" fill="#8A7355"/>
+    <rect x="486" y="278" width="14" height="28" fill="#8A7355"/>
+  </g>
+  <!-- arbolado -->
+  <g fill="#3E6B41"><ellipse cx="96" cy="392" rx="46" ry="34"/><ellipse cx="176" cy="410" rx="38" ry="28"/><ellipse cx="700" cy="398" rx="52" ry="36"/></g>
+  <path d="M0 424 L800 404 L800 450 L0 450Z" fill="#2F5D3A"/>
+</svg>

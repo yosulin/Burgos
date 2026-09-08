@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Tobera: cascadas del río Molinar y ermita">
+  <defs>
+    <linearGradient id="tsky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EEE9DC"/><stop offset="1" stop-color="#DFDCCC"/></linearGradient>
+    <linearGradient id="twater" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#BCD2DC"/><stop offset="1" stop-color="#6C8CA0"/></linearGradient>
+    <linearGradient id="tcliff" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#B8A585"/><stop offset="1" stop-color="#9C876A"/></linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#tsky)"/>
+  <!-- paredes del desfiladero -->
+  <path d="M0 0 L250 0 L262 140 L206 214 L228 300 L150 450 L0 450Z" fill="url(#tcliff)"/>
+  <path d="M800 0 L560 0 L548 128 L604 206 L578 296 L660 450 L800 450Z" fill="url(#tcliff)"/>
+  <path d="M0 0 L180 0 L196 132 L138 210 L96 450 L0 450Z" fill="#A6906F" opacity=".6"/>
+  <!-- vegetación colgante -->
+  <g fill="#47784F" opacity=".85">
+    <ellipse cx="212" cy="196" rx="54" ry="30"/><ellipse cx="596" cy="188" rx="58" ry="32"/>
+    <ellipse cx="150" cy="286" rx="46" ry="26"/><ellipse cx="654" cy="280" rx="50" ry="28"/>
+  </g>
+  <!-- cascada -->
+  <path d="M330 150 C 322 240, 316 280, 306 330 L 494 330 C 486 276, 480 236, 472 150Z" fill="url(#twater)" opacity=".92"/>
+  <g stroke="#FFFFFF" stroke-width="3" opacity=".55" fill="none">
+    <path d="M358 168 C 352 240, 348 286, 342 326"/>
+    <path d="M400 160 C 398 236, 396 288, 394 328"/>
+    <path d="M442 168 C 448 240, 452 286, 458 326"/>
+  </g>
+  <!-- poza -->
+  <ellipse cx="400" cy="360" rx="150" ry="40" fill="#7C9BAD"/>
+  <ellipse cx="400" cy="356" rx="112" ry="26" fill="#A9C3D0" opacity=".7"/>
+  <!-- puente medieval -->
+  <path d="M250 300 L550 300 L550 320 L250 320Z" fill="#C7B593"/>
+  <path d="M330 320 A70 52 0 0 1 470 320Z" fill="#DFDCCC"/>
+  <path d="M330 320 A70 52 0 0 1 470 320" fill="none" stroke="#A48F71" stroke-width="6"/>
+  <rect x="250" y="292" width="300" height="9" fill="#DCCBA8"/>
+  <!-- ermita -->
+  <g><path d="M596 236 h72 v64 h-72z" fill="#F4EEE0"/><path d="M590 236 l42-26 l42 26z" fill="#B0553A"/>
+     <rect x="624" y="266" width="16" height="34" fill="#8A7355"/>
+     <rect x="656" y="206" width="12" height="30" fill="#F4EEE0"/></g>
+  <path d="M0 402 L800 386 L800 450 L0 450Z" fill="#2F5D3A"/>
+</svg>

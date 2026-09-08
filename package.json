@@ -1,14 +1,9 @@
 {
-  "name": "ruta-merindades-familia",
-  "version": "1.0.0",
+  "name": "guia-merindades-familia",
+  "version": "2.0.0",
   "private": true,
-  "description": "PWA de la ruta familiar por Las Merindades (Burgos), 12-13 septiembre 2026.",
+  "description": "Guía PWA del fin de semana familiar por Las Merindades (Burgos), 12-13 septiembre 2026.",
   "scripts": {
-    "build:css": "tailwindcss -i ./src.css -o ./assets/tailwind.css --minify",
-    "watch:css": "tailwindcss -i ./src.css -o ./assets/tailwind.css --watch",
     "start": "python3 -m http.server 8080"
-  },
-  "devDependencies": {
-    "tailwindcss": "^3.4.17"
   }
 }

@@ -1,16 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Ruta Merindades en Familia">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Las Merindades en Familia">
   <defs>
     <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#14b8a6"/>
-      <stop offset="1" stop-color="#0f766e"/>
+      <stop offset="0" stop-color="#47784F"/><stop offset="1" stop-color="#2F5D3A"/>
     </linearGradient>
   </defs>
   <rect width="512" height="512" rx="112" fill="url(#g)"/>
-  <!-- Puente natural de Puentedey -->
-  <path d="M64 372h384v40H64z" fill="#ffffff" opacity=".95"/>
-  <path d="M96 372c0-88 72-160 160-160s160 72 160 160H344c0-48-39-88-88-88s-88 40-88 88z" fill="#ffffff" opacity=".95"/>
-  <!-- Río -->
-  <path d="M64 448c48-24 96-24 144 0s96 24 144 0 96-24 96-24v40H64z" fill="#99f6e4" opacity=".85"/>
-  <!-- Sol -->
-  <circle cx="256" cy="146" r="40" fill="#bef264"/>
+  <circle cx="256" cy="150" r="38" fill="#E8C77F"/>
+  <!-- puente natural de Puentedey -->
+  <path d="M72 380h368v34H72z" fill="#F6F1E4"/>
+  <path d="M104 380c0-84 68-152 152-152s152 68 152 152h-72c0-44-36-80-80-80s-80 36-80 80z" fill="#F6F1E4"/>
+  <!-- río -->
+  <path d="M64 446c48-22 96-22 144 0s96 22 144 0 96-22 96-22v40H64z" fill="#9CB8C7"/>
 </svg>

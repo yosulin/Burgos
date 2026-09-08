@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Valle de Las Merindades">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F3EDE0"/><stop offset="1" stop-color="#E3DCCB"/>
+    </linearGradient>
+    <linearGradient id="far" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#9DB0A4"/><stop offset="1" stop-color="#8AA391"/>
+    </linearGradient>
+    <linearGradient id="mid" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#6E9A63"/><stop offset="1" stop-color="#4F7F4C"/>
+    </linearGradient>
+    <linearGradient id="near" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3E6B41"/><stop offset="1" stop-color="#2F5D3A"/>
+    </linearGradient>
+  </defs>
+  <rect width="960" height="540" fill="url(#sky)"/>
+  <circle cx="742" cy="128" r="46" fill="#EBC98D" opacity=".85"/>
+  <!-- sierras lejanas -->
+  <path d="M0 262 L118 196 L206 246 L286 186 L378 252 L470 200 L560 258 L648 210 L742 262 L840 214 L960 268 L960 320 L0 320Z" fill="url(#far)" opacity=".9"/>
+  <!-- páramo intermedio -->
+  <path d="M0 316 L96 286 L214 322 L330 282 L448 324 L586 288 L700 328 L824 292 L960 330 L960 400 L0 400Z" fill="url(#mid)"/>
+  <!-- río Nela -->
+  <path d="M-20 452 C 160 420, 250 470, 420 446 C 570 424, 690 462, 860 434 L 980 428 L 980 470 C 820 496, 700 462, 560 486 C 400 512, 250 476, 90 500 L-20 508Z" fill="#93AEBE" opacity=".85"/>
+  <path d="M-20 452 C 160 420, 250 470, 420 446 C 570 424, 690 462, 860 434 L 980 428" fill="none" stroke="#6C8CA0" stroke-width="3" opacity=".5"/>
+  <!-- laderas cercanas -->
+  <path d="M0 396 L120 362 L240 400 L330 380 L360 540 L0 540Z" fill="url(#near)"/>
+  <path d="M960 398 L850 364 L730 402 L640 382 L610 540 L960 540Z" fill="url(#near)"/>
+  <!-- caserío -->
+  <g fill="#F6F1E6">
+    <path d="M232 372 h44 v30 h-44z"/><path d="M226 372 l28-20 l28 20z" fill="#B0553A"/>
+    <path d="M292 380 h34 v22 h-34z"/><path d="M287 380 l22-15 l22 15z" fill="#B0553A"/>
+    <path d="M690 388 h40 v26 h-40z"/><path d="M684 388 l26-18 l26 18z" fill="#B0553A"/>
+  </g>
+  <!-- torre -->
+  <rect x="196" y="342" width="18" height="60" fill="#EDE6D8"/>
+  <path d="M192 342 l13-16 l13 16z" fill="#8C5A3C"/>
+</svg>

@@ -1,35 +1,29 @@
-/* Ruta Merindades en Familia — lógica de la PWA (JS vanilla) */
+/* Guía Merindades en Familia — JS vanilla, sin dependencias. */
 (function () {
   'use strict';
 
   var DATA = window.TRIP_DATA;
-  var STORE_KEY = 'merindades-2026:done';
-  var PACK_KEY = 'merindades-2026:packing';
-  var TAB_KEY = 'merindades-2026:tab';
+  var K_DONE = 'merindades-2026:visitado';
+  var K_PACK = 'merindades-2026:equipaje';
+  var K_TAB  = 'merindades-2026:pestana';
 
-  /* Tipos de tarjeta: icono, etiqueta y clase de color (styles.css). */
-  var TYPES = {
-    visita:     { icon: '🏰', label: 'Visita' },
-    comida:     { icon: '🍽', label: 'Comida' },
-    clima:      { icon: '🌤', label: 'Clima' },
-    bano:       { icon: '🏊', label: 'Baño' },
-    reserva:    { icon: '🎟', label: 'Reserva' },
-    transporte: { icon: '🚗', label: 'Transporte' },
-    relax:      { icon: '🧺', label: 'Descanso' }
-  };
-
-  /* Umbrales para sugerir bañador (nunca afirma que el baño sea seguro). */
-  var SWIM_MIN_TEMP = 24;
-  var SWIM_MAX_RAIN = 30;
+  var SWIM_TEMP = 24;   /* °C mínimos para sugerir bañador */
+  var SWIM_RAIN = 30;   /* % máximo de probabilidad de lluvia */
 
   /* ---------- utilidades ---------- */
 
-  function $(sel) { return document.querySelector(sel); }
+  function $(s, ctx) { return (ctx || document).querySelector(s); }
 
-  function el(tag, cls, html) {
-    var n = document.createElement(tag);
-    if (cls) n.className = cls;
-    if (html != null) n.innerHTML = html;
+  /* Escribe texto solo si el elemento existe: durante una actualización
+     puede convivir momentáneamente un HTML antiguo con este script. */
+  function txt(sel, value) {
+    var n = $(sel);
+    if (n) n.textContent = value;
+    return n;
+  }
+  function attr(sel, name, value) {
+    var n = $(sel);
+    if (n) n.setAttribute(name, value);
     return n;
   }
 
@@ -39,304 +33,219 @@
     });
   }
 
-  function mapsUrl(lat, lng) {
+  var ICON = {
+    pin: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>',
+    tel: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>',
+    check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>',
+    chev: '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>'
+  };
+
+  function mapsTo(lat, lng) {
     return 'https://www.google.com/maps/dir/?api=1&destination=' + lat + ',' + lng;
   }
-
-  /* Para restaurantes usamos búsqueda por nombre en vez de coordenadas
-     inventadas: Maps resuelve la ficha real del local. */
-  function mapsSearch(query) {
+  /* Los restaurantes se abren por búsqueda: no inventamos coordenadas. */
+  function mapsFind(query) {
     return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(query);
   }
-
   function mapsPlace(query) {
     return 'https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent(query);
   }
-
-  function mapsRoute(route) {
-    var u = 'https://www.google.com/maps/dir/?api=1&origin=' + encodeURIComponent(route.origin) +
-            '&destination=' + encodeURIComponent(route.destination) + '&travelmode=driving';
-    if (route.waypoints && route.waypoints.length) {
-      u += '&waypoints=' + encodeURIComponent(route.waypoints.join('|'));
-    }
+  function mapsRoute(r) {
+    var u = 'https://www.google.com/maps/dir/?api=1&origin=' + encodeURIComponent(r.origin) +
+            '&destination=' + encodeURIComponent(r.destination) + '&travelmode=driving';
+    if (r.waypoints && r.waypoints.length) u += '&waypoints=' + encodeURIComponent(r.waypoints.join('|'));
     return u;
   }
 
-  function activityId(dayId, act) {
-    return dayId + '|' + act.time + '|' + act.title;
+  /* ---------- almacenamiento ---------- */
+
+  function load(key) {
+    try { return JSON.parse(localStorage.getItem(key)) || {}; } catch (e) { return {}; }
+  }
+  function save(key, val) {
+    try { localStorage.setItem(key, JSON.stringify(val)); } catch (e) { /* modo privado */ }
   }
 
-  /* ---------- estado persistente ---------- */
+  var visitado = load(K_DONE);
+  var equipaje = load(K_PACK);
 
-  function loadStore(key) {
-    try { return JSON.parse(localStorage.getItem(key)) || {}; }
-    catch (e) { return {}; }
-  }
-
-  function saveStore(key, state) {
-    try { localStorage.setItem(key, JSON.stringify(state)); }
-    catch (e) { /* modo privado o cuota llena: la app sigue funcionando */ }
-  }
-
-  var done = loadStore(STORE_KEY);
-  var packed = loadStore(PACK_KEY);
-
-  /* El baño es opcional: no cuenta para el progreso del fin de semana. */
-  function countableActivities() {
-    var list = [];
+  function visitables() {
+    var ids = [];
     DATA.days.forEach(function (d) {
-      d.activities.forEach(function (a) {
-        if (!a.optional) list.push(activityId(d.id, a));
-      });
+      d.stops.forEach(function (s) { if (s.kind === 'destino') ids.push(s.id); });
     });
-    return list;
+    return ids;
   }
 
-  function refreshProgress() {
-    var ids = countableActivities();
-    var n = ids.filter(function (id) { return done[id]; }).length;
-    var pct = ids.length ? Math.round((n / ids.length) * 100) : 0;
-    $('#progress-bar').style.width = pct + '%';
-    $('#progress-text').textContent = n + ' de ' + ids.length + ' momentos completados';
-  }
-
-  /* ---------- toast ---------- */
+  /* ---------- avisos ---------- */
 
   var toastTimer;
   function toast(msg) {
     var t = $('#toast');
     t.textContent = msg;
-    t.classList.remove('hidden');
+    t.hidden = false;
     clearTimeout(toastTimer);
-    toastTimer = setTimeout(function () { t.classList.add('hidden'); }, 2200);
+    toastTimer = setTimeout(function () { t.hidden = true; }, 2000);
   }
 
-  /* ---------- clima ---------- */
+  /* ---------- tiempo ---------- */
 
-  var weatherState = window.Weather ? window.Weather.get() : null;
+  var clima = window.Weather ? window.Weather.get() : null;
 
-  function spotForecast(spotId) {
-    return weatherState && weatherState.spots ? weatherState.spots[spotId] : null;
+  function prevision(spotId) {
+    return clima && clima.spots ? clima.spots[spotId] : null;
   }
 
-  function isSwimWeather(f) {
-    return !!f && typeof f.max === 'number' && f.max >= SWIM_MIN_TEMP &&
-           (typeof f.rain !== 'number' || f.rain <= SWIM_MAX_RAIN);
+  function buenDiaDeBano(f) {
+    return !!f && typeof f.max === 'number' && f.max >= SWIM_TEMP &&
+           (typeof f.rain !== 'number' || f.rain <= SWIM_RAIN);
   }
 
-  function weatherCardHtml(spotId, opts) {
-    var f = spotForecast(spotId);
-    var stale = weatherState && !navigator.onLine;
-    var head = '<div class="flex items-center gap-2 mb-2">' +
-        '<span class="type-chip inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-bold uppercase tracking-wide">🌤 Clima</span>' +
-      '</div>';
-
+  function weatherHtml(spotId, sugerirBano) {
+    var f = prevision(spotId);
     if (!f) {
-      return '<section class="type-clima bg-white rounded-2xl ring-1 ring-slate-200 p-4 mb-4">' + head +
-        '<p class="text-[13px] text-slate-400">Previsión no disponible.</p></section>';
+      return '<section class="weather weather--empty" id="weather"><span>🌡️</span>' +
+             '<span>Previsión no disponible</span></section>';
     }
-
     var d = window.Weather.describe(f.code);
-    var wind = (typeof f.wind === 'number' && f.wind >= 25)
-      ? '<span class="text-[12px] text-slate-500">💨 ' + Math.round(f.wind) + ' km/h</span>' : '';
+    var viento = (typeof f.wind === 'number' && f.wind >= 25)
+      ? ' · 💨 ' + Math.round(f.wind) + ' km/h' : '';
+    var bano = (sugerirBano && buenDiaDeBano(f))
+      ? '<p class="weather__swim">🏊 Puede ser buen día para llevar bañador.</p>' : '';
 
-    var swim = (opts && opts.swimHint && isSwimWeather(f))
-      ? '<p class="mt-3 text-[13px] bg-sky-50 text-sky-900 rounded-xl px-3 py-2 leading-relaxed">' +
-        '🏊 Puede ser buen día para llevar bañador a Puentedey.</p>' : '';
-
-    return '<section class="type-clima bg-white rounded-2xl ring-1 ring-slate-200 p-4 mb-4">' + head +
-      '<div class="flex items-center gap-3">' +
-        '<span class="text-4xl leading-none">' + d[0] + '</span>' +
-        '<div class="min-w-0">' +
-          '<p class="text-[15px] font-bold text-slate-900 leading-tight">' + esc(d[1]) + '</p>' +
-          '<p class="text-[12px] text-slate-500">' + esc(f.label) + '</p>' +
+    return '<section class="weather" id="weather">' +
+      '<div class="weather__row">' +
+        '<span class="weather__icon" aria-hidden="true">' + d[0] + '</span>' +
+        '<div><p class="weather__state">' + esc(d[1]) + '</p>' +
+        '<p class="weather__meta">' + esc(f.label) + viento + '</p></div>' +
+        '<div class="weather__temps">' +
+          '<p class="weather__max">' + Math.round(f.max) + '°<span class="weather__min"> / ' + Math.round(f.min) + '°</span></p>' +
+          '<p class="weather__rain">' + (typeof f.rain === 'number' ? f.rain + '% lluvia' : '—') + '</p>' +
         '</div>' +
-        '<div class="ml-auto text-right">' +
-          '<p class="text-[18px] font-black text-slate-900 tabular-nums">' + Math.round(f.max) + '°' +
-            '<span class="text-[13px] font-semibold text-slate-400"> / ' + Math.round(f.min) + '°</span></p>' +
-          '<p class="text-[12px] text-slate-500 tabular-nums">💧 ' +
-            (typeof f.rain === 'number' ? f.rain + '%' : '—') + '</p>' +
-        '</div>' +
-      '</div>' +
-      (wind ? '<div class="mt-2">' + wind + '</div>' : '') +
-      swim +
-      '<p class="mt-2 text-[11px] text-slate-400">' +
-        (stale ? 'Sin conexión · última actualización: ' : 'Última actualización: ') +
-        esc(window.Weather.updatedAt(weatherState)) + '</p>' +
+      '</div>' + bano +
+      '<p class="weather__stamp">' +
+        (navigator.onLine ? 'Última actualización ' : 'Sin conexión · última actualización ') +
+        esc(window.Weather.updatedAt(clima)) + '</p>' +
     '</section>';
   }
 
-  /* ---------- pestañas ---------- */
+  /* ---------- piezas ---------- */
 
-  var TABS = DATA.days.map(function (d) {
-    return { id: d.id, label: d.short || d.label, day: d };
-  }).concat([{ id: 'info', label: 'Info útil' }]);
-
-  var currentTab = (function () {
-    var saved = localStorage.getItem(TAB_KEY);
-    return TABS.some(function (t) { return t.id === saved; }) ? saved : TABS[0].id;
-  })();
-
-  function renderTabs() {
-    var nav = $('#tabs');
-    nav.innerHTML = '';
-    TABS.forEach(function (t) {
-      var active = t.id === currentTab;
-      var b = el('button',
-        'flex-1 px-2 py-3 text-[13px] font-semibold border-b-[3px] transition ' +
-        (active ? 'border-lime-300 text-white' : 'border-transparent text-brand-100/80'),
-        esc(t.label));
-      b.type = 'button';
-      b.setAttribute('role', 'tab');
-      b.setAttribute('aria-selected', active ? 'true' : 'false');
-      b.addEventListener('click', function () {
-        currentTab = t.id;
-        try { localStorage.setItem(TAB_KEY, t.id); } catch (e) {}
-        renderTabs();
-        renderContent();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
-      nav.appendChild(b);
-    });
+  function btn(href, label, clase, icono) {
+    return '<a class="btn ' + clase + '" href="' + href + '" target="_blank" rel="noopener">' +
+      (icono || '') + '<span>' + esc(label) + '</span></a>';
+  }
+  function btnTel(tel, label) {
+    return '<a class="btn btn--call btn--small" href="tel:' + esc(tel) + '">' + ICON.tel + '<span>' + esc(label) + '</span></a>';
   }
 
-  /* ---------- piezas reutilizables ---------- */
+  /* ---------- tarjeta de destino ---------- */
 
-  function navButton(href, label, tone) {
-    var cls = tone === 'light'
-      ? 'bg-white text-slate-900 ring-1 ring-slate-300 active:bg-slate-100'
-      : 'bg-slate-900 text-white active:bg-slate-700';
-    return '<a href="' + href + '" target="_blank" rel="noopener"' +
-      ' class="flex items-center justify-center gap-2 rounded-xl font-semibold py-3 text-[14px] transition ' + cls + '">' +
-      '<svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>' +
-      esc(label) + '</a>';
-  }
+  function stopDestino(stop) {
+    var hecho = !!visitado[stop.id];
 
-  function callButton(tel, label) {
-    return '<a href="tel:' + esc(tel) + '"' +
-      ' class="flex items-center justify-center gap-2 rounded-xl bg-brand-700 text-white font-semibold py-3 text-[14px] active:bg-brand-600 transition">' +
-      '<svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>' +
-      esc(label) + '</a>';
-  }
+    var marcas = (stop.highlights || []).map(function (h) {
+      return '<li><span class="tick">✓</span><span>' + esc(h) + '</span></li>';
+    }).join('');
 
-  /* Opciones de restaurante: llamar + abrir en Maps. */
-  function optionsHtml(options) {
-    return options.map(function (o) {
-      return '<div class="rounded-xl bg-slate-50 ring-1 ring-slate-200 p-3">' +
-        '<p class="text-[15px] font-bold text-slate-900">' + esc(o.name) + '</p>' +
-        (o.note ? '<p class="mt-0.5 text-[12px] text-slate-500 leading-relaxed">' + esc(o.note) + '</p>' : '') +
-        '<div class="mt-2.5 grid grid-cols-2 gap-2">' +
-          callButton(o.tel, o.phone) +
-          navButton(mapsSearch(o.query), 'Maps', 'light') +
-        '</div>' +
+    var tags = (stop.tags || []).map(function (t) {
+      return '<span class="tag">' + esc(t) + '</span>';
+    }).join('');
+
+    var bano = stop.swim ? '<div class="note note--swim">' +
+        '<p class="note__title">🏊 <span>' + esc(stop.swim.title) + '</span></p>' +
+        '<p class="note__text">' + esc(stop.swim.text) + '</p>' +
+        '<div class="note__list">' + stop.swim.pack.map(function (p) {
+          return '<span>' + esc(p) + '</span>'; }).join('') + '</div>' +
+      '</div>' : '';
+
+    var reserva = stop.booking ? '<div class="note note--book">' +
+        '<p class="note__title">🎟 <span>' + esc(stop.booking.title) + '</span></p>' +
+        '<p class="note__text">' + esc(stop.booking.text) + '</p>' +
+      '</div>' : '';
+
+    /* La información secundaria aparece solo si se pide. */
+    var detalles = (stop.details || []).map(function (d) {
+      return '<div><h3>' + esc(d.title) + '</h3><p>' + esc(d.text) + '</p>' +
+        (d.map ? '<div class="actions"><a class="btn btn--soft btn--small" target="_blank" rel="noopener" href="' +
+          mapsTo(d.map.lat, d.map.lng) + '">' + ICON.pin + '<span>' + esc(d.map.label) + '</span></a></div>' : '') +
       '</div>';
     }).join('');
-  }
 
-  function highlightsHtml(items) {
-    return '<ul class="mt-3 grid gap-1">' + items.map(function (h) {
-      return '<li class="flex gap-2 text-[13.5px] text-slate-700"><span class="type-bullet">•</span><span>' + esc(h) + '</span></li>';
-    }).join('') + '</ul>';
-  }
-
-  /* ---------- tarjeta de actividad ---------- */
-
-  function activityCard(dayId, a, isLast) {
-    var id = activityId(dayId, a);
-    var isDone = !!done[id];
-    var type = TYPES[a.type] || TYPES.visita;
-    var typeCls = 'type-' + (TYPES[a.type] ? a.type : 'visita');
-
-    var wrap = el('article', 'relative pl-9 rise ' + typeCls + (isDone ? ' done' : ''));
-
-    var rail = isLast ? '' : '<span class="absolute left-[13px] top-7 bottom-[-18px] w-[2px] type-rail rounded"></span>';
-    var dot = '<span class="absolute left-[6px] top-4 w-4 h-4 rounded-full type-dot ring-4 ring-slate-100"></span>';
-
-    var body = '';
-
-    if (a.duration) {
-      body += '<p class="mt-2 text-[12px] font-semibold text-slate-500">⏱ ' + esc(a.duration) + ' aprox.</p>';
-    }
-    if (a.description) {
-      body += '<p class="mt-2 text-[14px] leading-relaxed text-slate-700">' + esc(a.description) + '</p>';
-    }
-    if (a.reserva) {
-      body += '<p class="mt-3 rounded-xl bg-amber-50 ring-1 ring-amber-200 px-3 py-2.5 text-[13px] leading-relaxed text-amber-900">' +
-        '<strong>🎟 Reserva necesaria / comprobar horario.</strong> ' + esc(a.reservaNote || '') + '</p>';
-    }
-    if (a.highlights) body += highlightsHtml(a.highlights);
-    if (a.info) {
-      body += '<p class="mt-3 text-[13px] leading-relaxed text-slate-600 bg-slate-50 rounded-xl px-3 py-2">' + esc(a.info) + '</p>';
-    }
-    if (a.notes) {
-      body += '<ul class="mt-3 grid gap-1.5">' + a.notes.map(function (n) {
-        return '<li class="flex gap-2 text-[13px] text-slate-600 leading-relaxed"><span class="text-slate-400">·</span><span>' + esc(n) + '</span></li>';
-      }).join('') + '</ul>';
-    }
-    if (a.checklist) {
-      body += '<div class="mt-3 rounded-xl bg-sky-50 ring-1 ring-sky-200 px-3 py-2.5">' +
-        '<p class="text-[12px] font-bold text-sky-900 uppercase tracking-wide">🎒 ' + esc(a.checklistTitle || 'Llevar') + '</p>' +
-        '<p class="mt-1 text-[13px] text-sky-900/90 leading-relaxed">' + a.checklist.map(esc).join(' · ') + '</p></div>';
-    }
-    if (a.options) {
-      body += '<div class="mt-3 grid gap-2">' + optionsHtml(a.options) + '</div>';
-      if (a.open) {
-        body += '<p class="mt-2 text-[12px] text-slate-500">Sin elegir todavía: lo decidimos entre todos.</p>';
-      }
-    }
-    if (a.logistics) {
-      body += '<p class="mt-3 text-[12px] text-slate-500 leading-relaxed">👣 ' + esc(a.logistics) + '</p>';
-    }
-
-    /* Pie de la tarjeta: navegación. */
-    var foot = '';
-    if (a.farewell) {
-      foot = '<div class="grid gap-2 p-3 pt-0">' +
-        DATA.trip.returns.map(function (r) {
-          return navButton(mapsPlace(r.query), '🚗 ' + r.label);
-        }).join('') + '</div>';
-    } else if (a.lat != null) {
-      var links = [navButton(mapsUrl(a.lat, a.lng), 'Cómo llegar')];
-      (a.extraLinks || []).forEach(function (x) {
-        links.push(navButton(mapsUrl(x.lat, x.lng), x.label, 'light'));
-      });
-      foot = '<div class="grid gap-2 p-3 pt-0">' + links.join('') + '</div>';
-    }
-
-    wrap.innerHTML = rail + dot +
-      '<div class="card bg-white rounded-2xl shadow-sm ring-1 ring-slate-200 overflow-hidden mb-4">' +
-        '<div class="card-body p-4 pb-3">' +
-          '<div class="flex items-start justify-between gap-3">' +
-            '<div class="min-w-0">' +
-              '<div class="flex items-center gap-2 flex-wrap">' +
-                '<span class="text-[13px] font-bold text-slate-500">' + esc(a.time) + '</span>' +
-                '<span class="type-chip inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-bold uppercase tracking-wide">' +
-                  type.icon + ' ' + esc(type.label) + '</span>' +
-                (a.optional ? '<span class="rounded-full bg-slate-100 text-slate-500 px-2 py-0.5 text-[11px] font-semibold">Opcional</span>' : '') +
-              '</div>' +
-              '<h3 class="card-title mt-1 text-[18px] font-bold leading-snug text-slate-900">' + esc(a.title) + '</h3>' +
-              (a.location ? '<p class="text-[13px] text-slate-500 mt-0.5">📍 ' + esc(a.location) + '</p>' : '') +
-            '</div>' +
-            '<button type="button" data-action="toggle" aria-pressed="' + isDone + '" aria-label="Marcar como hecho"' +
-              ' class="shrink-0 w-11 h-11 -mr-1 -mt-1 rounded-full grid place-items-center transition">' +
-              '<span class="w-9 h-9 rounded-full grid place-items-center border-2 ' +
-                (isDone ? 'bg-lime-500 border-lime-500 text-white' : 'border-slate-300 text-transparent') + '">' +
-                '<svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>' +
-              '</span>' +
-            '</button>' +
-          '</div>' + body +
-        '</div>' + foot +
+    var art = document.createElement('article');
+    art.className = 'stop rise' + (hecho ? ' stop--done' : '');
+    art.id = 'stop-' + stop.id;
+    art.innerHTML =
+      '<div class="stop__media">' +
+        '<img src="' + esc(stop.image) + '" alt="Ilustración de ' + esc(stop.name) + '" loading="lazy" />' +
+        (stop.duration ? '<span class="stop__badge">⏱ ' + esc(stop.duration) + '</span>' : '') +
+        '<button class="stop__check" type="button" data-visit="' + esc(stop.id) + '"' +
+          ' aria-pressed="' + hecho + '" aria-label="Marcar ' + esc(stop.name) + ' como visitado">' + ICON.check + '</button>' +
+      '</div>' +
+      '<div class="stop__body">' +
+        '<p class="stop__time">' + esc(stop.time) + '</p>' +
+        '<h2>' + esc(stop.name) + '</h2>' +
+        (stop.subtitle ? '<p class="stop__sub">' + esc(stop.subtitle) + '</p>' : '') +
+        '<p class="stop__intro">' + esc(stop.intro) + '</p>' +
+        (marcas ? '<ul class="marks">' + marcas + '</ul>' : '') +
+        (tags ? '<div class="tags">' + tags + '</div>' : '') +
+        reserva + bano +
+        (detalles ? '<div class="details" id="det-' + esc(stop.id) + '" hidden>' + detalles + '</div>' : '') +
+        '<div class="actions' + (detalles ? ' actions--two' : '') + '">' +
+          btn(mapsTo(stop.lat, stop.lng), 'Abrir en Maps', 'btn--primary', ICON.pin) +
+          (detalles ? '<button class="btn btn--ghost" type="button" data-toggle="' + esc(stop.id) + '"' +
+            ' aria-expanded="false" aria-controls="det-' + esc(stop.id) + '">Ver detalles</button>' : '') +
+        '</div>' +
       '</div>';
+    return art;
+  }
 
-    wrap.querySelector('[data-action="toggle"]').addEventListener('click', function () {
-      if (done[id]) { delete done[id]; } else { done[id] = true; }
-      saveStore(STORE_KEY, done);
-      toast(done[id] ? '✅ ' + a.title : 'Marcado como pendiente');
-      renderContent();
-      refreshProgress();
-    });
+  /* ---------- tarjeta de comida ---------- */
 
-    return wrap;
+  function stopComida(stop) {
+    var art = document.createElement('article');
+    art.className = 'eat rise';
+    art.innerHTML =
+      '<p class="eat__kicker">🍽 ' + esc(stop.time) + '</p>' +
+      '<h2>' + esc(stop.name) + '</h2>' +
+      '<p class="eat__intro">' + esc(stop.intro) + '</p>' +
+      '<div class="eat__list">' + stop.options.map(function (o) {
+        return '<div class="eat__row">' +
+          '<p class="eat__name">' + esc(o.name) + '</p>' +
+          (o.note ? '<p class="eat__note">' + esc(o.note) + '</p>' : '') +
+          '<div class="eat__btns">' +
+            btnTel(o.tel, o.phone) +
+            '<a class="btn btn--ghost btn--small" target="_blank" rel="noopener" href="' + mapsFind(o.query) + '">' +
+              ICON.pin + '<span>Maps</span></a>' +
+          '</div></div>';
+      }).join('') + '</div>';
+    return art;
+  }
+
+  /* ---------- descanso y despedida ---------- */
+
+  function stopSimple(stop) {
+    var art = document.createElement('article');
+    art.className = 'simple rise';
+    art.innerHTML =
+      '<p class="simple__time">' + esc(stop.time) + '</p>' +
+      '<h2>' + esc(stop.name) + '</h2>' +
+      '<p>' + esc(stop.intro) + '</p>' +
+      (stop.lat != null ? '<div class="actions">' +
+        btn(mapsTo(stop.lat, stop.lng), 'Volver al hotel', 'btn--soft', ICON.pin) + '</div>' : '');
+    return art;
+  }
+
+  function stopDespedida(stop) {
+    var art = document.createElement('article');
+    art.className = 'farewell rise';
+    art.innerHTML =
+      '<h2>👋 ' + esc(stop.name) + '</h2>' +
+      '<p>' + esc(stop.intro) + '</p>' +
+      '<div class="actions">' + DATA.trip.returns.map(function (r) {
+        return btn(mapsPlace(r.query), '🚗 ' + r.label, 'btn--ghost');
+      }).join('') + '</div>';
+    return art;
   }
 
   /* ---------- vista de día ---------- */
@@ -344,244 +253,346 @@
   function renderDay(day) {
     var frag = document.createDocumentFragment();
 
-    var head = el('div', 'mb-4 mt-4');
+    var head = document.createElement('div');
+    head.className = 'day__head';
     head.innerHTML =
-      '<h2 class="text-xl font-black text-slate-900 leading-tight">' + esc(day.label) + '</h2>' +
-      '<p class="text-[13px] text-slate-500 mt-0.5">Horarios orientativos · sin prisa</p>';
+      '<p class="day__date">' + esc(day.date) + '</p>' +
+      '<h2 class="day__title">' + esc(day.title) + '</h2>' +
+      '<p class="day__intro">' + esc(day.intro) + '</p>';
     frag.appendChild(head);
 
-    if (day.weatherSpot) {
-      frag.appendChild(el('div', '', weatherCardHtml(day.weatherSpot, { swimHint: day.id === 'day-2' })));
-    }
+    var w = document.createElement('div');
+    w.innerHTML = weatherHtml(day.weatherSpot, day.id === 'day-2');
+    frag.appendChild(w.firstChild);
 
-    if (day.route) {
-      var r = el('section', 'mb-5 rounded-2xl bg-white ring-1 ring-slate-200 p-4');
-      r.innerHTML =
-        '<p class="text-[12px] font-bold uppercase tracking-wide text-slate-500">🚗 ' + esc(day.route.label) + '</p>' +
-        '<p class="mt-1 text-[13px] text-slate-600">' + esc(day.route.note) + '</p>' +
-        '<div class="mt-3">' + navButton(mapsRoute(day.route), 'Abrir ruta completa en Maps') + '</div>';
-      frag.appendChild(r);
-    }
+    var pasos = day.route.steps.map(function (s, i) {
+      return (i ? '<span class="route__arrow">→</span>' : '') + '<span class="route__step">' + esc(s) + '</span>';
+    }).join('');
+    var r = document.createElement('section');
+    r.className = 'route';
+    r.innerHTML =
+      '<p class="route__label">' + esc(day.route.label) + '</p>' +
+      '<div class="route__steps">' + pasos + '</div>' +
+      btn(mapsRoute(day.route), 'Abrir la ruta en Maps', 'btn--primary', ICON.pin);
+    frag.appendChild(r);
 
-    day.activities.forEach(function (a, i) {
-      frag.appendChild(activityCard(day.id, a, i === day.activities.length - 1));
+    day.stops.forEach(function (s) {
+      if (s.kind === 'destino') frag.appendChild(stopDestino(s));
+      else if (s.kind === 'comida') frag.appendChild(stopComida(s));
+      else if (s.kind === 'despedida') frag.appendChild(stopDespedida(s));
+      else frag.appendChild(stopSimple(s));
     });
+
+    var ids = visitables();
+    var hechos = ids.filter(function (id) { return visitado[id]; }).length;
+    var p = document.createElement('div');
+    p.className = 'progress';
+    p.innerHTML = '<span>' + hechos + '/' + ids.length + ' visitas</span>' +
+      '<span class="progress__track"><span class="progress__fill" style="width:' +
+      (ids.length ? Math.round(hechos / ids.length * 100) : 0) + '%"></span></span>';
+    frag.appendChild(p);
 
     return frag;
   }
 
-  /* ---------- pestaña Info útil ---------- */
+  /* ---------- pestaña Info ---------- */
 
-  function section(icon, title, innerHtml, cls) {
-    return '<section class="mt-4 rounded-2xl ring-1 p-4 ' + (cls || 'bg-white ring-slate-200') + '">' +
-      '<h2 class="text-base font-bold text-slate-900 mb-3">' + icon + ' ' + esc(title) + '</h2>' +
-      innerHtml + '</section>';
+  function acc(icono, titulo, contenido, abierto) {
+    return '<section class="acc' + (abierto ? ' open' : '') + '">' +
+      '<button class="acc__btn" type="button" aria-expanded="' + (abierto ? 'true' : 'false') + '">' +
+        '<span class="acc__ico" aria-hidden="true">' + icono + '</span>' +
+        '<span class="acc__ttl">' + esc(titulo) + '</span>' +
+        '<span class="acc__chev" aria-hidden="true">' + ICON.chev + '</span>' +
+      '</button>' +
+      '<div class="acc__panel"' + (abierto ? '' : ' hidden') + '>' + contenido + '</div>' +
+    '</section>';
   }
 
-  function bullets(items, cls) {
-    return '<ul class="grid gap-2">' + items.map(function (i) {
-      return '<li class="flex gap-2 text-[14px] leading-relaxed ' + (cls || 'text-slate-700') + '">' +
-        '<span class="text-brand-600">•</span><span>' + esc(i) + '</span></li>';
-    }).join('') + '</ul>';
+  function lista(items) {
+    return '<ul>' + items.map(function (i) { return '<li>' + esc(i) + '</li>'; }).join('') + '</ul>';
   }
 
   function renderInfo() {
-    var base = DATA.trip.base;
-    var info = DATA.info || {};
-    var host = el('div', '');
+    var t = DATA.trip, info = DATA.info;
+    var host = document.createElement('div');
     var html = '';
 
-    /* 🏠 Alojamiento */
-    html += section('🏠', 'Alojamiento',
-      '<p class="text-[15px] font-bold text-slate-900">' + esc(base.name) + '</p>' +
-      '<p class="text-[13px] text-slate-600 mt-1">📍 ' + esc(base.address) + '</p>' +
-      (DATA.trip.group ? '<p class="text-[13px] text-slate-500 mt-2">👨‍👩‍👧‍👧 ' + esc(DATA.trip.group) + '</p>' : '') +
-      '<div class="mt-3">' + navButton(mapsUrl(base.lat, base.lng), 'Cómo llegar al alojamiento') + '</div>');
+    html += acc('🏨', 'Hotel',
+      '<p><b>' + esc(t.hotel.name) + '</b><br>' + esc(t.hotel.address) + '</p>' +
+      '<p>' + esc(t.group) + '</p>' +
+      btn(mapsTo(t.hotel.lat, t.hotel.lng), 'Cómo llegar al hotel', 'btn--primary', ICON.pin), true);
 
-    /* 🍽 Restaurantes */
-    var restHtml = '';
+    html += acc('☀️', 'Tiempo',
+      t.weatherSpots.map(function (s) { return weatherHtml(s.id, false); }).join('') +
+      '<button class="btn btn--soft btn--small" type="button" id="weather-refresh">Actualizar previsión</button>');
+
+    var rest = '';
     DATA.days.forEach(function (d) {
-      d.activities.forEach(function (a) {
-        if (!a.options) return;
-        restHtml += '<p class="text-[12px] font-bold uppercase tracking-wide text-slate-500 mt-3 first:mt-0">' +
-          esc(d.short) + ' · ' + esc(a.title) + '</p>' +
-          '<div class="mt-2 grid gap-2">' + optionsHtml(a.options) + '</div>';
+      d.stops.forEach(function (s) {
+        if (s.kind !== 'comida') return;
+        rest += '<p><b>' + esc(d.tab) + ' · ' + esc(s.name) + '</b></p>' +
+          s.options.map(function (o) {
+            return '<div class="eat__row"><p class="eat__name">' + esc(o.name) + '</p>' +
+              (o.note ? '<p class="eat__note">' + esc(o.note) + '</p>' : '') +
+              '<div class="eat__btns">' + btnTel(o.tel, o.phone) +
+              '<a class="btn btn--ghost btn--small" target="_blank" rel="noopener" href="' + mapsFind(o.query) + '">' +
+              ICON.pin + '<span>Maps</span></a></div></div>';
+          }).join('');
       });
     });
-    html += section('🍽', 'Restaurantes', restHtml);
+    html += acc('🍽', 'Restaurantes', rest);
 
-    /* 🎟 Reservas */
-    if (info.reservas) html += section('🎟', 'Reservas', bullets(info.reservas));
+    html += acc('🎟', 'Reservas', lista(info.reservas));
+    html += acc('🏊', 'Baño', lista(info.bano));
 
-    /* 🌤 Tiempo */
-    var wHtml = DATA.trip.weatherSpots.map(function (s) {
-      return weatherCardHtml(s.id, { swimHint: false });
-    }).join('') +
-      '<button id="weather-refresh" type="button" class="w-full rounded-xl bg-slate-100 text-slate-700 font-semibold py-2.5 text-[13px] active:bg-slate-200">Actualizar previsión</button>';
-    html += section('🌤', 'Tiempo', wHtml);
-
-    /* 🏊 Baño */
-    if (info.bano) html += section('🏊', 'Baño', bullets(info.bano));
-
-    /* 🎒 Qué llevar (checklist propio) */
-    html += section('🎒', 'Qué llevar',
-      '<div class="grid gap-1.5" id="packing-list">' +
-      info.packing.map(function (item, i) {
-        var on = !!packed[item];
-        return '<button type="button" data-pack="' + i + '" class="flex items-center gap-3 text-left rounded-xl px-3 py-2.5 transition ' +
-          (on ? 'bg-lime-50' : 'bg-slate-50 active:bg-slate-100') + '">' +
-          '<span class="shrink-0 w-6 h-6 rounded-md grid place-items-center border-2 ' +
-            (on ? 'bg-lime-500 border-lime-500 text-white' : 'border-slate-300 text-transparent') + '">' +
-            '<svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>' +
-          '</span>' +
-          '<span class="text-[14px] ' + (on ? 'text-slate-400 line-through' : 'text-slate-700') + '">' + esc(item) + '</span>' +
-        '</button>';
+    html += acc('🎒', 'Qué llevar',
+      '<div class="pack">' + info.packing.map(function (item, i) {
+        var on = !!equipaje[item];
+        return '<button class="pack__item" type="button" data-pack="' + i + '" aria-pressed="' + on + '">' +
+          '<span class="pack__box">' + ICON.check + '</span>' +
+          '<span class="pack__txt">' + esc(item) + '</span></button>';
       }).join('') + '</div>');
 
-    /* ☎️ Teléfonos */
-    var phones = [];
+    var tels = '';
     DATA.days.forEach(function (d) {
-      d.activities.forEach(function (a) {
-        (a.options || []).forEach(function (o) {
-          phones.push({ label: o.name, value: o.phone, tel: o.tel });
+      d.stops.forEach(function (s) {
+        (s.options || []).forEach(function (o) {
+          tels += '<a class="phone-row" href="tel:' + esc(o.tel) + '"><span>' + esc(o.name) + '</span><b>' + esc(o.phone) + '</b></a>';
         });
       });
     });
-    html += section('☎️', 'Teléfonos',
-      '<div class="grid gap-2">' + phones.map(function (p) {
-        return '<a href="tel:' + esc(p.tel) + '" class="flex items-center justify-between gap-3 rounded-xl bg-slate-50 px-3 py-3 active:bg-slate-100">' +
-          '<span class="text-[14px] text-slate-700">' + esc(p.label) + '</span>' +
-          '<span class="text-[14px] font-bold text-brand-700 tabular-nums whitespace-nowrap">' + esc(p.value) + '</span></a>';
-      }).join('') + '</div>' +
-      '<p class="mt-3 text-[12px] text-slate-400 leading-relaxed">Solo teléfonos confirmados. El del alojamiento no está en la app: añádelo en <code>data.js</code> cuando lo tengas.</p>');
+    html += acc('📞', 'Teléfonos', tels +
+      '<p style="font-size:12.5px">Solo los teléfonos que nos han confirmado.</p>');
 
-    /* 🚗 Regreso */
-    html += section('🚗', 'Regreso',
-      '<p class="text-[14px] text-slate-700 leading-relaxed">Después de comer el domingo, cada familia empieza su camino.</p>' +
-      '<div class="mt-3 grid gap-2">' +
-        DATA.trip.returns.map(function (r) {
-          return navButton(mapsPlace(r.query), '🚗 ' + r.label);
-        }).join('') + '</div>');
+    html += acc('🚗', 'Regreso',
+      '<p>Después de comer el domingo, cada familia empieza su camino.</p>' +
+      DATA.trip.returns.map(function (r) {
+        return btn(mapsPlace(r.query), '🚗 ' + r.label, 'btn--soft');
+      }).join(''));
 
-    /* 🆘 Emergencias */
-    html += section('🆘', 'Emergencias',
-      '<div class="grid gap-2">' + (info.contacts || []).map(function (c) {
-        return callButton(c.tel, c.label + ' · ' + c.value);
-      }).join('') + '</div>', 'bg-rose-50 ring-rose-200');
+    html += acc('🆘', 'Emergencias',
+      info.emergencias.map(function (c) {
+        return '<a class="btn btn--call" href="tel:' + esc(c.tel) + '">' + ICON.tel +
+          '<span>' + esc(c.label) + ' · ' + esc(c.value) + '</span></a>';
+      }).join(''));
 
-    /* Notas + instalación */
-    if (info.notes) {
-      html += section('📌', 'A tener en cuenta', bullets(info.notes, 'text-amber-900/90'), 'bg-amber-50 ring-amber-200');
-    }
-    html += '<div class="mt-4">' +
-      '<button id="install-btn" type="button" class="hidden w-full rounded-2xl bg-brand-700 text-white font-semibold py-3.5 shadow">📲 Instalar la app en el móvil</button>' +
-      '<p class="mt-3 text-[12px] text-slate-500 leading-relaxed text-center">Funciona sin cobertura una vez abierta con conexión. En iPhone: <em>Compartir → Añadir a pantalla de inicio</em>.</p></div>';
+    html += acc('📌', 'A tener en cuenta', lista(info.notas));
 
+    html += '<div id="install-holder"></div>';
+
+    host.className = 'info';
     host.innerHTML = html;
-
-    /* Interacciones de la pestaña */
-    host.querySelectorAll('[data-pack]').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var item = info.packing[Number(btn.dataset.pack)];
-        if (packed[item]) { delete packed[item]; } else { packed[item] = true; }
-        saveStore(PACK_KEY, packed);
-        renderContent();
-      });
-    });
-
-    var wr = host.querySelector('#weather-refresh');
-    if (wr) {
-      wr.addEventListener('click', function () {
-        if (!navigator.onLine) { toast('Sin conexión'); return; }
-        wr.textContent = 'Actualizando…';
-        loadWeather().then(function () { toast('Previsión actualizada'); });
-      });
-    }
-
     return host;
   }
 
-  function renderContent() {
+  /* ---------- pestañas ---------- */
+
+  var TABS = DATA.days.map(function (d) { return { id: d.id, label: d.tab, day: d }; })
+                      .concat([{ id: 'info', label: 'Info' }]);
+
+  var actual = (function () {
+    var s = localStorage.getItem(K_TAB);
+    return TABS.some(function (t) { return t.id === s; }) ? s : TABS[0].id;
+  })();
+
+  function renderTabs() {
+    var nav = $('#tabs');
+    if (!nav) return;
+    nav.innerHTML = '';
+    TABS.forEach(function (t) {
+      var b = document.createElement('button');
+      b.className = 'tab';
+      b.type = 'button';
+      b.setAttribute('role', 'tab');
+      b.setAttribute('aria-selected', t.id === actual ? 'true' : 'false');
+      b.textContent = t.label;
+      b.addEventListener('click', function () { irA(t.id); });
+      nav.appendChild(b);
+    });
+  }
+
+  function irA(id, scroll) {
+    actual = id;
+    try { localStorage.setItem(K_TAB, id); } catch (e) {}
+    renderTabs();
+    render();
+    actualizarAccesos();
+    var holder = $('#tabs-holder');
+    if (scroll !== false && holder) {
+      window.scrollTo({ top: holder.offsetTop, behavior: 'smooth' });
+    }
+  }
+
+  function render() {
     var main = $('#content');
+    if (!main) return;
     main.innerHTML = '';
-    var tab = TABS.filter(function (t) { return t.id === currentTab; })[0];
-    main.appendChild(tab && tab.day ? renderDay(tab.day) : renderInfo());
-    wireInstallButton();
-    syncHeaderOffset();
+    var t = TABS.filter(function (x) { return x.id === actual; })[0];
+    main.appendChild(t && t.day ? renderDay(t.day) : renderInfo());
+    montarInstalacion();
   }
 
-  /* ---------- clima: carga asíncrona, nunca bloquea el arranque ---------- */
+  /* ---------- accesos rápidos ---------- */
 
-  function loadWeather() {
-    if (!window.Weather) return Promise.resolve();
-    return window.Weather.refresh(DATA.trip.weatherSpots).then(function (payload) {
-      if (payload) {
-        weatherState = payload;
-        renderContent();
-      }
-    }).catch(function () { /* la app sigue funcionando sin previsión */ });
+  function diaActivo() {
+    var t = TABS.filter(function (x) { return x.id === actual; })[0];
+    return (t && t.day) || DATA.days[0];
   }
 
-  /* ---------- instalación PWA ---------- */
+  function actualizarAccesos() {
+    var d = diaActivo();
+    var url = mapsRoute(d.route);
+    var qr = $('#quick-route'); if (qr) qr.href = url;
+    var br = $('#bb-route'); if (br) br.href = url;
+    attr('#bb-info', 'aria-current', actual === 'info' ? 'true' : 'false');
+  }
 
-  var deferredPrompt = null;
+  /* ---------- interacciones (delegadas) ---------- */
 
-  window.addEventListener('beforeinstallprompt', function (e) {
-    e.preventDefault();
-    deferredPrompt = e;
-    wireInstallButton();
+  document.addEventListener('click', function (e) {
+    var v = e.target.closest('[data-visit]');
+    if (v) {
+      var id = v.dataset.visit;
+      if (visitado[id]) { delete visitado[id]; } else { visitado[id] = true; }
+      save(K_DONE, visitado);
+      toast(visitado[id] ? '✓ Visitado' : 'Sin marcar');
+      render();
+      return;
+    }
+
+    var tg = e.target.closest('[data-toggle]');
+    if (tg) {
+      var panel = document.getElementById('det-' + tg.dataset.toggle);
+      var abierto = !panel.hidden;
+      panel.hidden = abierto;
+      tg.setAttribute('aria-expanded', String(!abierto));
+      tg.textContent = abierto ? 'Ver detalles' : 'Ocultar detalles';
+      return;
+    }
+
+    var pk = e.target.closest('[data-pack]');
+    if (pk) {
+      var item = DATA.info.packing[Number(pk.dataset.pack)];
+      if (equipaje[item]) { delete equipaje[item]; } else { equipaje[item] = true; }
+      save(K_PACK, equipaje);
+      pk.setAttribute('aria-pressed', String(!!equipaje[item]));
+      return;
+    }
+
+    var ab = e.target.closest('.acc__btn');
+    if (ab) {
+      var sec = ab.parentElement;
+      var pan = $('.acc__panel', sec);
+      var open = !pan.hidden;
+      pan.hidden = open;
+      sec.classList.toggle('open', !open);
+      ab.setAttribute('aria-expanded', String(!open));
+      return;
+    }
+
+    if (e.target.closest('#weather-refresh')) {
+      if (!navigator.onLine) { toast('Sin conexión'); return; }
+      cargarClima().then(function () { toast('Previsión actualizada'); });
+    }
   });
 
-  function wireInstallButton() {
-    var btn = document.getElementById('install-btn');
-    if (!btn || !deferredPrompt) return;
-    btn.classList.remove('hidden');
-    btn.onclick = function () {
-      deferredPrompt.prompt();
-      deferredPrompt.userChoice.then(function () {
-        deferredPrompt = null;
-        btn.classList.add('hidden');
-      });
-    };
+  var qw = $('#quick-weather');
+  if (qw) qw.addEventListener('click', function () {
+    if (actual === 'info') irA(DATA.days[0].id, false);
+    var w = $('#weather');
+    if (w) w.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+
+  var bi = $('#bb-info');
+  if (bi) bi.addEventListener('click', function () { irA('info'); });
+
+  /* ---------- clima (nunca bloquea el arranque) ---------- */
+
+  function cargarClima() {
+    if (!window.Weather) return Promise.resolve();
+    return window.Weather.refresh(DATA.trip.weatherSpots).then(function (p) {
+      if (p) { clima = p; render(); }
+    }).catch(function () {});
   }
 
-  /* ---------- cabecera fija ---------- */
+  /* ---------- instalación ---------- */
 
-  function syncHeaderOffset() {
-    var h = document.querySelector('header').offsetHeight;
-    $('#content').style.paddingTop = (h + 8) + 'px';
+  var prompt = null;
+  window.addEventListener('beforeinstallprompt', function (e) {
+    e.preventDefault();
+    prompt = e;
+    montarInstalacion();
+  });
+
+  function montarInstalacion() {
+    var holder = document.getElementById('install-holder');
+    if (!holder || !prompt) return;
+    holder.innerHTML = '<button class="btn btn--primary" type="button" style="width:100%">📲 Instalar la guía en el móvil</button>';
+    holder.firstChild.addEventListener('click', function () {
+      prompt.prompt();
+      prompt.userChoice.then(function () { prompt = null; holder.innerHTML = ''; });
+    });
   }
 
   /* ---------- conectividad ---------- */
 
-  function updateNet() {
-    $('#net-badge').classList.toggle('hidden', navigator.onLine);
+  function estadoRed() {
+    var c = $('#offline-chip');
+    if (c) c.hidden = navigator.onLine;
   }
-  window.addEventListener('online', function () { updateNet(); loadWeather(); });
-  window.addEventListener('offline', function () { updateNet(); renderContent(); });
+  window.addEventListener('online', function () { estadoRed(); cargarClima(); });
+  window.addEventListener('offline', function () { estadoRed(); render(); });
+
+  /* ---------- barra inferior: solo fuera de la portada ---------- */
+
+  function observarPortada() {
+    var barra = $('#bottombar');
+    var holder = $('#tabs-holder');
+    var portada = $('.hero__body');
+    if (!barra || !holder || !portada) return;
+    if (!('IntersectionObserver' in window)) { barra.classList.add('show'); return; }
+    new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        barra.classList.toggle('show', !en.isIntersecting);
+        holder.classList.toggle('stuck', !en.isIntersecting);
+      });
+    }, { rootMargin: '-1px 0px 0px 0px', threshold: 0 }).observe(portada);
+  }
 
   /* ---------- arranque ---------- */
 
-  function init() {
-    $('#trip-title').textContent = DATA.trip.title;
-    $('#trip-dates').textContent = DATA.trip.dates;
-    $('#base-nav').href = mapsUrl(DATA.trip.base.lat, DATA.trip.base.lng);
+  /* Si el HTML servido es de una versión anterior a este script, pedimos
+     una recarga (una sola vez) para que ambos vengan de la misma versión. */
+  function shellDesfasado() {
+    if ($('#hero-title') && $('#tabs') && $('#content')) return false;
+    try {
+      if (!sessionStorage.getItem('merindades:recarga')) {
+        sessionStorage.setItem('merindades:recarga', '1');
+        location.reload();
+        return true;
+      }
+    } catch (e) {}
+    return true;
+  }
 
-    $('#reset-btn').addEventListener('click', function () {
-      if (!confirm('¿Reiniciar las marcas de momentos completados?')) return;
-      done = {};
-      saveStore(STORE_KEY, done);
-      renderContent();
-      refreshProgress();
-      toast('Checklist reiniciado');
-    });
+  function init() {
+    if (shellDesfasado()) return;
+    try { sessionStorage.removeItem('merindades:recarga'); } catch (e) {}
+
+    var t = DATA.trip;
+    txt('#hero-title', t.title);
+    txt('#hero-dates', t.dates);
+    txt('#hero-places', t.places);
+    var hi = $('#hero-img'); if (hi) hi.src = t.hero;
+    var qh = $('#quick-hotel'); if (qh) qh.href = mapsTo(t.hotel.lat, t.hotel.lng);
+    var bh = $('#bb-hotel'); if (bh) bh.href = mapsTo(t.hotel.lat, t.hotel.lng);
+    txt('#foot', t.hotel.name + ' · ' + t.group);
 
     renderTabs();
-    renderContent();
-    refreshProgress();
-    updateNet();
-    window.addEventListener('resize', syncHeaderOffset);
-    window.addEventListener('orientationchange', syncHeaderOffset);
+    render();
+    actualizarAccesos();
+    estadoRed();
+    observarPortada();
 
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function () {
@@ -591,12 +602,12 @@
       });
     }
 
-    loadWeather();   // en segundo plano: la app ya está usable
+    cargarClima();
   }
 
   if (!DATA) {
-    document.getElementById('content').innerHTML =
-      '<p class="mt-6 text-center text-slate-500">No se han podido cargar los datos del viaje.</p>';
+    var c = $('#content');
+    if (c) c.innerHTML = '<p>No se han podido cargar los datos del viaje.</p>';
   } else {
     init();
   }

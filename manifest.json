@@ -1,19 +1,42 @@
 {
-  "name": "Ruta Merindades en Familia",
+  "name": "Las Merindades en Familia",
   "short_name": "Merindades",
-  "description": "Guía offline del fin de semana familiar por Las Merindades (Burgos), 12-13 de septiembre de 2026.",
+  "description": "Guía del fin de semana familiar por Las Merindades (Burgos), 12-13 de septiembre de 2026.",
   "lang": "es",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#0f766e",
-  "theme_color": "#0f766e",
-  "categories": ["travel", "lifestyle"],
+  "background_color": "#FBF7F0",
+  "theme_color": "#2F5D3A",
+  "categories": [
+    "travel",
+    "lifestyle"
+  ],
   "icons": [
-    { "src": "assets/icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
-    { "src": "assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
-    { "src": "assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "assets/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+    {
+      "src": "assets/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
   ]
 }

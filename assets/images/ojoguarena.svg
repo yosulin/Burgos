@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Ojo Guareña: cueva ermita de San Bernabé en la roca">
+  <defs>
+    <linearGradient id="osky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EFE8D9"/><stop offset="1" stop-color="#DED6C4"/></linearGradient>
+    <linearGradient id="ocliff" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C4B294"/><stop offset="1" stop-color="#8E7B5F"/></linearGradient>
+    <radialGradient id="omouth" cx="50%" cy="55%" r="60%"><stop offset="0" stop-color="#3A3327"/><stop offset="1" stop-color="#5A4E3B"/></radialGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#osky)"/>
+  <path d="M0 200 L150 168 L300 206 L440 172 L580 208 L720 176 L800 200 L800 250 L0 250Z" fill="#9DB0A4" opacity=".7"/>
+  <!-- farallón -->
+  <path d="M0 450 L0 210 C 120 176, 300 158, 460 170 C 620 182, 730 214, 800 250 L800 450Z" fill="url(#ocliff)"/>
+  <g fill="#B2A084" opacity=".55">
+    <path d="M0 262 C 180 236, 420 232, 800 268 L800 288 C 420 252, 180 256, 0 282Z"/>
+    <path d="M0 330 C 200 306, 460 302, 800 336 L800 352 C 460 322, 200 326, 0 350Z"/>
+  </g>
+  <!-- boca de la cueva -->
+  <path d="M244 450 C 244 316, 330 250, 424 250 C 518 250, 604 316, 604 450Z" fill="url(#omouth)"/>
+  <path d="M268 450 C 268 330, 344 272, 424 272 C 504 272, 580 330, 580 450Z" fill="#2E2A20"/>
+  <!-- ermita bajo la roca -->
+  <g>
+    <path d="M356 450 v-112 h136 v112z" fill="#F1EADB"/>
+    <path d="M348 338 l76 -44 l76 44z" fill="#C9BCA0"/>
+    <rect x="404" y="382" width="40" height="68" rx="20" fill="#6E5F49"/>
+    <rect x="378" y="356" width="14" height="16" fill="#6E5F49"/><rect x="456" y="356" width="14" height="16" fill="#6E5F49"/>
+    <rect x="418" y="262" width="12" height="34" fill="#F1EADB"/><rect x="408" y="272" width="32" height="10" fill="#F1EADB"/>
+  </g>
+  <!-- pasarela -->
+  <path d="M604 450 L640 396 L800 380 L800 400 L656 414 L628 450Z" fill="#8C7A5E"/>
+  <!-- vegetación -->
+  <g fill="#3E6B41"><ellipse cx="72" cy="404" rx="64" ry="40"/><ellipse cx="726" cy="424" rx="70" ry="40"/><ellipse cx="180" cy="430" rx="52" ry="30"/></g>
+</svg>

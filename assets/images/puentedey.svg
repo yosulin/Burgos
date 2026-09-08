@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Puentedey: puente natural sobre el río Nela">
+  <defs>
+    <linearGradient id="psky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F1EADC"/><stop offset="1" stop-color="#E2DAC8"/></linearGradient>
+    <linearGradient id="prock" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#CBB99A"/><stop offset="1" stop-color="#9E8969"/></linearGradient>
+    <linearGradient id="priver" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#A6C0CE"/><stop offset="1" stop-color="#6C8CA0"/></linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#psky)"/>
+  <circle cx="130" cy="88" r="34" fill="#EBC98D" opacity=".75"/>
+  <path d="M0 250 L130 214 L268 254 L400 216 L540 258 L680 220 L800 256 L800 300 L0 300Z" fill="#9DB0A4" opacity=".75"/>
+  <!-- mole de roca con el arco natural -->
+  <path d="M96 450 L110 268 C 180 214, 300 196, 412 202 C 540 208, 646 244, 700 300 L 716 450 Z" fill="url(#prock)"/>
+  <!-- arco excavado por el río -->
+  <path d="M250 450 C 250 344, 322 292, 404 292 C 486 292, 558 344, 558 450 Z" fill="#7E6B50"/>
+  <path d="M272 450 C 272 356, 336 310, 404 310 C 472 310, 536 356, 536 450 Z" fill="#5E5040"/>
+  <!-- pueblo sobre la roca -->
+  <g fill="#F8F3E9">
+    <path d="M236 232 h44 v44 h-44z"/><path d="M292 224 h40 v52 h-40z"/><path d="M344 230 h38 v46 h-38z"/>
+    <path d="M394 222 h42 v54 h-42z"/><path d="M448 232 h40 v44 h-40z"/><path d="M500 238 h36 v38 h-36z"/>
+  </g>
+  <g fill="#B0553A">
+    <path d="M230 232 l28-18 l28 18z"/><path d="M286 224 l26-18 l26 18z"/><path d="M338 230 l25-17 l25 17z"/>
+    <path d="M388 222 l27-18 l27 18z"/><path d="M442 232 l26-17 l26 17z"/><path d="M494 238 l24-16 l24 16z"/>
+  </g>
+  <!-- iglesia de San Pelayo -->
+  <g><path d="M552 216 h56 v60 h-56z" fill="#F4EEE0"/><path d="M546 216 l34-22 l34 22z" fill="#B0553A"/>
+     <rect x="608" y="184" width="16" height="92" fill="#F4EEE0"/><path d="M604 184 l12-18 l12 18z" fill="#8C5A3C"/></g>
+  <!-- río Nela -->
+  <path d="M0 400 C 140 380, 220 414, 340 402 L 470 402 C 590 414, 670 380, 800 398 L800 450 L0 450Z" fill="url(#priver)"/>
+  <path d="M180 418 q40 -8 80 0" stroke="#FFFFFF" stroke-width="3" fill="none" opacity=".45"/>
+  <path d="M560 424 q44 -8 88 0" stroke="#FFFFFF" stroke-width="3" fill="none" opacity=".4"/>
+  <!-- ribera -->
+  <g fill="#3E6B41"><ellipse cx="52" cy="376" rx="52" ry="34"/><ellipse cx="754" cy="372" rx="56" ry="34"/></g>
+</svg>

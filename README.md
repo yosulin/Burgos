@@ -1,82 +1,77 @@
-# Ruta Merindades en Familia 🥾
+# Las Merindades en Familia 🌿
 
-PWA (offline-first, mobile-first) para el fin de semana familiar por **Las Merindades (Burgos)**,
-del **12 al 13 de septiembre de 2026**, con niñas de 9, 7 y 2 años.
+Guía PWA del fin de semana familiar por **Las Merindades (Burgos)**,
+**12-13 de septiembre de 2026**. Dos parejas y tres niñas (9, 7 y 3 años).
 
 👉 **App publicada: https://yosulin.github.io/Burgos/**
 
-## Qué incluye
+Base del viaje: **Hotel Rural La Torre de Bisjueces** (C. San Juan 58, Bisjueces).
 
-- **Pestañas fijas:** Sábado 12 · Domingo 13 · Info útil.
-- **Timeline por hitos:** hora, categoría (Cultura, Naturaleza, Comida, Logística, Relax),
-  título, descripción y consejo logístico.
-- **Badges de logística infantil:** apto carrito / sin carrito, mochila de porteo y tipo de terreno.
-- **Botón "Cómo llegar":** abre la navegación en Google Maps
-  (`https://www.google.com/maps/dir/?api=1&destination={lat},{lng}`).
-- **Checklist persistente:** marca hitos completados; se guarda en `localStorage`
-  junto con la última pestaña abierta. Barra de progreso en la cabecera.
-- **Offline real:** Service Worker con caché de todos los recursos (incluido el CSS,
-  compilado localmente — no depende de ningún CDN). Indicador `OFFLINE` en cabecera.
-- **Instalable:** `manifest.json` con iconos (incluido *maskable*) y botón de instalación
-  en la pestaña *Info útil*.
+- **Sábado 12** — Frías · comida en Frías · Tobera · vuelta al hotel
+- **Domingo 13** — Puentedey · Ojo Guareña / San Bernabé · comida · despedida
+
+## Qué hace
+
+- **Portada** con el viaje de un vistazo y accesos a ruta, tiempo y hotel.
+- **Tarjeta grande por destino:** ilustración, duración, horario orientativo,
+  qué ver y botón a Maps. Lo secundario se despliega con *Ver detalles*.
+- **Comer** en tarjeta propia, con botones de llamar y Maps por restaurante.
+- **Tiempo** de Open-Meteo (sin API key ni servidor), integrado en cada día.
+- **Rutas completas** del sábado y del domingo en un solo enlace de Maps,
+  y rutas de regreso a Donostia y a Valladolid.
+- **Offline:** una vez abierta con conexión funciona sin cobertura.
+- **Instalable** en el móvil, con checklist de visitas y de equipaje guardados
+  en el propio dispositivo.
 
 ## Estructura
 
 ```
-index.html          Shell de la app (cabecera, pestañas, contenedores)
-app.js              Render del timeline, checklist, pestañas, PWA
-data.js             ⬅️ Todos los datos del viaje (editar aquí)
-styles.css          Estilos propios (categorías, timeline, animaciones)
-src.css             Entrada de Tailwind
-assets/tailwind.css CSS compilado y versionado (para funcionar sin red)
+index.html          Shell: portada, pestañas, barra inferior
+app.js              Render de días, tarjetas, info y PWA
+data.js             ⬅️ Todo el contenido del viaje (editar aquí)
+weather.js          Previsión Open-Meteo + caché offline
+styles.css          Sistema visual (tokens propios, sin framework)
+sw.js               Service Worker
 manifest.json       Manifiesto PWA
-sw.js               Service Worker (caché estática)
-assets/icons/       Iconos SVG y PNG
+assets/images/      Ilustraciones de los destinos
+assets/icons/       Iconos de la app
 ```
 
-## Uso en local
+Sin dependencias ni paso de compilación: se edita y se sube.
 
-El Service Worker necesita `http://` o `https://` (no funciona con `file://`):
+## Imágenes
 
-```bash
-npm start            # sirve en http://localhost:8080
-```
+`assets/images/` contiene **ilustraciones propias en SVG** hechas para esta guía
+(Frías, Tobera, Puentedey, Ojo Guareña y la portada). Son placeholders de calidad,
+pensados para sustituirse por fotos reales cuando las tengáis:
+
+1. Deja la foto en `assets/images/` (por ejemplo `frias.jpg`, apaisada 16:9).
+2. Cambia la ruta en `data.js` (`"image": "assets/images/frias.jpg"`).
+3. Añádela a la lista `CORE` de `sw.js` para que también funcione sin conexión.
+
+No se enlazan imágenes externas: todo se sirve desde el propio repositorio.
 
 ## Editar el viaje
 
-Toda la información está en **`data.js`**. Para añadir un hito, copia un objeto de
-`activities` dentro del día correspondiente:
+Todo está en **`data.js`**: horarios, textos, qué ver, restaurantes, teléfonos
+y coordenadas. Los horarios son deliberadamente orientativos
+(`10:30 aprox.`, `Después de comer`, `Según reserva`).
 
-```js
-{
-  "time": "18:00",
-  "title": "Nuevo plan",
-  "location": "Dónde",
-  "category": "naturaleza",     // cultura | naturaleza | comida | logistica | relax
-  "lat": 42.9, "lng": -3.6,
-  "babyStroller": true,         // ¿pasa el carrito?
-  "carrier": false,             // ¿hace falta mochila de porteo?
-  "terrain": "llano",           // llano | mixto | empinado | asfalto
-  "logisticsTip": "Nota práctica con las niñas.",
-  "description": "Descripción breve."
-}
-```
+Al publicar cambios, **sube la versión de caché** en `sw.js`
+(`merindades-v3` → `v4`) y el `?v=3` de `index.html`, para que los móviles
+que ya tengan la app instalada recojan la versión nueva.
 
-Tras cambiar clases de Tailwind en `index.html` o `app.js`, recompila el CSS:
-
-```bash
-npm install
-npm run build:css
-```
-
-Al publicar cambios, sube la versión de caché en `sw.js` (`merindades-v1` → `v2`)
-para que los dispositivos ya instalados recojan la actualización.
-
-## Publicar en GitHub Pages
+## Publicar
 
 Ya está activo en **https://yosulin.github.io/Burgos/**, sirviendo la raíz de la
 rama `claude/pwa-merindades-familia-kumae5` (*Settings → Pages → Deploy from a
-branch*). Cada push a esa rama se republica automáticamente en 1-2 minutos.
+branch*). Cada push a esa rama se republica en 1-2 minutos.
 
-Alternativa: elegir *Source: GitHub Actions* y lanzar a mano el workflow
-`Deploy PWA to GitHub Pages` desde la pestaña **Actions**.
+## En local
+
+```bash
+npm start     # http://localhost:8080
+```
+
+El Service Worker necesita `http://` o `https://`: no funciona abriendo el
+archivo directamente.
