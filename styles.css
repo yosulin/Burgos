@@ -1,0 +1,46 @@
+/* Estilos propios que complementan a Tailwind (compilado en assets/tailwind.css). */
+
+:root {
+  --brand-700: #0f766e;
+  --brand-100: #ccfbf1;
+  --ink: #1e293b;
+}
+
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: #f1f5f9;
+  color: var(--ink);
+  overscroll-behavior-y: none;
+}
+
+/* --- Colores por categoría (usados desde JS) --- */
+.cat-cultura     { --cat: #7c3aed; --cat-bg: #f5f3ff; }
+.cat-naturaleza  { --cat: #16a34a; --cat-bg: #f0fdf4; }
+.cat-comida      { --cat: #ea580c; --cat-bg: #fff7ed; }
+.cat-logistica   { --cat: #0284c7; --cat-bg: #f0f9ff; }
+.cat-relax       { --cat: #db2777; --cat-bg: #fdf2f8; }
+.cat-default     { --cat: #475569; --cat-bg: #f8fafc; }
+
+.cat-chip {
+  background: var(--cat-bg);
+  color: var(--cat);
+  border: 1px solid color-mix(in srgb, var(--cat) 25%, transparent);
+}
+.cat-dot { background: var(--cat); }
+.cat-rail { background: color-mix(in srgb, var(--cat) 45%, #e2e8f0); }
+
+/* --- Tarjeta completada --- */
+.done .card-body { opacity: .55; }
+.done .card-title { text-decoration: line-through; text-decoration-thickness: 2px; }
+
+/* --- Animación de entrada --- */
+@keyframes riseIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.rise { animation: riseIn .28s ease-out both; }
+
+/* --- Accesibilidad --- */
+:focus-visible { outline: 3px solid #0d9488; outline-offset: 2px; border-radius: 8px; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}

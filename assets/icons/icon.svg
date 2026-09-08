@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Ruta Merindades en Familia">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#14b8a6"/>
+      <stop offset="1" stop-color="#0f766e"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#g)"/>
+  <!-- Puente natural de Puentedey -->
+  <path d="M64 372h384v40H64z" fill="#ffffff" opacity=".95"/>
+  <path d="M96 372c0-88 72-160 160-160s160 72 160 160H344c0-48-39-88-88-88s-88 40-88 88z" fill="#ffffff" opacity=".95"/>
+  <!-- Río -->
+  <path d="M64 448c48-24 96-24 144 0s96 24 144 0 96-24 96-24v40H64z" fill="#99f6e4" opacity=".85"/>
+  <!-- Sol -->
+  <circle cx="256" cy="146" r="40" fill="#bef264"/>
+</svg>
