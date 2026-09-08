@@ -69,3 +69,18 @@ npm run build:css
 
 Al publicar cambios, sube la versión de caché en `sw.js` (`merindades-v1` → `v2`)
 para que los dispositivos ya instalados recojan la actualización.
+
+## Publicar en GitHub Pages
+
+La activación inicial de Pages requiere un clic manual (el token de Actions no
+tiene permiso para crear el sitio). Opción más simple:
+
+1. **Settings → Pages** en `https://github.com/yosulin/Burgos/settings/pages`
+2. *Source:* **Deploy from a branch**
+3. *Branch:* `claude/pwa-merindades-familia-kumae5` · carpeta `/ (root)` → **Save**
+
+En 1-2 minutos la app estará en **https://yosulin.github.io/Burgos/**
+y cada push a esa rama se publica solo.
+
+Alternativa: elegir *Source: GitHub Actions* y lanzar a mano el workflow
+`Deploy PWA to GitHub Pages` desde la pestaña **Actions**.
