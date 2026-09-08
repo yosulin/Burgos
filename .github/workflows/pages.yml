@@ -1,0 +1,45 @@
+name: Deploy PWA to GitHub Pages
+
+on:
+  push:
+    branches: [claude/pwa-merindades-familia-kumae5]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configurar Pages
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      # La app es estática: se publica el repo tal cual.
+      - name: Preparar artefacto
+        run: |
+          mkdir -p _site
+          rsync -a --exclude '.git' --exclude '.github' --exclude 'node_modules' \
+                --exclude 'src.css' --exclude 'tailwind.config.js' \
+                --exclude 'package.json' --exclude 'package-lock.json' \
+                ./ _site/
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - id: deployment
+        uses: actions/deploy-pages@v4
