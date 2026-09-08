@@ -1,5 +1,5 @@
 /* Service Worker — caché estática para uso sin cobertura */
-const CACHE = 'merindades-v1';
+const CACHE = 'merindades-v2';
 
 const CORE = [
   './',
@@ -7,6 +7,7 @@ const CORE = [
   './styles.css',
   './assets/tailwind.css',
   './data.js',
+  './weather.js',
   './app.js',
   './manifest.json',
   './assets/icons/icon.svg',
@@ -37,8 +38,9 @@ self.addEventListener('fetch', (event) => {
 
   const url = new URL(req.url);
 
-  // Nunca interceptamos la navegación hacia Google Maps u otros destinos externos.
-  if (req.mode === 'navigate' && url.origin !== self.location.origin) return;
+  // Todo lo externo (Open-Meteo, Google Maps, tel:) va directo a la red:
+  // la previsión nunca entra en la caché ni bloquea el arranque.
+  if (url.origin !== self.location.origin) return;
 
   // Navegación: red primero, caché como respaldo (app shell).
   if (req.mode === 'navigate') {

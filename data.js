@@ -1,182 +1,228 @@
 // Datos del viaje. Editar aquí para actualizar la app.
+// Nota: los horarios son ORIENTATIVOS y así se muestran en la interfaz.
 window.TRIP_DATA = {
   "trip": {
     "title": "Las Merindades en Familia",
     "dates": "12 - 13 Septiembre 2026",
+    "group": "2 parejas y 3 niñas (9, 7 y 3 años)",
     "base": {
       "name": "Hotel Rural La Torre de Bisjueces",
       "address": "C. San Juan 58, Bisjueces, Burgos",
       "lat": 42.8931,
       "lng": -3.5694
-    }
+    },
+    "returns": [
+      { "label": "Ruta a Donostia", "query": "Donostia-San Sebastián" },
+      { "label": "Ruta a Valladolid", "query": "Valladolid" }
+    ],
+    "weatherSpots": [
+      { "id": "frias",     "label": "Frías / Tobera",       "date": "2026-09-12", "lat": 42.7631, "lng": -3.2972 },
+      { "id": "puentedey", "label": "Puentedey / Ojo Guareña", "date": "2026-09-13", "lat": 42.9756, "lng": -3.6853 }
+    ]
   },
+
   "days": [
     {
       "id": "day-1",
       "date": "2026-09-12",
-      "label": "Sábado 12: Cuevas y Naturaleza",
+      "label": "Sábado 12: Frías y Tobera",
       "short": "Sábado 12",
+      "weatherSpot": "frias",
+      "route": {
+        "label": "Ruta del sábado",
+        "note": "Alojamiento → Frías → Tobera → alojamiento",
+        "origin": "42.8931,-3.5694",
+        "waypoints": ["42.7631,-3.2972", "42.7561,-3.3105"],
+        "destination": "42.8931,-3.5694"
+      },
       "activities": [
         {
-          "time": "10:00",
-          "title": "Salida hacia Ojo Guareña",
-          "location": "Bisjueces → Cueva de San Bernabé",
-          "category": "logistica",
-          "lat": 43.0336,
-          "lng": -3.6644,
-          "babyStroller": false,
-          "carrier": false,
-          "terrain": "asfalto",
-          "logisticsTip": "Trayecto en coche de aprox. 25 min.",
-          "description": "Salida desde el hotel hacia el aparcamiento habilitado del Monumento Natural."
+          "time": "10:30 aprox.",
+          "type": "visita",
+          "title": "Frías",
+          "location": "Villa medieval de Frías",
+          "lat": 42.7631,
+          "lng": -3.2972,
+          "duration": "2,5 - 3 h",
+          "highlights": [
+            "Castillo de los Velasco",
+            "Casco medieval",
+            "Casas colgadas",
+            "Miradores",
+            "Puente medieval sobre el Ebro"
+          ],
+          "description": "Mañana tranquila paseando por la villa, sin prisa y parando donde apetezca.",
+          "logistics": "Calles empinadas y empedradas: mejor de la mano y con calzado cómodo.",
+          "extraLinks": [
+            { "label": "Puente medieval sobre el Ebro", "lat": 42.7697, "lng": -3.2878 }
+          ]
         },
         {
-          "time": "11:00",
-          "title": "Cueva Ermita de San Bernabé",
-          "location": "Monumento Natural de Ojo Guareña",
-          "category": "cultura",
-          "lat": 43.0336,
-          "lng": -3.6644,
-          "babyStroller": false,
-          "carrier": true,
-          "terrain": "mixto",
-          "logisticsTip": "Sin carrito dentro de la cueva. Porteo obligatorio para la peque de 2 años. Fácil para 7 y 9 años.",
-          "description": "Recorrido de 400 m por pasarela iluminada con pinturas rupestres y ermita en roca. Entrada con reserva previa."
+          "time": "13:30 - 14:00",
+          "type": "comida",
+          "title": "Comida en Frías",
+          "location": "Frías",
+          "lat": 42.7631,
+          "lng": -3.2972,
+          "description": "Tres alternativas en el pueblo. Conviene llamar antes para asegurar mesa para 7.",
+          "options": [
+            { "name": "Ortiz Bar Restaurante", "phone": "947 35 70 67", "tel": "+34947357067", "query": "Ortiz Bar Restaurante Frías Burgos", "note": "Primera opción." },
+            { "name": "Restaurante A Fuego Lento", "phone": "651 90 76 06", "tel": "+34651907606", "query": "Restaurante A Fuego Lento Frías Burgos" },
+            { "name": "Restaurante El Albergue", "phone": "627 63 50 60", "tel": "+34627635060", "query": "Restaurante El Albergue Frías Burgos" }
+          ]
         },
         {
-          "time": "13:30",
-          "title": "Comida familiar",
-          "location": "Espinosa de los Monteros / Villarcayo",
-          "category": "comida",
-          "lat": 42.9383,
-          "lng": -3.5714,
-          "babyStroller": true,
-          "carrier": false,
-          "terrain": "llano",
-          "logisticsTip": "Plazas peatonales con soportales y espacio seguro para correr.",
-          "description": "Almuerzo tranquilo en terraza o mesón tradicional."
+          "time": "Después de comer",
+          "type": "visita",
+          "title": "Tobera",
+          "location": "Tobera (Frías)",
+          "lat": 42.7561,
+          "lng": -3.3105,
+          "duration": "1 - 1,5 h",
+          "highlights": [
+            "Ermita de Santa María de la Hoz",
+            "Puente medieval",
+            "Cascadas",
+            "Paseo junto al río Molinar"
+          ],
+          "description": "Paseo corto y muy agradecido con las niñas, a pocos minutos en coche de Frías.",
+          "logistics": "Pasarelas y escalones: la pequeña, de la mano o en porteo."
         },
         {
-          "time": "16:30",
-          "title": "Puentedey y Paseo Fluvial",
-          "location": "Puentedey",
-          "category": "naturaleza",
-          "lat": 42.9756,
-          "lng": -3.6853,
-          "babyStroller": true,
-          "carrier": false,
-          "terrain": "mixto",
-          "logisticsTip": "Apto para carrito en la senda baja junto al río Nela.",
-          "description": "Impresionante puente natural de roca caliza tallado por el río. Paseo llano, merendero y parada para fotos."
-        },
-        {
-          "time": "19:30",
-          "title": "Vuelta y descanso en Bisjueces",
+          "time": "Tarde / noche",
+          "type": "relax",
+          "title": "Vuelta al alojamiento",
           "location": "Hotel Rural La Torre de Bisjueces",
-          "category": "relax",
           "lat": 42.8931,
           "lng": -3.5694,
-          "babyStroller": true,
-          "carrier": false,
-          "terrain": "llano",
-          "logisticsTip": "Regreso a 15 min en coche de Puentedey.",
-          "description": "Paseo tranquilo por la plaza y portada renacentista del pueblo antes de cenar."
+          "description": "Regreso sin prisa y tarde/noche todos juntos en el alojamiento."
         }
       ]
     },
+
     {
       "id": "day-2",
       "date": "2026-09-13",
-      "label": "Domingo 13: Cascadas y Villa Medieval",
+      "label": "Domingo 13: Puentedey y Ojo Guareña",
       "short": "Domingo 13",
+      "weatherSpot": "puentedey",
+      "route": {
+        "label": "Ruta del domingo",
+        "note": "Alojamiento → Puentedey → Ojo Guareña / San Bernabé",
+        "origin": "42.8931,-3.5694",
+        "waypoints": ["42.9756,-3.6853"],
+        "destination": "43.0336,-3.6644"
+      },
       "activities": [
         {
-          "time": "10:30",
-          "title": "Cascadas de Tobera",
-          "location": "Tobera (Frías)",
-          "category": "naturaleza",
-          "lat": 42.7561,
-          "lng": -3.3105,
-          "babyStroller": false,
-          "carrier": true,
-          "terrain": "mixto",
-          "logisticsTip": "Pasarelas de madera y escalones. Usar porteo para 2 años; muy ameno para 7 y 9 años.",
-          "description": "Paseo fluvial de menos de 1 km junto al río Molinar, puentes de madera y ermita de Santa María de la Hoz."
+          "time": "Por la mañana",
+          "type": "visita",
+          "title": "Puentedey",
+          "location": "Puentedey",
+          "lat": 42.9756,
+          "lng": -3.6853,
+          "duration": "1 - 1,5 h",
+          "highlights": [
+            "Puente natural excavado por el río Nela",
+            "El pueblo",
+            "Iglesia de San Pelayo",
+            "Miradores",
+            "Zona baja junto al río",
+            "Paseo corto"
+          ],
+          "description": "Primera parada del domingo, con tiempo para bajar al río y ver el puente natural desde abajo.",
+          "logistics": "La senda baja junto al Nela es cómoda; el resto, terreno mixto."
         },
         {
-          "time": "12:15",
-          "title": "Villa Medieval y Castillo de Frías",
-          "location": "Frías",
-          "category": "cultura",
-          "lat": 42.7631,
-          "lng": -3.2972,
-          "babyStroller": false,
-          "carrier": true,
-          "terrain": "empinado",
-          "logisticsTip": "Calles empinadas y empedradas. Carro practicable pero exigente; mejor porteo y mano.",
-          "description": "Paseo por las casas colgadas sobre la toba, vistas panorámicas y exterior/interior del castillo roquero."
+          "time": "Opcional",
+          "type": "bano",
+          "optional": true,
+          "title": "¿Hace bueno? Podemos bañarnos",
+          "location": "Zona de baño del río Nela (Puentedey)",
+          "lat": 42.9756,
+          "lng": -3.6853,
+          "description": "Si hace calor, llevamos bañador y toalla. Antes de entrar al agua comprobaremos caudal, temperatura, señalización y estado del río.",
+          "notes": [
+            "Es opcional: solo si apetece y las condiciones acompañan.",
+            "El agua puede estar fría.",
+            "Con las niñas, comprobar el estado del río al llegar.",
+            "Si hubiera señalización que lo impida, no nos bañamos."
+          ],
+          "checklist": ["Bañadores", "Toallas", "Escarpines o calzado de agua", "Muda para las niñas"],
+          "checklistTitle": "Llevar en el coche",
+          "info": "Zona tradicional de baño junto al río Nela, con campa y mesas en el entorno de la bolera."
         },
         {
-          "time": "14:00",
-          "title": "Comida en Frías",
-          "location": "Casco de Frías",
-          "category": "comida",
-          "lat": 42.7631,
-          "lng": -3.2972,
-          "babyStroller": true,
-          "carrier": false,
-          "terrain": "llano",
-          "logisticsTip": "Reserva de mesa previa recomendada.",
-          "description": "Gastronomía local castellana antes del viaje de regreso."
+          "time": "Según reserva",
+          "type": "visita",
+          "title": "Ojo Guareña · Cueva-Ermita de San Bernabé",
+          "location": "Monumento Natural de Ojo Guareña",
+          "lat": 43.0336,
+          "lng": -3.6644,
+          "reserva": true,
+          "reservaNote": "La visita depende del horario y de la reserva de San Bernabé. Comprobar antes de ir; no hay hora confirmada en la app.",
+          "description": "Segunda visita del domingo: recorrido por la cueva-ermita excavada en la roca.",
+          "logistics": "Dentro de la cueva, la pequeña mejor en porteo o de la mano."
         },
         {
-          "time": "16:30",
-          "title": "Puente Medieval de Frías y despedida",
-          "location": "Río Ebro (Frías)",
-          "category": "relax",
-          "lat": 42.7697,
-          "lng": -3.2878,
-          "babyStroller": true,
-          "carrier": false,
-          "terrain": "llano",
-          "logisticsTip": "Entorno llano, pradera de césped junto al río y fácil aparcamiento.",
-          "description": "Último paseo llano con carritos y despedida del grupo antes de emprender regreso a Valladolid y casa."
+          "time": "Comida",
+          "type": "comida",
+          "title": "¿Dónde comemos?",
+          "location": "Por decidir",
+          "open": true,
+          "description": "Último momento todos juntos. Sin restaurante elegido todavía: decidimos sobre la marcha.",
+          "options": [
+            { "name": "La Taxuela", "phone": "947 190 597", "tel": "+34947190597", "query": "La Taxuela restaurante Villarcayo", "note": "Zona Villarcayo / Medina de Pomar. Primera opción para una comida especial de despedida." },
+            { "name": "Mesón Restaurante El Cid", "phone": "947 13 11 71", "tel": "+34947131171", "query": "Mesón Restaurante El Cid Villarcayo" },
+            { "name": "RestoBar La Cucaña", "phone": "654 15 05 15", "tel": "+34654150515", "query": "RestoBar La Cucaña Puentedey", "note": "En Puentedey. Normalmente sin reserva y por orden de llegada: puede no ser cómodo para 7 si está concurrido." }
+          ]
+        },
+        {
+          "time": "Después de comer",
+          "type": "transporte",
+          "title": "Fin del fin de semana",
+          "location": "Cada familia hacia casa",
+          "description": "Desde la comida, cada familia empieza su regreso.",
+          "farewell": true
         }
       ]
     }
   ],
+
   "info": {
     "packing": [
-      "Mochila de porteo (imprescindible: cueva de San Bernabé y Tobera)",
-      "Carrito ligero para Puentedey, Villarcayo y el puente del Ebro",
-      "Calzado cerrado con suela agarre (pasarelas húmedas)",
-      "Chaqueta fina: la cueva ronda los 12 ºC todo el año",
-      "Gorras, crema solar y agua",
-      "Snacks y muda de recambio para la peque",
-      "Batería externa y descarga de mapas offline"
+      "Calzado cómodo",
+      "Sudadera o chaqueta fina",
+      "Agua",
+      "Crema solar",
+      "Gorras",
+      "Batería externa",
+      "Bañadores",
+      "Toallas",
+      "Escarpines",
+      "Muda de las niñas",
+      "Algo de picoteo",
+      "Mochila de porteo si se considera útil para la pequeña"
     ],
-    "notes": [
-      "Reserva previa obligatoria para la Cueva Ermita de San Bernabé (aforo limitado).",
-      "Cobertura móvil irregular en cañones y valles: esta app funciona sin conexión.",
-      "Los horarios son estimados; margen de 20-30 min entre hitos.",
-      "Comidas: reservar mesa el sábado en Espinosa/Villarcayo y el domingo en Frías."
+    "reservas": [
+      "Cueva-Ermita de San Bernabé (Ojo Guareña): comprobar horario y reserva antes de ir. La hora del domingo queda abierta a lo que se confirme.",
+      "Comida del sábado en Frías: conviene llamar para asegurar mesa para 7.",
+      "Comida del domingo: sin restaurante elegido todavía."
+    ],
+    "bano": [
+      "Zona tradicional de baño junto al río Nela, en Puentedey, con campa y mesas en el entorno de la bolera.",
+      "Es una opción, no un plan cerrado: decidimos al llegar.",
+      "Comprobar caudal, temperatura, señalización y estado del río antes de entrar.",
+      "El agua puede estar fría, sobre todo por la mañana.",
+      "En Tobera no está previsto bañarse."
     ],
     "contacts": [
-      {
-        "label": "Emergencias",
-        "value": "112",
-        "tel": "112"
-      },
-      {
-        "label": "Hotel La Torre de Bisjueces",
-        "value": "947 13 13 20",
-        "tel": "+34947131320"
-      },
-      {
-        "label": "Oficina Turismo Villarcayo",
-        "value": "947 13 19 30",
-        "tel": "+34947131930"
-      }
+      { "label": "Emergencias", "value": "112", "tel": "112", "emergency": true }
+    ],
+    "notes": [
+      "Los horarios son orientativos: la idea es no ir con prisa.",
+      "Cobertura móvil irregular en cañones y valles: esta app funciona sin conexión.",
+      "El sábado es Frías y Tobera; el domingo, Puentedey y Ojo Guareña."
     ]
   }
 };

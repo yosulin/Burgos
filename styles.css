@@ -15,21 +15,23 @@ body {
   overscroll-behavior-y: none;
 }
 
-/* --- Colores por categoría (usados desde JS) --- */
-.cat-cultura     { --cat: #7c3aed; --cat-bg: #f5f3ff; }
-.cat-naturaleza  { --cat: #16a34a; --cat-bg: #f0fdf4; }
-.cat-comida      { --cat: #ea580c; --cat-bg: #fff7ed; }
-.cat-logistica   { --cat: #0284c7; --cat-bg: #f0f9ff; }
-.cat-relax       { --cat: #db2777; --cat-bg: #fdf2f8; }
-.cat-default     { --cat: #475569; --cat-bg: #f8fafc; }
+/* --- Colores por tipo de tarjeta (usados desde JS) --- */
+.type-visita     { --cat: #7c3aed; --cat-bg: #f5f3ff; }
+.type-comida     { --cat: #ea580c; --cat-bg: #fff7ed; }
+.type-clima      { --cat: #0284c7; --cat-bg: #f0f9ff; }
+.type-bano       { --cat: #0891b2; --cat-bg: #ecfeff; }
+.type-reserva    { --cat: #ca8a04; --cat-bg: #fefce8; }
+.type-transporte { --cat: #475569; --cat-bg: #f8fafc; }
+.type-relax      { --cat: #db2777; --cat-bg: #fdf2f8; }
 
-.cat-chip {
-  background: var(--cat-bg);
-  color: var(--cat);
-  border: 1px solid color-mix(in srgb, var(--cat) 25%, transparent);
+.type-chip {
+  background: var(--cat-bg, #f8fafc);
+  color: var(--cat, #475569);
+  border: 1px solid color-mix(in srgb, var(--cat, #475569) 25%, transparent);
 }
-.cat-dot { background: var(--cat); }
-.cat-rail { background: color-mix(in srgb, var(--cat) 45%, #e2e8f0); }
+.type-dot { background: var(--cat, #475569); }
+.type-rail { background: color-mix(in srgb, var(--cat, #475569) 45%, #e2e8f0); }
+.type-bullet { color: var(--cat, #475569); }
 
 /* --- Tarjeta completada --- */
 .done .card-body { opacity: .55; }
@@ -44,3 +46,6 @@ body {
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
+
+/* --- Objetivos táctiles cómodos con una mano --- */
+a, button { touch-action: manipulation; }
