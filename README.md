@@ -3,6 +3,8 @@
 PWA (offline-first, mobile-first) para el fin de semana familiar por **Las Merindades (Burgos)**,
 del **12 al 13 de septiembre de 2026**, con niñas de 9, 7 y 2 años.
 
+👉 **App publicada: https://yosulin.github.io/Burgos/**
+
 ## Qué incluye
 
 - **Pestañas fijas:** Sábado 12 · Domingo 13 · Info útil.
@@ -72,15 +74,9 @@ para que los dispositivos ya instalados recojan la actualización.
 
 ## Publicar en GitHub Pages
 
-La activación inicial de Pages requiere un clic manual (el token de Actions no
-tiene permiso para crear el sitio). Opción más simple:
-
-1. **Settings → Pages** en `https://github.com/yosulin/Burgos/settings/pages`
-2. *Source:* **Deploy from a branch**
-3. *Branch:* `claude/pwa-merindades-familia-kumae5` · carpeta `/ (root)` → **Save**
-
-En 1-2 minutos la app estará en **https://yosulin.github.io/Burgos/**
-y cada push a esa rama se publica solo.
+Ya está activo en **https://yosulin.github.io/Burgos/**, sirviendo la raíz de la
+rama `claude/pwa-merindades-familia-kumae5` (*Settings → Pages → Deploy from a
+branch*). Cada push a esa rama se republica automáticamente en 1-2 minutos.
 
 Alternativa: elegir *Source: GitHub Actions* y lanzar a mano el workflow
 `Deploy PWA to GitHub Pages` desde la pestaña **Actions**.
