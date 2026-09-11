@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 664" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif" role="img" aria-label="Plano del fin de semana: Frías, Tobera y la cascada de Pedrosa de Tobalina el sábado; Ojo Guareña y Puentedey el domingo; alojamiento en Bisjueces">
+<rect width="860" height="664" fill="#FBF7F0"/>
+<rect x="10" y="10" width="840" height="644" rx="18" fill="none" stroke="#E8E0D2" stroke-width="2"/>
+<path d="M599.9 557.2 L617.3 544.7" fill="none" stroke="#C2622D" stroke-width="3.2" stroke-dasharray="1 9" stroke-linecap="round" opacity="1"/>
+<path d="M617.3 544.7 L750.0 501.0" fill="none" stroke="#C2622D" stroke-width="3.2" stroke-dasharray="1 9" stroke-linecap="round" opacity="1"/>
+<path d="M617.3 544.7 L261.5 312.7" fill="none" stroke="#C2622D" stroke-width="3.2" stroke-dasharray="1 9" stroke-linecap="round" opacity="1"/>
+<path d="M750.0 501.0 L261.5 312.7" fill="none" stroke="#C2622D" stroke-width="2.4" stroke-dasharray="1 9" stroke-linecap="round" opacity="0.45"/>
+<path d="M261.5 312.7 L137.3 62.0" fill="none" stroke="#2F5D3A" stroke-width="3.2" stroke-dasharray="1 9" stroke-linecap="round" opacity="1"/>
+<path d="M137.3 62.0 L110.0 165.5" fill="none" stroke="#2F5D3A" stroke-width="3.2" stroke-dasharray="1 9" stroke-linecap="round" opacity="1"/>
+<g><rect x="658.1" y="496.3" width="51.2" height="21" rx="10.5" fill="#FBF7F0" stroke="#E8E0D2"/><text x="683.7" y="511.3" text-anchor="middle" font-size="13" fill="#6E7468">25 min</text></g>
+<g><rect x="446.6" y="436.2" width="29.6" height="21" rx="10.5" fill="#FBF7F0" stroke="#E8E0D2"/><text x="461.4" y="451.2" text-anchor="middle" font-size="13" fill="#6E7468">1 h</text></g>
+<g><rect x="474.2" y="370.3" width="51.2" height="21" rx="10.5" fill="#FBF7F0" stroke="#E8E0D2"/><text x="499.8" y="385.3" text-anchor="middle" font-size="13" fill="#6E7468">1 h 15</text></g>
+<g><rect x="204.9" y="239.5" width="51.2" height="21" rx="10.5" fill="#FBF7F0" stroke="#E8E0D2"/><text x="230.5" y="254.5" text-anchor="middle" font-size="13" fill="#6E7468">40 min</text></g>
+<g><rect x="78.1" y="103.2" width="51.2" height="21" rx="10.5" fill="#FBF7F0" stroke="#E8E0D2"/><text x="103.7" y="118.2" text-anchor="middle" font-size="13" fill="#6E7468">30 min</text></g>
+<circle cx="137.3" cy="62.0" r="9" fill="#2F5D3A" stroke="#FBF7F0" stroke-width="3.5"/>
+<circle cx="110.0" cy="165.5" r="9" fill="#2F5D3A" stroke="#FBF7F0" stroke-width="3.5"/>
+<circle cx="617.3" cy="544.7" r="9" fill="#C2622D" stroke="#FBF7F0" stroke-width="3.5"/>
+<circle cx="599.9" cy="557.2" r="9" fill="#C2622D" stroke="#FBF7F0" stroke-width="3.5"/>
+<circle cx="750.0" cy="501.0" r="9" fill="#FBF7F0" stroke="#C2622D" stroke-width="3.5" stroke-dasharray="4 3.5"/>
+<rect x="252.0" y="303.2" width="19" height="19" rx="4" fill="#E0A33E" stroke="#FBF7F0" stroke-width="3.5" transform="rotate(45 261.5 312.7)"/>
+<text stroke="#FBF7F0" stroke-width="4.5" paint-order="stroke" x="153.3" y="63.0" text-anchor="start" font-size="17" font-weight="700" fill="#2C302A">Ojo Guareña</text><text stroke="#FBF7F0" stroke-width="4.5" paint-order="stroke" x="153.3" y="81.0" text-anchor="start" font-size="13.5" fill="#6E7468">Cueva de San Bernabé · 11:30</text>
+<text stroke="#FBF7F0" stroke-width="4.5" paint-order="stroke" x="126.0" y="170.5" text-anchor="start" font-size="17" font-weight="700" fill="#2C302A">Puentedey</text><text stroke="#FBF7F0" stroke-width="4.5" paint-order="stroke" x="126.0" y="188.5" text-anchor="start" font-size="13.5" fill="#6E7468">Puente natural · comida</text>
+<text stroke="#FBF7F0" stroke-width="4.5" paint-order="stroke" x="279.5" y="317.7" text-anchor="start" font-size="17" font-weight="700" fill="#2C302A">Bisjueces</text><text stroke="#FBF7F0" stroke-width="4.5" paint-order="stroke" x="279.5" y="335.7" text-anchor="start" font-size="13.5" fill="#6E7468">Hotel La Torre · noche del sábado</text>
+<text stroke="#FBF7F0" stroke-width="4.5" paint-order="stroke" x="762.0" y="459.0" text-anchor="end" font-size="17" font-weight="700" fill="#2C302A">Cascada de Pedrosa</text><text stroke="#FBF7F0" stroke-width="4.5" paint-order="stroke" x="762.0" y="477.0" text-anchor="end" font-size="13.5" fill="#6E7468">de Tobalina · tarde opcional</text>
+<text stroke="#FBF7F0" stroke-width="4.5" paint-order="stroke" x="634.3" y="549.7" text-anchor="start" font-size="17" font-weight="700" fill="#2C302A">Frías</text><text stroke="#FBF7F0" stroke-width="4.5" paint-order="stroke" x="634.3" y="567.7" text-anchor="start" font-size="13.5" fill="#6E7468">Punto de encuentro · comida</text>
+<path d="M593.9 563.2 L537.9 593.2" stroke="#C2622D" stroke-width="1.6" opacity=".55" fill="none"/>
+<text stroke="#FBF7F0" stroke-width="4.5" paint-order="stroke" x="531.9" y="598.2" text-anchor="end" font-size="17" font-weight="700" fill="#2C302A">Tobera</text><text stroke="#FBF7F0" stroke-width="4.5" paint-order="stroke" x="531.9" y="616.2" text-anchor="end" font-size="13.5" fill="#6E7468">Cascadas · a 5 min de Frías</text>
+<g><rect x="598" y="56" width="240" height="116" rx="14" fill="#FFFFFF" stroke="#E8E0D2"/><circle cx="622" cy="86" r="7.5" fill="#C2622D"/><text stroke="#FBF7F0" stroke-width="4.5" paint-order="stroke" x="640" y="91" font-size="14.5" fill="#2C302A">Sábado 12</text><circle cx="622" cy="116" r="7.5" fill="#2F5D3A"/><text stroke="#FBF7F0" stroke-width="4.5" paint-order="stroke" x="640" y="121" font-size="14.5" fill="#2C302A">Domingo 13</text><rect x="615" y="139" width="14" height="14" rx="3" fill="#E0A33E" transform="rotate(45 622 146)"/><text stroke="#FBF7F0" stroke-width="4.5" paint-order="stroke" x="640" y="151" font-size="14.5" fill="#2C302A">Alojamiento</text></g>
+<g><path d="M52 96 L52 58 M52 58 L45 70 M52 58 L59 70" stroke="#2C302A" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/><text x="52" y="114" text-anchor="middle" font-size="13" font-weight="700" fill="#2C302A">N</text></g>
+<g><path d="M44 620 L204.4 620" stroke="#2C302A" stroke-width="2.4"/><path d="M44 613 L44 627 M204.4 613 L204.4 627" stroke="#2C302A" stroke-width="2.4"/><text x="124.2" y="643" text-anchor="middle" font-size="13" fill="#6E7468">10 km</text></g>
+<text stroke="#FBF7F0" stroke-width="4.5" paint-order="stroke" x="816" y="643" text-anchor="end" font-size="12.5" fill="#9A9E92">Posiciones reales; los tiempos son en coche.</text>
+</svg>

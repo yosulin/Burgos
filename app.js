@@ -322,6 +322,13 @@
       '<p>' + esc(t.group) + '</p>' +
       btn(mapsTo(t.hotel.lat, t.hotel.lng), 'Cómo llegar al hotel', 'btn--primary', ICON.pin), true);
 
+    html += acc('🗺', 'Mapa del fin de semana',
+      '<figure class="mapfig">' +
+        '<img src="assets/images/mapa.svg" alt="Plano con Frías, Tobera y la cascada de Pedrosa de Tobalina el sábado, ' +
+        'Ojo Guareña y Puentedey el domingo, y el alojamiento en Bisjueces." loading="lazy" />' +
+        '<figcaption>Los puntos están en su posición real; los tiempos son en coche.</figcaption>' +
+      '</figure>', true);
+
     html += acc('☀️', 'Tiempo',
       t.weatherSpots.map(function (s) { return weatherHtml(s.id, false); }).join('') +
       '<button class="btn btn--soft btn--small" type="button" id="weather-refresh">Actualizar previsión</button>');

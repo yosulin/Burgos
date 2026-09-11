@@ -15,6 +15,8 @@ Base del viaje: **Hotel Rural La Torre de Bisjueces** (C. San Juan 58, Bisjueces
 ## Qué hace
 
 - **Portada** con el viaje de un vistazo y accesos a ruta, tiempo y hotel.
+- **Plano** del fin de semana en la pestaña Info: los seis puntos en su posición
+  real, coloreados por día, con tiempos en coche y escala.
 - **Tarjeta grande por destino:** ilustración, duración, horario orientativo,
   qué ver y botón a Maps. Lo secundario se despliega con *Ver detalles*.
 - **Comer** en tarjeta propia, con botones de llamar y Maps por restaurante.
@@ -44,7 +46,7 @@ Sin dependencias ni paso de compilación: se edita y se sube.
 ## Imágenes
 
 `assets/images/` contiene **ilustraciones propias en SVG** hechas para esta guía
-(Frías, Tobera, Tobalina, Puentedey, Ojo Guareña y la portada). Son placeholders de calidad,
+(Frías, Tobera, Tobalina, Puentedey, Ojo Guareña, el plano y la portada). Son placeholders de calidad,
 pensados para sustituirse por fotos reales cuando las tengáis:
 
 1. Deja la foto en `assets/images/` (por ejemplo `frias.jpg`, apaisada 16:9).
@@ -60,7 +62,7 @@ y coordenadas. Los horarios son deliberadamente orientativos
 (`10:30 aprox.`, `Después de comer`, `Según reserva`).
 
 Al publicar cambios, **sube la versión de caché** en `sw.js`
-(`merindades-v7` → `v8`) y el `?v=7` de `index.html`, para que los móviles
+(`merindades-v8` → `v9`) y el `?v=8` de `index.html`, para que los móviles
 que ya tengan la app instalada recojan la versión nueva.
 
 ## Publicar
