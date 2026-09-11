@@ -10,7 +10,7 @@
    - Todo lo externo (Open-Meteo, Google Maps) va directo a la red y nunca
      se cachea: la previsión no forma parte del arranque. */
 
-const CACHE = 'merindades-v4';
+const CACHE = 'merindades-v5';
 
 const CORE = [
   './',

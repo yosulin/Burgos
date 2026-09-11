@@ -35,13 +35,13 @@ window.TRIP_DATA = {
       "tab": "Sábado",
       "date": "Sábado 12 de septiembre",
       "title": "Tobalina y Frías",
-      "intro": "Nos juntamos por la mañana en el valle de Tobalina, vemos la cascada y nos vamos a Frías a comer y a pasar la tarde. Dormimos en Bisjueces.",
+      "intro": "Nos juntamos por la mañana en el valle de Tobalina, vemos la cascada, paramos en Tobera y llegamos a Frías para comer y pasar allí toda la tarde. Dormimos en Bisjueces.",
       "weatherSpot": "frias",
       "route": {
         "label": "Ruta del sábado",
-        "steps": ["Quintana", "Cascada", "Frías", "Tobera", "Hotel"],
+        "steps": ["Quintana", "Cascada", "Tobera", "Frías", "Hotel"],
         "origin": "42.7707,-3.2205",
-        "waypoints": ["42.7876,-3.1957", "42.7631,-3.2972", "42.7561,-3.3105"],
+        "waypoints": ["42.7876,-3.1957", "42.7561,-3.3105", "42.7631,-3.2972"],
         "destination": "42.8931,-3.5694"
       },
       "stops": [
@@ -80,11 +80,32 @@ window.TRIP_DATA = {
           ]
         },
         {
+          "id": "tobera",
+          "kind": "destino",
+          "name": "Tobera",
+          "image": "assets/images/tobera.svg",
+          "time": "12:00 aprox.",
+          "duration": "1 - 1,5 h",
+          "intro": "Un desfiladero pequeño con cascadas, puentes y sombra, a cinco minutos de Frías. Paseo de media mañana y, al acabar, se baja a comer.",
+          "highlights": [
+            "Ermita de Santa María de la Hoz",
+            "Puente medieval",
+            "Cascadas",
+            "Paseo junto al río Molinar"
+          ],
+          "tags": ["👧 Fácil con niñas", "🥾 Pasarelas y escalones"],
+          "lat": 42.7561,
+          "lng": -3.3105,
+          "details": [
+            { "title": "Con las niñas", "text": "Paseo corto y muy agradecido. Hay escalones y pasarelas de madera: la pequeña de la mano o en porteo." }
+          ]
+        },
+        {
           "id": "comida-sabado",
           "kind": "comida",
           "name": "Comer en Frías",
-          "time": "13:30 - 14:00",
-          "intro": "Somos 7 y es sábado de septiembre. Conviene llamar antes para asegurar mesa.",
+          "time": "13:45 - 14:00",
+          "intro": "Llegamos de Tobera con hambre. Somos 7 y es sábado de septiembre: conviene llamar antes para asegurar mesa.",
           "options": [
             { "name": "Ortiz Bar Restaurante", "note": "Primera opción · reservar para 7", "phone": "947 35 70 67", "tel": "+34947357067", "query": "Ortiz Bar Restaurante Frías Burgos" },
             { "name": "Mesón Fridas", "note": "C/ Mercado 10, bajo el castillo · menú de fin de semana ~25 €", "phone": "947 35 72 43", "tel": "+34947357243", "query": "Mesón Fridas Frías Burgos" },
@@ -99,7 +120,7 @@ window.TRIP_DATA = {
           "subtitle": "Toda la tarde aquí",
           "image": "assets/images/frias.svg",
           "time": "Después de comer",
-          "duration": "2,5 - 3 h",
+          "duration": "3 h",
           "intro": "La villa más pequeña de España, colgada sobre la peña de toba. Sin agenda: paseo, miradores y lo que apetezca.",
           "highlights": [
             "Castillo de los Velasco",
@@ -115,27 +136,6 @@ window.TRIP_DATA = {
             { "title": "Con las niñas", "text": "Calles empinadas y empedradas: mejor de la mano, y la pequeña en porteo en las cuestas. El carrito se queda en el coche." },
             { "title": "Castillo", "text": "Entrada 2 €, se saca en la oficina de turismo a pie de castillo (947 358 011). Por la tarde abre de 16:00 a 19:30 y el último acceso es media hora antes del cierre." },
             { "title": "El puente del Ebro", "text": "Queda algo apartado del casco, junto al río y con aparcamiento fácil. Entorno llano para estirar las piernas.", "map": { "lat": 42.7697, "lng": -3.2878, "label": "Ir al puente medieval" } }
-          ]
-        },
-        {
-          "id": "tobera",
-          "kind": "destino",
-          "name": "Tobera",
-          "image": "assets/images/tobera.svg",
-          "time": "Media tarde",
-          "duration": "1 - 1,5 h",
-          "intro": "A cinco minutos de Frías: un desfiladero pequeño con cascadas, puentes y sombra. Buen cierre del día antes de coger el coche.",
-          "highlights": [
-            "Ermita de Santa María de la Hoz",
-            "Puente medieval",
-            "Cascadas",
-            "Paseo junto al río Molinar"
-          ],
-          "tags": ["👧 Fácil con niñas", "🥾 Pasarelas y escalones"],
-          "lat": 42.7561,
-          "lng": -3.3105,
-          "details": [
-            { "title": "Con las niñas", "text": "Paseo corto y muy agradecido. Hay escalones y pasarelas de madera: la pequeña de la mano o en porteo." }
           ]
         },
         {
