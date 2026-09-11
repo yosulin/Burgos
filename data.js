@@ -8,7 +8,7 @@ window.TRIP_DATA = {
   "trip": {
     "title": "Las Merindades en Familia",
     "dates": "12 - 13 septiembre 2026",
-    "places": "Frías · Tobera · Tobalina · Ojo Guareña · Puentedey",
+    "places": "Frías · Tobera · Tobalina · Ojo Guareña · Puentedey · Rioseco",
     "group": "2 parejas y 3 niñas (9, 7 y 3 años)",
     "hero": "assets/images/hero.svg",
     "hotel": {
@@ -142,7 +142,7 @@ window.TRIP_DATA = {
       "tab": "Domingo",
       "date": "Domingo 13 de septiembre",
       "title": "Ojo Guareña y Puentedey",
-      "intro": "La cueva-ermita por la mañana, con pase reservado a las 11:30, y luego bajamos a Puentedey a comer y a despedirnos.",
+      "intro": "La cueva-ermita por la mañana, con pase reservado a las 11:30, y luego bajamos a Puentedey a comer y a despedirnos. Quien quiera y vuelva por el sur, puede rematar en el monasterio de Rioseco.",
       "stops": [
         {
           "id": "salida-domingo",
@@ -223,6 +223,32 @@ window.TRIP_DATA = {
           "details": [
             { "title": "Con las niñas", "text": "La senda baja junto al Nela es llana y admite carrito; el mirador del Espolón tiene escalones. Se puede repartir el grupo: lo de abajo, pasando bajo el arco, es lo más espectacular." },
             { "title": "Aparcar", "text": "A la entrada del pueblo, en la parte alta. Desde ahí todo se hace a pie." }
+          ]
+        },
+        {
+          "id": "rioseco",
+          "kind": "destino",
+          "name": "Monasterio de Santa María de Rioseco",
+          "subtitle": "Opcional · de camino a casa por el sur",
+          "query": "Monasterio de Santa María de Rioseco, Valle de Manzanedo, Burgos",
+          "time": "Antes de la despedida, si cuadra",
+          "duration": "1 h",
+          "intro": "Monasterio cisterciense en ruinas a orillas del Ebro, en el valle de Manzanedo, que un grupo de voluntarios lleva años rescatando de la maleza. Arcos abiertos al cielo y claustro a medio recuperar: a las niñas les va a parecer un castillo abandonado.",
+          "highlights": [
+            "Iglesia y claustro en ruinas",
+            "Restauración hecha por voluntarios",
+            "Orillas del Ebro",
+            "Entrada libre"
+          ],
+          "tags": ["🎟 Gratis", "🥾 Hierba y piedra suelta", "🚗 ~30 min de Puentedey"],
+          "booking": {
+            "title": "Entrada libre y gratuita",
+            "text": "Se entra sin pagar y sin reserva. Las visitas guiadas, también gratuitas, se piden antes en el 681 682 680 o en visitas@monasterioderioseco.com; en septiembre no hay pases todos los días, así que conviene llamar si os interesa que os lo cuenten."
+          },
+          "details": [
+            { "title": "Con las niñas", "text": "Es una ruina de verdad: hierba alta, piedra suelta y algún andamio de la obra. Calzado cerrado, ojo con dónde pisan y la pequeña de la mano o en porteo." },
+            { "title": "Cómo se llega", "text": "Se entra al valle de Manzanedo desde Incinillas y, a unos 3 km, junto a la presa sobre el Ebro, están las señales y el aparcamiento. El último tramo es pista: por eso el botón busca el monasterio por su nombre en vez de llevaros a unas coordenadas." },
+            { "title": "A quién le pilla de paso", "text": "Queda hacia el sur, camino de Burgos: le encaja al coche que vuelve a Valladolid. Para el que sube a Donostia es desviarse." }
           ]
         },
         {

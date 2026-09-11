@@ -10,7 +10,8 @@ Base del viaje: **Hotel Rural La Torre de Bisjueces** (C. San Juan 58, Bisjueces
 - **Sábado 12** — encuentro en Frías · Tobera · comida en Frías · tarde abierta
   (cascada de Pedrosa de Tobalina, con baño, o más Frías) · noche en Bisjueces
 - **Domingo 13** — cueva-ermita de San Bernabé (pase reservado 11:30, 34 €) ·
-  comida en Puentedey · puente natural del Nela · despedida
+  comida en Puentedey · puente natural del Nela · monasterio de Rioseco
+  (opcional) · despedida
 
 ## Qué hace
 
@@ -62,7 +63,7 @@ y coordenadas. Los horarios son deliberadamente orientativos
 (`10:30 aprox.`, `Después de comer`, `Según reserva`).
 
 Al publicar cambios, **sube la versión de caché** en `sw.js`
-(`merindades-v11` → `v12`) y el `?v=11` de `index.html`, para que los móviles
+(`merindades-v12` → `v13`) y el `?v=12` de `index.html`, para que los móviles
 que ya tengan la app instalada recojan la versión nueva.
 
 ## Publicar

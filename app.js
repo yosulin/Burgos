@@ -126,13 +126,26 @@
     var art = document.createElement('article');
     art.className = 'stop rise' + (hecho ? ' stop--done' : '');
     art.id = 'stop-' + stop.id;
+    var medios = stop.image
+      ? '<div class="stop__media">' +
+          '<img src="' + esc(stop.image) + '" alt="' + esc(stop.name) + '" loading="lazy" />' +
+          (stop.duration ? '<span class="stop__badge">⏱ ' + esc(stop.duration) + '</span>' : '') +
+          '<button class="stop__check" type="button" data-visit="' + esc(stop.id) + '"' +
+            ' aria-pressed="' + hecho + '" aria-label="Marcar ' + esc(stop.name) + ' como visitado">' + ICON.check + '</button>' +
+        '</div>'
+      : '<div class="stop__media stop__media--vacio">' +
+          (stop.duration ? '<span class="stop__badge">⏱ ' + esc(stop.duration) + '</span>' : '') +
+          '<button class="stop__check" type="button" data-visit="' + esc(stop.id) + '"' +
+            ' aria-pressed="' + hecho + '" aria-label="Marcar ' + esc(stop.name) + ' como visitado">' + ICON.check + '</button>' +
+        '</div>';
+
+    /* Cuando no tenemos coordenadas fiables (pistas forestales, sitios sin
+       portal), el botón busca el lugar por su nombre en vez de llevar a un
+       punto que puede estar a un kilómetro. */
+    var comoLlegar = stop.query ? mapsFind(stop.query) : mapsTo(stop.lat, stop.lng);
+
     art.innerHTML =
-      '<div class="stop__media">' +
-        '<img src="' + esc(stop.image) + '" alt="Ilustración de ' + esc(stop.name) + '" loading="lazy" />' +
-        (stop.duration ? '<span class="stop__badge">⏱ ' + esc(stop.duration) + '</span>' : '') +
-        '<button class="stop__check" type="button" data-visit="' + esc(stop.id) + '"' +
-          ' aria-pressed="' + hecho + '" aria-label="Marcar ' + esc(stop.name) + ' como visitado">' + ICON.check + '</button>' +
-      '</div>' +
+      medios +
       '<div class="stop__body">' +
         '<p class="stop__time">' + esc(stop.time) + '</p>' +
         '<h2>' + esc(stop.name) + '</h2>' +
@@ -143,7 +156,7 @@
         reserva + bano +
         (detalles ? '<div class="details" id="det-' + esc(stop.id) + '" hidden>' + detalles + '</div>' : '') +
         '<div class="actions' + (detalles ? ' actions--two' : '') + '">' +
-          btn(mapsTo(stop.lat, stop.lng), 'Abrir en Maps', 'btn--primary', ICON.pin) +
+          btn(comoLlegar, 'Abrir en Maps', 'btn--primary', ICON.pin) +
           (detalles ? '<button class="btn btn--ghost" type="button" data-toggle="' + esc(stop.id) + '"' +
             ' aria-expanded="false" aria-controls="det-' + esc(stop.id) + '">Ver detalles</button>' : '') +
         '</div>' +

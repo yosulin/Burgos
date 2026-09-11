@@ -121,6 +121,8 @@ button { font: inherit; }
 }
 .stop__media { position: relative; aspect-ratio: 16 / 9; background: var(--cream-2); }
 .stop__media img { width: 100%; height: 100%; object-fit: cover; }
+/* Parada sin foto: la franja se reduce a una banda con los controles. */
+.stop__media--vacio { aspect-ratio: auto; min-height: 46px; background: var(--cream-2); }
 .stop__badge {
   position: absolute; left: 12px; bottom: 12px;
   background: rgba(255,255,255,.93); backdrop-filter: blur(4px);
