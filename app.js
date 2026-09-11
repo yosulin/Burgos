@@ -232,7 +232,7 @@
       '<h2>' + esc(stop.name) + '</h2>' +
       '<p>' + esc(stop.intro) + '</p>' +
       (stop.lat != null ? '<div class="actions">' +
-        btn(mapsTo(stop.lat, stop.lng), 'Volver al hotel', 'btn--soft', ICON.pin) + '</div>' : '');
+        btn(mapsTo(stop.lat, stop.lng), stop.mapLabel || 'Volver al hotel', 'btn--soft', ICON.pin) + '</div>' : '');
     return art;
   }
 

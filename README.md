@@ -7,8 +7,10 @@ Guía PWA del fin de semana familiar por **Las Merindades (Burgos)**,
 
 Base del viaje: **Hotel Rural La Torre de Bisjueces** (C. San Juan 58, Bisjueces).
 
-- **Sábado 12** — Frías · comida en Frías · Tobera · vuelta al hotel
-- **Domingo 13** — Puentedey · Ojo Guareña / San Bernabé · comida · despedida
+- **Sábado 12** — encuentro en Tobalina · cascada de Pedrosa · comida en Frías ·
+  tarde en Frías y Tobera · noche en Bisjueces
+- **Domingo 13** — cueva-ermita de San Bernabé (pase reservado 11:30, 34 €) ·
+  comida en Puentedey · puente natural del Nela · despedida
 
 ## Qué hace
 
@@ -42,7 +44,7 @@ Sin dependencias ni paso de compilación: se edita y se sube.
 ## Imágenes
 
 `assets/images/` contiene **ilustraciones propias en SVG** hechas para esta guía
-(Frías, Tobera, Puentedey, Ojo Guareña y la portada). Son placeholders de calidad,
+(Tobalina, Frías, Tobera, Puentedey, Ojo Guareña y la portada). Son placeholders de calidad,
 pensados para sustituirse por fotos reales cuando las tengáis:
 
 1. Deja la foto en `assets/images/` (por ejemplo `frias.jpg`, apaisada 16:9).
@@ -58,7 +60,7 @@ y coordenadas. Los horarios son deliberadamente orientativos
 (`10:30 aprox.`, `Después de comer`, `Según reserva`).
 
 Al publicar cambios, **sube la versión de caché** en `sw.js`
-(`merindades-v3` → `v4`) y el `?v=3` de `index.html`, para que los móviles
+(`merindades-v4` → `v5`) y el `?v=4` de `index.html`, para que los móviles
 que ya tengan la app instalada recojan la versión nueva.
 
 ## Publicar

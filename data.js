@@ -1,17 +1,21 @@
 // Guía Merindades en Familia — todos los datos del viaje.
 // Los horarios son ORIENTATIVOS a propósito: la app los muestra como tales.
+// La única hora cerrada es el pase de la cueva-ermita de San Bernabé,
+// domingo 13 a las 11:30, que ya está pagado.
 // Las imágenes son ilustraciones propias (assets/images). Para usar fotos
 // reales basta con dejar el archivo en esa carpeta y cambiar aquí la ruta.
 window.TRIP_DATA = {
   "trip": {
     "title": "Las Merindades en Familia",
     "dates": "12 - 13 septiembre 2026",
-    "places": "Frías · Tobera · Puentedey · Ojo Guareña",
+    "places": "Tobalina · Frías · Ojo Guareña · Puentedey",
     "group": "2 parejas y 3 niñas (9, 7 y 3 años)",
     "hero": "assets/images/hero.svg",
     "hotel": {
       "name": "Hotel Rural La Torre de Bisjueces",
       "address": "C. San Juan 58, Bisjueces, Burgos",
+      "phone": "656 74 17 92",
+      "tel": "+34656741792",
       "lat": 42.8931,
       "lng": -3.5694
     },
@@ -20,8 +24,8 @@ window.TRIP_DATA = {
       { "label": "Ruta a Valladolid", "query": "Valladolid" }
     ],
     "weatherSpots": [
-      { "id": "frias",     "label": "Frías / Tobera",         "date": "2026-09-12", "lat": 42.7631, "lng": -3.2972 },
-      { "id": "puentedey", "label": "Puentedey / Ojo Guareña", "date": "2026-09-13", "lat": 42.9756, "lng": -3.6853 }
+      { "id": "frias",     "label": "Tobalina / Frías",        "date": "2026-09-12", "lat": 42.7631, "lng": -3.2972 },
+      { "id": "puentedey", "label": "Ojo Guareña / Puentedey", "date": "2026-09-13", "lat": 42.9756, "lng": -3.6853 }
     ]
   },
 
@@ -30,38 +34,49 @@ window.TRIP_DATA = {
       "id": "day-1",
       "tab": "Sábado",
       "date": "Sábado 12 de septiembre",
-      "title": "Frías y Tobera",
-      "intro": "Un día entero en el mismo rincón: la villa por la mañana y las cascadas después de comer.",
+      "title": "Tobalina y Frías",
+      "intro": "Nos juntamos por la mañana en el valle de Tobalina, vemos la cascada y nos vamos a Frías a comer y a pasar la tarde. Dormimos en Bisjueces.",
       "weatherSpot": "frias",
       "route": {
         "label": "Ruta del sábado",
-        "steps": ["Hotel", "Frías", "Tobera", "Hotel"],
-        "origin": "42.8931,-3.5694",
-        "waypoints": ["42.7631,-3.2972", "42.7561,-3.3105"],
+        "steps": ["Quintana", "Cascada", "Frías", "Tobera", "Hotel"],
+        "origin": "42.7707,-3.2205",
+        "waypoints": ["42.7876,-3.1957", "42.7631,-3.2972", "42.7561,-3.3105"],
         "destination": "42.8931,-3.5694"
       },
       "stops": [
         {
-          "id": "frias",
+          "id": "encuentro",
+          "kind": "encuentro",
+          "name": "Nos juntamos en Quintana Martín Galíndez",
+          "time": "10:00 aprox.",
+          "intro": "Punto de reunión de los coches: es la capital del valle de Tobalina y la única con bares, aseos y aparcamiento fácil. Café, estirar las piernas y repartir a las niñas.",
+          "mapLabel": "Ir al punto de encuentro",
+          "lat": 42.7707,
+          "lng": -3.2205
+        },
+        {
+          "id": "tobalina",
           "kind": "destino",
-          "name": "Frías",
-          "image": "assets/images/frias.svg",
-          "time": "10:30 aprox.",
-          "duration": "2,5 - 3 h",
-          "intro": "La villa más pequeña de España, colgada sobre la peña. Sin agenda: paseo, miradores y lo que apetezca.",
+          "name": "Cascada de Pedrosa de Tobalina",
+          "subtitle": "El mini paseo por el valle",
+          "image": "assets/images/tobalina.svg",
+          "time": "10:45 aprox.",
+          "duration": "1 h",
+          "intro": "El río Jerea se despeña unos 12 metros sobre una plataforma de roca de casi 100 metros de ancho, con una poza de agua verde debajo. A 10 minutos en coche del punto de encuentro.",
           "highlights": [
-            "Castillo de los Velasco",
-            "Casco medieval",
-            "Casas colgadas",
-            "Miradores",
-            "Puente medieval sobre el Ebro"
+            "Salto del Peñón",
+            "Poza del Jerea",
+            "Merendero junto al río",
+            "Aparcamiento a pie de cascada"
           ],
-          "tags": ["🥾 Terreno irregular", "🚼 Porteo recomendable"],
-          "lat": 42.7631,
-          "lng": -3.2972,
+          "tags": ["🥾 Terreno mixto", "⚠️ Roca resbaladiza", "🚼 Porteo en la bajada"],
+          "lat": 42.7876,
+          "lng": -3.1957,
           "details": [
-            { "title": "Con las niñas", "text": "Calles empinadas y empedradas: mejor de la mano, y la pequeña en porteo en las cuestas." },
-            { "title": "El puente del Ebro", "text": "Queda algo apartado del casco, junto al río y con aparcamiento fácil. Entorno llano para estirar las piernas.", "map": { "lat": 42.7697, "lng": -3.2878, "label": "Ir al puente medieval" } }
+            { "title": "Con las niñas", "text": "La roca junto al agua resbala bastante. De la mano a las mayores y la pequeña en la mochila mientras se baja al nivel del río." },
+            { "title": "En septiembre", "text": "Baja poco caudal: no esperéis la cortina de agua de las fotos de primavera, pero el entorno y la poza siguen mereciendo la parada." },
+            { "title": "Si sobra tiempo", "text": "A siete minutos, en Lomana, queda la torre de los Bonifaz (s. XV). Quince minutos y cierra el paseo por Tobalina.", "map": { "lat": 42.7790, "lng": -3.2350, "label": "Ir a la torre de los Bonifaz" } }
           ]
         },
         {
@@ -69,11 +84,37 @@ window.TRIP_DATA = {
           "kind": "comida",
           "name": "Comer en Frías",
           "time": "13:30 - 14:00",
-          "intro": "Somos 7. Conviene llamar antes para asegurar mesa.",
+          "intro": "Somos 7 y es sábado de septiembre. Conviene llamar antes para asegurar mesa.",
           "options": [
             { "name": "Ortiz Bar Restaurante", "note": "Primera opción · reservar para 7", "phone": "947 35 70 67", "tel": "+34947357067", "query": "Ortiz Bar Restaurante Frías Burgos" },
-            { "name": "Restaurante A Fuego Lento", "phone": "651 90 76 06", "tel": "+34651907606", "query": "Restaurante A Fuego Lento Frías Burgos" },
-            { "name": "Restaurante El Albergue", "phone": "627 63 50 60", "tel": "+34627635060", "query": "Restaurante El Albergue Frías Burgos" }
+            { "name": "Mesón Fridas", "note": "C/ Mercado 10, bajo el castillo · menú de fin de semana ~25 €", "phone": "947 35 72 43", "tel": "+34947357243", "query": "Mesón Fridas Frías Burgos" },
+            { "name": "Restaurante El Albergue", "note": "Junto al puente medieval · local amplio y aparcamiento propio", "phone": "627 63 50 60", "tel": "+34627635060", "query": "Restaurante El Albergue Frías Burgos" },
+            { "name": "Restaurante A Fuego Lento", "phone": "651 90 76 06", "tel": "+34651907606", "query": "Restaurante A Fuego Lento Frías Burgos" }
+          ]
+        },
+        {
+          "id": "frias",
+          "kind": "destino",
+          "name": "Frías",
+          "subtitle": "Toda la tarde aquí",
+          "image": "assets/images/frias.svg",
+          "time": "Después de comer",
+          "duration": "2,5 - 3 h",
+          "intro": "La villa más pequeña de España, colgada sobre la peña de toba. Sin agenda: paseo, miradores y lo que apetezca.",
+          "highlights": [
+            "Castillo de los Velasco",
+            "Casco medieval",
+            "Casas colgadas",
+            "Miradores",
+            "Puente medieval sobre el Ebro"
+          ],
+          "tags": ["🥾 Terreno irregular", "🚼 Porteo recomendable", "🎟 Castillo 2 €"],
+          "lat": 42.7631,
+          "lng": -3.2972,
+          "details": [
+            { "title": "Con las niñas", "text": "Calles empinadas y empedradas: mejor de la mano, y la pequeña en porteo en las cuestas. El carrito se queda en el coche." },
+            { "title": "Castillo", "text": "Entrada 2 €, se saca en la oficina de turismo a pie de castillo (947 358 011). Por la tarde abre de 16:00 a 19:30 y el último acceso es media hora antes del cierre." },
+            { "title": "El puente del Ebro", "text": "Queda algo apartado del casco, junto al río y con aparcamiento fácil. Entorno llano para estirar las piernas.", "map": { "lat": 42.7697, "lng": -3.2878, "label": "Ir al puente medieval" } }
           ]
         },
         {
@@ -81,9 +122,9 @@ window.TRIP_DATA = {
           "kind": "destino",
           "name": "Tobera",
           "image": "assets/images/tobera.svg",
-          "time": "Después de comer",
+          "time": "Media tarde",
           "duration": "1 - 1,5 h",
-          "intro": "A cinco minutos de Frías: un desfiladero pequeño con cascadas, puentes y sombra.",
+          "intro": "A cinco minutos de Frías: un desfiladero pequeño con cascadas, puentes y sombra. Buen cierre del día antes de coger el coche.",
           "highlights": [
             "Ermita de Santa María de la Hoz",
             "Puente medieval",
@@ -100,9 +141,10 @@ window.TRIP_DATA = {
         {
           "id": "hotel-sabado",
           "kind": "descanso",
-          "name": "Vuelta al hotel",
+          "name": "A Bisjueces",
           "time": "Tarde / noche",
-          "intro": "Regreso sin prisa a Bisjueces y el resto del día juntos, que era de lo que se trataba.",
+          "intro": "De Frías al hotel hay unos 50 km, cerca de una hora por Trespaderne y Villarcayo. Villarcayo queda de paso a 8 minutos: última oportunidad para supermercado o farmacia. Cena y el resto del día juntos, que era de lo que se trataba.",
+          "mapLabel": "Ir al hotel",
           "lat": 42.8931,
           "lng": -3.5694
         }
@@ -113,34 +155,86 @@ window.TRIP_DATA = {
       "id": "day-2",
       "tab": "Domingo",
       "date": "Domingo 13 de septiembre",
-      "title": "Puentedey y Ojo Guareña",
-      "intro": "Dos paradas por la mañana, comida de despedida y cada familia hacia casa.",
+      "title": "Ojo Guareña y Puentedey",
+      "intro": "La cueva-ermita por la mañana, con pase reservado a las 11:30, y luego bajamos a Puentedey a comer y a despedirnos.",
       "weatherSpot": "puentedey",
       "route": {
         "label": "Ruta del domingo",
-        "steps": ["Hotel", "Puentedey", "Ojo Guareña"],
+        "steps": ["Hotel", "Ojo Guareña", "Puentedey"],
         "origin": "42.8931,-3.5694",
-        "waypoints": ["42.9756,-3.6853"],
-        "destination": "43.0336,-3.6644"
+        "waypoints": ["43.0336,-3.6644"],
+        "destination": "42.9756,-3.6853"
       },
       "stops": [
+        {
+          "id": "salida-domingo",
+          "kind": "encuentro",
+          "name": "Salida del hotel",
+          "time": "09:45",
+          "intro": "Del hotel a la cueva hay unos 35 km y cerca de 40 minutos, con curvas al final. Es la única hora del fin de semana que no se puede estirar: el pase es a las 11:30 y conviene estar en la taquilla sobre las 11:00. Meted la ruta en el navegador antes de arrancar, que el último tramo se queda sin cobertura.",
+          "mapLabel": "Ir a la cueva de San Bernabé",
+          "lat": 43.0336,
+          "lng": -3.6644
+        },
+        {
+          "id": "ojoguarena",
+          "kind": "destino",
+          "name": "Ojo Guareña",
+          "subtitle": "Cueva-ermita de San Bernabé · pase de las 11:30",
+          "image": "assets/images/ojoguarena.svg",
+          "time": "11:30 · entradas hechas",
+          "duration": "45 min de visita",
+          "intro": "Una ermita metida dentro de la roca, en uno de los mayores complejos kársticos de la península. Se recorren 400 metros de galerías y hay una proyección de 10 minutos.",
+          "highlights": [
+            "Cueva-ermita de San Bernabé",
+            "Pinturas murales de 1705 y 1877",
+            "Pila del Santo y galería de los Silos",
+            "Mirador sobre el sumidero del Guareña"
+          ],
+          "tags": ["🎟 Pagado · 34,00 €", "🚼 Porteo obligatorio", "🧥 Hace fresco dentro"],
+          "lat": 43.0336,
+          "lng": -3.6644,
+          "booking": {
+            "title": "Entradas pagadas · 34,00 €",
+            "text": "Pase del domingo 13 a las 11:30 para 7: 4 generales (6 € cada una) + 2 juveniles de 7 a 16 (5 €) + la pequeña, gratis por ser menor de 6. Llegar a la taquilla 20-30 minutos antes. Dudas o cambios: 645 490 288."
+          },
+          "details": [
+            { "title": "Con las niñas", "text": "Dentro no entra el carrito: la pequeña en mochila de porteo. Para las de 7 y 9 el recorrido es fácil y de los que más gustan. Hace fresco todo el año: una chaqueta fina para las tres." },
+            { "title": "Antes de entrar", "text": "Aseos en el aparcamiento, porque dentro no hay. Mientras se espera el pase da tiempo al mirador sobre el sumidero del río y a ver la fachada de la ermita encajada en la roca." },
+            { "title": "Si llueve o sobra rato", "text": "La Casa del Parque de Quintanilla del Rebollar queda a cinco minutos y explica el karst con maquetas.", "map": { "lat": 43.0545, "lng": -3.6528, "label": "Ir a la Casa del Parque" } }
+          ]
+        },
+        {
+          "id": "comida-domingo",
+          "kind": "comida",
+          "name": "Comer en Puentedey",
+          "time": "14:00 aprox.",
+          "intro": "En el pueblo hay poca cosa y un domingo se llena: hay que llamar antes. Si no hay mesa, se come de camino y se baja a Puentedey ya sin prisa.",
+          "open": true,
+          "options": [
+            { "name": "RestoBar La Cucaña", "note": "En Puentedey · suele ser por orden de llegada", "phone": "654 15 05 15", "tel": "+34654150515", "query": "RestoBar La Cucaña Puentedey" },
+            { "name": "Bar La Montañesa", "note": "En Puentedey · C/ El Barrio 30", "phone": "653 13 23 53", "tel": "+34653132353", "query": "Bar La Montañesa Puentedey" },
+            { "name": "Asador Cueva Kaite", "note": "Plan B · Villabáscones, a 5 min de la cueva", "phone": "947 13 86 80", "tel": "+34947138680", "query": "Asador Cueva Kaite Villabáscones de Sotoscueva" },
+            { "name": "Restaurante Maygo", "note": "Plan B · Quintanilla de Sotoscueva, de camino", "phone": "947 13 87 44", "tel": "+34947138744", "query": "Restaurante Maygo Quintanilla de Sotoscueva" },
+            { "name": "La Taxuela", "note": "Plan B · Villarcayo, a 20 min", "phone": "947 190 597", "tel": "+34947190597", "query": "La Taxuela restaurante Villarcayo" }
+          ]
+        },
         {
           "id": "puentedey",
           "kind": "destino",
           "name": "Puentedey",
           "image": "assets/images/puentedey.svg",
-          "time": "Por la mañana",
-          "duration": "1 - 1,5 h",
-          "intro": "El pueblo se asienta sobre un puente natural que el río Nela excavó en la roca. Se ve desde arriba y desde abajo.",
+          "time": "Después de comer",
+          "duration": "1,5 h",
+          "intro": "El pueblo se asienta sobre un puente natural que el río Nela excavó en la roca: 15 metros de alto, 34 de ancho y 75 de largo. Se ve desde arriba y desde abajo.",
           "highlights": [
             "Puente natural sobre el Nela",
-            "El pueblo",
+            "Mirador del Espolón",
             "Iglesia de San Pelayo",
-            "Miradores",
-            "Zona baja junto al río",
-            "Paseo corto"
+            "Palacio de los Brizuela",
+            "Senda baja junto al río"
           ],
-          "tags": ["👧 Fácil con niñas"],
+          "tags": ["👧 Fácil con niñas", "🚼 La senda baja admite carrito"],
           "lat": 42.9756,
           "lng": -3.6853,
           "swim": {
@@ -149,53 +243,16 @@ window.TRIP_DATA = {
             "pack": ["Bañadores", "Toallas", "Escarpines", "Muda para las niñas"]
           },
           "details": [
-            { "title": "Con las niñas", "text": "La senda baja junto al Nela es cómoda; el resto del pueblo, terreno mixto." }
-          ]
-        },
-        {
-          "id": "ojoguarena",
-          "kind": "destino",
-          "name": "Ojo Guareña",
-          "subtitle": "Cueva-ermita de San Bernabé",
-          "image": "assets/images/ojoguarena.svg",
-          "time": "Según reserva",
-          "duration": "1 h aprox.",
-          "intro": "Una ermita metida dentro de la roca, en uno de los mayores complejos kársticos de la península.",
-          "highlights": [
-            "Cueva-ermita de San Bernabé",
-            "Pinturas y pasarela interior",
-            "Mirador sobre el karst"
-          ],
-          "tags": ["🚼 Porteo recomendable"],
-          "lat": 43.0336,
-          "lng": -3.6644,
-          "booking": {
-            "title": "Reserva / horario pendiente de confirmar",
-            "text": "La hora de esta visita depende de la reserva. Comprobar horario y disponibilidad antes de ir; en la app no hay hora fijada."
-          },
-          "details": [
-            { "title": "Con las niñas", "text": "Dentro de la cueva la pequeña mejor en porteo o de la mano. Hace fresco todo el año: una chaqueta fina." }
-          ]
-        },
-        {
-          "id": "comida-domingo",
-          "kind": "comida",
-          "name": "Comida de despedida",
-          "time": "Comida",
-          "intro": "Sin elegir todavía: lo decidimos entre todos. El último rato todos juntos.",
-          "open": true,
-          "options": [
-            { "name": "La Taxuela", "note": "Primera opción para una comida especial", "phone": "947 190 597", "tel": "+34947190597", "query": "La Taxuela restaurante Villarcayo" },
-            { "name": "Mesón Restaurante El Cid", "note": "Villarcayo", "phone": "947 13 11 71", "tel": "+34947131171", "query": "Mesón Restaurante El Cid Villarcayo" },
-            { "name": "RestoBar La Cucaña", "note": "En Puentedey · suele ser por orden de llegada", "phone": "654 15 05 15", "tel": "+34654150515", "query": "RestoBar La Cucaña Puentedey" }
+            { "title": "Con las niñas", "text": "La senda baja junto al Nela es llana y admite carrito; el mirador del Espolón tiene escalones. Se puede repartir el grupo: lo de abajo, pasando bajo el arco, es lo más espectacular." },
+            { "title": "Aparcar", "text": "A la entrada del pueblo, en la parte alta. Desde ahí todo se hace a pie." }
           ]
         },
         {
           "id": "despedida",
           "kind": "despedida",
           "name": "Fin del fin de semana",
-          "time": "Después de comer",
-          "intro": "Desde aquí, cada familia empieza su camino de vuelta."
+          "time": "Media tarde",
+          "intro": "Merienda junto al río, foto de grupo bajo el arco y cada familia empieza su camino de vuelta. Repostad en Villarcayo antes de coger la autovía."
         }
       ]
     }
@@ -205,6 +262,9 @@ window.TRIP_DATA = {
     "packing": [
       "Calzado cómodo",
       "Sudadera / chaqueta fina",
+      "Chaqueta para la cueva",
+      "Mochila de porteo",
+      "Carrito (solo para Puentedey)",
       "Agua",
       "Crema solar",
       "Gorras",
@@ -214,26 +274,34 @@ window.TRIP_DATA = {
       "Escarpines",
       "Muda para las niñas",
       "Algo de picoteo",
-      "Mochila de porteo si resulta útil para la pequeña"
+      "Justificante de las entradas de la cueva"
     ],
     "reservas": [
-      "Cueva-ermita de San Bernabé (Ojo Guareña): horario y reserva pendientes de confirmar.",
+      "Cueva-ermita de San Bernabé: pase del domingo 13 a las 11:30 ya pagado, 34,00 € (4 generales a 6 €, 2 juveniles a 5 € y la pequeña gratis).",
+      "Estar en la taquilla de la cueva sobre las 11:00, media hora antes del pase.",
       "Comida del sábado en Frías: llamar para asegurar mesa para 7.",
-      "Comida del domingo: sin restaurante elegido todavía."
+      "Comida del domingo en Puentedey: hay muy pocas mesas, llamar con antelación a La Cucaña o La Montañesa.",
+      "Confirmar con el hotel la hora del desayuno del domingo: hay que salir a las 09:45."
     ],
     "bano": [
       "La opción es el río Nela, en Puentedey, y se decide allí mismo.",
       "Comprobar temperatura, caudal, estado del río y señalización antes de entrar.",
       "El agua puede estar fría, sobre todo por la mañana.",
+      "En la cascada de Pedrosa hay poza, pero en septiembre baja poca agua y la roca resbala.",
       "En Tobera no está previsto bañarse."
     ],
     "emergencias": [
-      { "label": "Emergencias", "value": "112", "tel": "112" }
+      { "label": "Emergencias", "value": "112", "tel": "112" },
+      { "label": "Hotel La Torre de Bisjueces", "value": "656 74 17 92", "tel": "+34656741792" },
+      { "label": "Cuevas de Ojo Guareña", "value": "645 490 288", "tel": "+34645490288" },
+      { "label": "Turismo de Frías", "value": "947 358 011", "tel": "+34947358011" }
     ],
     "notas": [
-      "Los horarios son orientativos: la idea es no ir con prisa.",
-      "La cobertura falla en cañones y valles; la guía funciona sin conexión.",
-      "El teléfono del hotel no está en la app porque no lo tenemos confirmado."
+      "Los horarios son orientativos salvo el pase de la cueva: ese sí es a las 11:30.",
+      "La cobertura falla en el valle del Nela, en Tobera y en el entorno del Monumento Natural; la guía funciona sin conexión, pero abrid la ruta en Maps antes de bajar al cañón.",
+      "Si llueve: el castillo de Frías y la cueva son planes de interior. Las pasarelas de Tobera y la roca de la cascada de Pedrosa se ponen resbaladizas.",
+      "Las coordenadas de bares y aparcamientos llevan al punto, no al portal exacto.",
+      "Precios y horarios comprobados el 11/09/2026: confirmad por teléfono antes de salir."
     ]
   }
 };
