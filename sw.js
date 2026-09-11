@@ -9,7 +9,7 @@
    - Estilos, imágenes e iconos: CACHÉ PRIMERO, revalidando en segundo plano.
    - Todo lo externo (Google Maps) va directo a la red y nunca se cachea. */
 
-const CACHE = 'merindades-v12';
+const CACHE = 'merindades-v13';
 
 const CORE = [
   './',

@@ -42,6 +42,11 @@
 
 * { box-sizing: border-box; }
 
+/* El atributo hidden gana siempre: cualquier componente con su propio
+   display (flex, grid) lo pisaría, y entonces no hay forma de ocultarlo
+   desde JS. */
+[hidden] { display: none !important; }
+
 html { -webkit-text-size-adjust: 100%; }
 
 body {

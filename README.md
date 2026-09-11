@@ -63,7 +63,7 @@ y coordenadas. Los horarios son deliberadamente orientativos
 (`10:30 aprox.`, `Después de comer`, `Según reserva`).
 
 Al publicar cambios, **sube la versión de caché** en `sw.js`
-(`merindades-v12` → `v13`) y el `?v=12` de `index.html`, para que los móviles
+(`merindades-v13` → `v14`) y el `?v=13` de `index.html`, para que los móviles
 que ya tengan la app instalada recojan la versión nueva.
 
 ## Publicar

@@ -455,13 +455,17 @@
 
     var cta = $('#install-bar-cta');
     if (prompt) {
+      /* Chrome y derivados: el navegador nos deja lanzar su propio diálogo. */
       cta.hidden = false;
-      bar.hidden = false;
-    } else if (esIOS()) {
-      txt('#install-bar-txt', 'Añádela a la pantalla de inicio: Compartir → «Añadir a inicio».');
+    } else {
+      /* Safari, Firefox y compañía no ofrecen ese diálogo: solo cabe explicar
+         dónde está la opción en cada sitio. */
       cta.hidden = true;
-      bar.hidden = false;
+      txt('#install-bar-txt', esIOS()
+        ? 'Para tenerla sin cobertura: Compartir → «Añadir a inicio».'
+        : 'Para tenerla sin cobertura: menú del navegador → «Instalar app».');
     }
+    bar.hidden = false;
   }
 
   window.addEventListener('beforeinstallprompt', function (e) {
