@@ -8,7 +8,7 @@ window.TRIP_DATA = {
   "trip": {
     "title": "Las Merindades en Familia",
     "dates": "12 - 13 septiembre 2026",
-    "places": "Tobalina · Frías · Ojo Guareña · Puentedey",
+    "places": "Tobera · Frías · Ojo Guareña · Puentedey",
     "group": "2 parejas y 3 niñas (9, 7 y 3 años)",
     "hero": "assets/images/hero.svg",
     "hotel": {
@@ -24,7 +24,7 @@ window.TRIP_DATA = {
       { "label": "Ruta a Valladolid", "query": "Valladolid" }
     ],
     "weatherSpots": [
-      { "id": "frias",     "label": "Tobalina / Frías",        "date": "2026-09-12", "lat": 42.7631, "lng": -3.2972 },
+      { "id": "frias",     "label": "Tobera / Frías",          "date": "2026-09-12", "lat": 42.7631, "lng": -3.2972 },
       { "id": "puentedey", "label": "Ojo Guareña / Puentedey", "date": "2026-09-13", "lat": 42.9756, "lng": -3.6853 }
     ]
   },
@@ -34,59 +34,26 @@ window.TRIP_DATA = {
       "id": "day-1",
       "tab": "Sábado",
       "date": "Sábado 12 de septiembre",
-      "title": "Tobalina y Frías",
-      "intro": "Nos juntamos por la mañana en el valle de Tobalina, vemos la cascada, paramos en Tobera y llegamos a Frías para comer y pasar allí toda la tarde. Dormimos en Bisjueces.",
+      "title": "Tobera y Frías",
+      "intro": "Nos juntamos en Tobera por la mañana, paseamos por el desfiladero y bajamos a Frías a comer y a pasar allí toda la tarde. Dormimos en Bisjueces.",
       "weatherSpot": "frias",
       "route": {
         "label": "Ruta del sábado",
-        "steps": ["Quintana", "Cascada", "Tobera", "Frías", "Hotel"],
-        "origin": "42.7707,-3.2205",
-        "waypoints": ["42.7876,-3.1957", "42.7561,-3.3105", "42.7631,-3.2972"],
+        "steps": ["Tobera", "Frías", "Hotel"],
+        "origin": "42.7561,-3.3105",
+        "waypoints": ["42.7631,-3.2972"],
         "destination": "42.8931,-3.5694"
       },
       "stops": [
-        {
-          "id": "encuentro",
-          "kind": "encuentro",
-          "name": "Nos juntamos en Quintana Martín Galíndez",
-          "time": "10:00 aprox.",
-          "intro": "Punto de reunión de los coches: es la capital del valle de Tobalina y la única con bares, aseos y aparcamiento fácil. Café, estirar las piernas y repartir a las niñas.",
-          "mapLabel": "Ir al punto de encuentro",
-          "lat": 42.7707,
-          "lng": -3.2205
-        },
-        {
-          "id": "tobalina",
-          "kind": "destino",
-          "name": "Cascada de Pedrosa de Tobalina",
-          "subtitle": "El mini paseo por el valle",
-          "image": "assets/images/tobalina.svg",
-          "time": "10:45 aprox.",
-          "duration": "1 h",
-          "intro": "El río Jerea se despeña unos 12 metros sobre una plataforma de roca de casi 100 metros de ancho, con una poza de agua verde debajo. A 10 minutos en coche del punto de encuentro.",
-          "highlights": [
-            "Salto del Peñón",
-            "Poza del Jerea",
-            "Merendero junto al río",
-            "Aparcamiento a pie de cascada"
-          ],
-          "tags": ["🥾 Terreno mixto", "⚠️ Roca resbaladiza", "🚼 Porteo en la bajada"],
-          "lat": 42.7876,
-          "lng": -3.1957,
-          "details": [
-            { "title": "Con las niñas", "text": "La roca junto al agua resbala bastante. De la mano a las mayores y la pequeña en la mochila mientras se baja al nivel del río." },
-            { "title": "En septiembre", "text": "Baja poco caudal: no esperéis la cortina de agua de las fotos de primavera, pero el entorno y la poza siguen mereciendo la parada." },
-            { "title": "Si sobra tiempo", "text": "A siete minutos, en Lomana, queda la torre de los Bonifaz (s. XV). Quince minutos y cierra el paseo por Tobalina.", "map": { "lat": 42.7790, "lng": -3.2350, "label": "Ir a la torre de los Bonifaz" } }
-          ]
-        },
         {
           "id": "tobera",
           "kind": "destino",
           "name": "Tobera",
           "image": "assets/images/tobera.svg",
-          "time": "12:00 aprox.",
-          "duration": "1 - 1,5 h",
-          "intro": "Un desfiladero pequeño con cascadas, puentes y sombra, a cinco minutos de Frías. Paseo de media mañana y, al acabar, se baja a comer.",
+          "subtitle": "Aquí nos juntamos",
+          "time": "10:30 aprox.",
+          "duration": "1,5 - 2 h",
+          "intro": "Punto de encuentro del fin de semana. Un desfiladero pequeño con cascadas, puentes y sombra, a cinco minutos de Frías: se aparca arriba, junto a la carretera, y se baja andando.",
           "highlights": [
             "Ermita de Santa María de la Hoz",
             "Puente medieval",
@@ -97,15 +64,16 @@ window.TRIP_DATA = {
           "lat": 42.7561,
           "lng": -3.3105,
           "details": [
-            { "title": "Con las niñas", "text": "Paseo corto y muy agradecido. Hay escalones y pasarelas de madera: la pequeña de la mano o en porteo." }
+            { "title": "Con las niñas", "text": "Paseo corto y muy agradecido. Hay escalones y pasarelas de madera: la pequeña de la mano o en porteo." },
+            { "title": "Si alguien llega tarde", "text": "Que espere arriba, en el aparcamiento junto a la carretera: abajo, en el desfiladero, la cobertura va y viene." }
           ]
         },
         {
           "id": "comida-sabado",
           "kind": "comida",
           "name": "Comer en Frías",
-          "time": "13:45 - 14:00",
-          "intro": "Llegamos de Tobera con hambre. Somos 7 y es sábado de septiembre: conviene llamar antes para asegurar mesa.",
+          "time": "13:30 - 14:00",
+          "intro": "De Tobera a Frías hay cinco minutos, así que da tiempo a un primer paseo por el pueblo antes de sentarse. Somos 7 y es sábado de septiembre: conviene llamar antes para asegurar mesa.",
           "options": [
             { "name": "Ortiz Bar Restaurante", "note": "Primera opción · reservar para 7", "phone": "947 35 70 67", "tel": "+34947357067", "query": "Ortiz Bar Restaurante Frías Burgos" },
             { "name": "Mesón Fridas", "note": "C/ Mercado 10, bajo el castillo · menú de fin de semana ~25 €", "phone": "947 35 72 43", "tel": "+34947357243", "query": "Mesón Fridas Frías Burgos" },
@@ -287,7 +255,6 @@ window.TRIP_DATA = {
       "La opción es el río Nela, en Puentedey, y se decide allí mismo.",
       "Comprobar temperatura, caudal, estado del río y señalización antes de entrar.",
       "El agua puede estar fría, sobre todo por la mañana.",
-      "En la cascada de Pedrosa hay poza, pero en septiembre baja poca agua y la roca resbala.",
       "En Tobera no está previsto bañarse."
     ],
     "emergencias": [
@@ -299,7 +266,7 @@ window.TRIP_DATA = {
     "notas": [
       "Los horarios son orientativos salvo el pase de la cueva: ese sí es a las 11:30.",
       "La cobertura falla en el valle del Nela, en Tobera y en el entorno del Monumento Natural; la guía funciona sin conexión, pero abrid la ruta en Maps antes de bajar al cañón.",
-      "Si llueve: el castillo de Frías y la cueva son planes de interior. Las pasarelas de Tobera y la roca de la cascada de Pedrosa se ponen resbaladizas.",
+      "Si llueve: el castillo de Frías y la cueva son planes de interior. Las pasarelas de Tobera se ponen resbaladizas.",
       "Las coordenadas de bares y aparcamientos llevan al punto, no al portal exacto.",
       "Precios y horarios comprobados el 11/09/2026: confirmad por teléfono antes de salir."
     ]
