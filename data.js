@@ -8,7 +8,7 @@ window.TRIP_DATA = {
   "trip": {
     "title": "Las Merindades en Familia",
     "dates": "12 - 13 septiembre 2026",
-    "places": "Tobera · Frías · Ojo Guareña · Puentedey",
+    "places": "Frías · Tobera · Tobalina · Ojo Guareña · Puentedey",
     "group": "2 parejas y 3 niñas (9, 7 y 3 años)",
     "hero": "assets/images/hero.svg",
     "hotel": {
@@ -34,62 +34,26 @@ window.TRIP_DATA = {
       "id": "day-1",
       "tab": "Sábado",
       "date": "Sábado 12 de septiembre",
-      "title": "Tobera y Frías",
-      "intro": "Nos juntamos en Tobera por la mañana, paseamos por el desfiladero y bajamos a Frías a comer y a pasar allí toda la tarde. Dormimos en Bisjueces.",
+      "title": "Frías, Tobera y Tobalina",
+      "intro": "Quedamos en Frías, mañana entre el pueblo y Tobera, y comemos allí. La tarde se decide sobre la marcha: Tobalina si apetece baño, o más Frías sin prisa. Dormimos en Bisjueces.",
       "weatherSpot": "frias",
       "route": {
         "label": "Ruta del sábado",
-        "steps": ["Tobera", "Frías", "Hotel"],
-        "origin": "42.7561,-3.3105",
-        "waypoints": ["42.7631,-3.2972"],
+        "steps": ["Frías", "Tobera", "Tobalina", "Hotel"],
+        "origin": "42.7631,-3.2972",
+        "waypoints": ["42.7561,-3.3105", "42.7876,-3.1957"],
         "destination": "42.8931,-3.5694"
       },
       "stops": [
         {
-          "id": "tobera",
-          "kind": "destino",
-          "name": "Tobera",
-          "image": "assets/images/tobera.svg",
-          "subtitle": "Aquí nos juntamos",
-          "time": "10:30 aprox.",
-          "duration": "1,5 - 2 h",
-          "intro": "Punto de encuentro del fin de semana. Un desfiladero pequeño con cascadas, puentes y sombra, a cinco minutos de Frías: se aparca arriba, junto a la carretera, y se baja andando.",
-          "highlights": [
-            "Ermita de Santa María de la Hoz",
-            "Puente medieval",
-            "Cascadas",
-            "Paseo junto al río Molinar"
-          ],
-          "tags": ["👧 Fácil con niñas", "🥾 Pasarelas y escalones"],
-          "lat": 42.7561,
-          "lng": -3.3105,
-          "details": [
-            { "title": "Con las niñas", "text": "Paseo corto y muy agradecido. Hay escalones y pasarelas de madera: la pequeña de la mano o en porteo." },
-            { "title": "Si alguien llega tarde", "text": "Que espere arriba, en el aparcamiento junto a la carretera: abajo, en el desfiladero, la cobertura va y viene." }
-          ]
-        },
-        {
-          "id": "comida-sabado",
-          "kind": "comida",
-          "name": "Comer en Frías",
-          "time": "13:30 - 14:00",
-          "intro": "De Tobera a Frías hay cinco minutos, así que da tiempo a un primer paseo por el pueblo antes de sentarse. Somos 7 y es sábado de septiembre: conviene llamar antes para asegurar mesa.",
-          "options": [
-            { "name": "Ortiz Bar Restaurante", "note": "Primera opción · reservar para 7", "phone": "947 35 70 67", "tel": "+34947357067", "query": "Ortiz Bar Restaurante Frías Burgos" },
-            { "name": "Mesón Fridas", "note": "C/ Mercado 10, bajo el castillo · menú de fin de semana ~25 €", "phone": "947 35 72 43", "tel": "+34947357243", "query": "Mesón Fridas Frías Burgos" },
-            { "name": "Restaurante El Albergue", "note": "Junto al puente medieval · local amplio y aparcamiento propio", "phone": "627 63 50 60", "tel": "+34627635060", "query": "Restaurante El Albergue Frías Burgos" },
-            { "name": "Restaurante A Fuego Lento", "phone": "651 90 76 06", "tel": "+34651907606", "query": "Restaurante A Fuego Lento Frías Burgos" }
-          ]
-        },
-        {
           "id": "frias",
           "kind": "destino",
           "name": "Frías",
-          "subtitle": "Toda la tarde aquí",
+          "subtitle": "Aquí quedamos · mañana y lo que quede de tarde",
           "image": "assets/images/frias.svg",
-          "time": "Después de comer",
-          "duration": "3 h",
-          "intro": "La villa más pequeña de España, colgada sobre la peña de toba. Sin agenda: paseo, miradores y lo que apetezca.",
+          "time": "10:30 aprox.",
+          "duration": "2 h + tarde",
+          "intro": "Punto de encuentro del fin de semana y centro del día. La villa más pequeña de España, colgada sobre la peña de toba. Sin agenda: paseo, miradores y lo que apetezca.",
           "highlights": [
             "Castillo de los Velasco",
             "Casco medieval",
@@ -101,9 +65,75 @@ window.TRIP_DATA = {
           "lat": 42.7631,
           "lng": -3.2972,
           "details": [
+            { "title": "Aparcar y quedar", "text": "Se aparca en la parte baja de la villa, que el casco es empinado y estrecho, y desde ahí ya todo a pie." },
             { "title": "Con las niñas", "text": "Calles empinadas y empedradas: mejor de la mano, y la pequeña en porteo en las cuestas. El carrito se queda en el coche." },
-            { "title": "Castillo", "text": "Entrada 2 €, se saca en la oficina de turismo a pie de castillo (947 358 011). Por la tarde abre de 16:00 a 19:30 y el último acceso es media hora antes del cierre." },
+            { "title": "Castillo", "text": "Entrada 2 €, se saca en la oficina de turismo a pie de castillo (947 358 011). Abre de 10:30 a 14:00 y de 16:00 a 19:30, con el último acceso media hora antes de cada cierre: entra bien por la mañana antes de Tobera." },
             { "title": "El puente del Ebro", "text": "Queda algo apartado del casco, junto al río y con aparcamiento fácil. Entorno llano para estirar las piernas.", "map": { "lat": 42.7697, "lng": -3.2878, "label": "Ir al puente medieval" } }
+          ]
+        },
+        {
+          "id": "tobera",
+          "kind": "destino",
+          "name": "Tobera",
+          "image": "assets/images/tobera.svg",
+          "subtitle": "A cinco minutos de Frías",
+          "time": "11:45 aprox.",
+          "duration": "1 - 1,5 h",
+          "intro": "Un desfiladero pequeño con cascadas, puentes y sombra. Se aparca arriba, junto a la carretera, y se baja andando. Al acabar, de vuelta a Frías a comer.",
+          "highlights": [
+            "Ermita de Santa María de la Hoz",
+            "Puente medieval",
+            "Cascadas",
+            "Paseo junto al río Molinar"
+          ],
+          "tags": ["👧 Fácil con niñas", "🥾 Pasarelas y escalones"],
+          "lat": 42.7561,
+          "lng": -3.3105,
+          "details": [
+            { "title": "Con las niñas", "text": "Paseo corto y muy agradecido. Hay escalones y pasarelas de madera: la pequeña de la mano o en porteo." },
+            { "title": "Cobertura", "text": "Abajo, en el desfiladero, la cobertura va y viene. Si el grupo se separa, quedad arriba en el aparcamiento." }
+          ]
+        },
+        {
+          "id": "comida-sabado",
+          "kind": "comida",
+          "name": "Comer en Frías",
+          "time": "13:30 - 14:00",
+          "intro": "Volvemos de Tobera, que está a cinco minutos. Somos 7 y es sábado de septiembre: conviene llamar antes para asegurar mesa.",
+          "options": [
+            { "name": "Ortiz Bar Restaurante", "note": "Primera opción · reservar para 7", "phone": "947 35 70 67", "tel": "+34947357067", "query": "Ortiz Bar Restaurante Frías Burgos" },
+            { "name": "Mesón Fridas", "note": "C/ Mercado 10, bajo el castillo · menú de fin de semana ~25 €", "phone": "947 35 72 43", "tel": "+34947357243", "query": "Mesón Fridas Frías Burgos" },
+            { "name": "Restaurante El Albergue", "note": "Junto al puente medieval · local amplio y aparcamiento propio", "phone": "627 63 50 60", "tel": "+34627635060", "query": "Restaurante El Albergue Frías Burgos" },
+            { "name": "Restaurante A Fuego Lento", "phone": "651 90 76 06", "tel": "+34651907606", "query": "Restaurante A Fuego Lento Frías Burgos" }
+          ]
+        },
+        {
+          "id": "tobalina",
+          "kind": "destino",
+          "name": "Cascada de Pedrosa de Tobalina",
+          "subtitle": "Tarde opcional · lo decidimos en la comida",
+          "image": "assets/images/tobalina.svg",
+          "time": "Media tarde, si apetece",
+          "duration": "1,5 - 2 h",
+          "intro": "El río Jerea se despeña unos 12 metros sobre una plataforma de roca de casi 100 metros de ancho, con una poza debajo que es zona de baño. A 25 minutos de Frías, al otro lado del valle.",
+          "highlights": [
+            "Salto del Peñón",
+            "Poza del Jerea",
+            "Merendero junto al río",
+            "Aparcamiento a pie de cascada"
+          ],
+          "tags": ["🏊 Zona de baño", "⚠️ Roca resbaladiza", "🚗 25 min desde Frías"],
+          "lat": 42.7876,
+          "lng": -3.1957,
+          "swim": {
+            "title": "El baño del sábado, si el día acompaña",
+            "text": "La poza al pie de la cascada es zona de baño. Se decide allí mismo según temperatura, caudal y señalización: en septiembre el Jerea baja con poca agua y fría.",
+            "pack": ["Bañadores", "Toallas", "Escarpines", "Muda para las niñas"]
+          },
+          "details": [
+            { "title": "Con las niñas", "text": "La roca junto al agua resbala bastante. De la mano a las mayores y la pequeña en la mochila mientras se baja al nivel del río." },
+            { "title": "Lo que cuesta", "text": "Suma unos 50 km al día: 25 minutos desde Frías y hora y cuarto larga desde la cascada hasta Bisjueces. Si el grupo viene cansado, mejor tarde tranquila en Frías." },
+            { "title": "Si sobra tiempo", "text": "A siete minutos, en Lomana, queda la torre de los Bonifaz (s. XV).", "map": { "lat": 42.7790, "lng": -3.2350, "label": "Ir a la torre de los Bonifaz" } }
           ]
         },
         {
@@ -111,7 +141,7 @@ window.TRIP_DATA = {
           "kind": "descanso",
           "name": "A Bisjueces",
           "time": "Tarde / noche",
-          "intro": "De Frías al hotel hay unos 50 km, cerca de una hora por Trespaderne y Villarcayo. Villarcayo queda de paso a 8 minutos: última oportunidad para supermercado o farmacia. Cena y el resto del día juntos, que era de lo que se trataba.",
+          "intro": "Desde Frías al hotel hay unos 50 km y cerca de una hora por Trespaderne y Villarcayo; si al final vais a la cascada, contad hora y cuarto largo desde allí. Villarcayo queda de paso a 8 minutos: última oportunidad para supermercado o farmacia. Cena y el resto del día juntos, que era de lo que se trataba.",
           "mapLabel": "Ir al hotel",
           "lat": 42.8931,
           "lng": -3.5694
@@ -252,7 +282,7 @@ window.TRIP_DATA = {
       "Confirmar con el hotel la hora del desayuno del domingo: hay que salir a las 09:45."
     ],
     "bano": [
-      "La opción es el río Nela, en Puentedey, y se decide allí mismo.",
+      "Dos opciones, las dos se deciden allí mismo: la poza del Jerea al pie de la cascada de Pedrosa (sábado por la tarde) y el río Nela en Puentedey (domingo).",
       "Comprobar temperatura, caudal, estado del río y señalización antes de entrar.",
       "El agua puede estar fría, sobre todo por la mañana.",
       "En Tobera no está previsto bañarse."
@@ -265,6 +295,7 @@ window.TRIP_DATA = {
     ],
     "notas": [
       "Los horarios son orientativos salvo el pase de la cueva: ese sí es a las 11:30.",
+      "La tarde del sábado es abierta: en la comida se decide si se va a la cascada de Pedrosa o si el plan es Frías sin prisa.",
       "La cobertura falla en el valle del Nela, en Tobera y en el entorno del Monumento Natural; la guía funciona sin conexión, pero abrid la ruta en Maps antes de bajar al cañón.",
       "Si llueve: el castillo de Frías y la cueva son planes de interior. Las pasarelas de Tobera se ponen resbaladizas.",
       "Las coordenadas de bares y aparcamientos llevan al punto, no al portal exacto.",
