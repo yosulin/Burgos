@@ -3,21 +3,19 @@
    una versión nueva, el Service Worker antiguo ya instalado en un móvil no
    puede servir el script viejo desde su caché y se descarga el nuevo. Las
    comparaciones de caché ignoran esa query (ignoreSearch).
-   - Datos y código (data.js, app.js, weather.js, index.html): RED PRIMERO,
+   - Datos y código (data.js, app.js, index.html): RED PRIMERO,
      para que una actualización se vea en cuanto haya cobertura, con la
      copia en caché como respaldo inmediato si no hay red.
    - Estilos, imágenes e iconos: CACHÉ PRIMERO, revalidando en segundo plano.
-   - Todo lo externo (Open-Meteo, Google Maps) va directo a la red y nunca
-     se cachea: la previsión no forma parte del arranque. */
+   - Todo lo externo (Google Maps) va directo a la red y nunca se cachea. */
 
-const CACHE = 'merindades-v8';
+const CACHE = 'merindades-v9';
 
 const CORE = [
   './',
   './index.html',
   './styles.css',
   './data.js',
-  './weather.js',
   './app.js',
   './manifest.json',
   './assets/images/hero.svg',
@@ -34,7 +32,7 @@ const CORE = [
 ];
 
 /* Ficheros que deben actualizarse en cuanto haya conexión. */
-const FRESH = ['/data.js', '/app.js', '/weather.js', '/index.html', '/styles.css'];
+const FRESH = ['/data.js', '/app.js', '/index.html', '/styles.css'];
 
 const esCritico = (url) =>
   url.pathname === '/' || FRESH.some((f) => url.pathname.endsWith(f));

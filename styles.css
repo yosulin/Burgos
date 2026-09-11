@@ -87,18 +87,6 @@ button { font: inherit; }
 .hero h1 { font-size: clamp(28px, 8vw, 38px); line-height: 1.08; text-wrap: balance; }
 .hero__places { margin-top: 8px; color: var(--ink-soft); font-size: 14.5px; }
 
-/* Accesos rápidos de portada */
-.quick { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 18px 0 4px; }
-.quick a, .quick button {
-  background: var(--paper); border: 1px solid var(--line); border-radius: var(--r-md);
-  padding: 12px 6px 11px; text-align: center; cursor: pointer;
-  box-shadow: var(--shadow-soft); transition: transform .12s ease;
-  display: flex; flex-direction: column; align-items: center; gap: 4px;
-}
-.quick a:active, .quick button:active { transform: scale(.97); }
-.quick .ico { font-size: 19px; line-height: 1; }
-.quick .lbl { font-size: 12.5px; font-weight: 600; color: var(--ink-soft); }
-
 /* ---------------------------------------------------------
    Pestañas de día
    --------------------------------------------------------- */
@@ -123,33 +111,6 @@ button { font: inherit; }
 }
 .day__title { font-size: 26px; margin-top: 4px; }
 .day__intro { margin-top: 6px; color: var(--ink-soft); font-size: 15px; }
-
-/* Tiempo — integrado, no sección técnica */
-.weather {
-  display: block;
-  background: var(--water-soft); border-radius: var(--r-lg); padding: 14px 16px;
-}
-.weather__row { display: flex; align-items: center; gap: 14px; }
-.weather__icon { font-size: 32px; line-height: 1; }
-.weather__state { font-weight: 700; font-size: 15px; }
-.weather__meta { font-size: 12.5px; color: var(--ink-soft); margin-top: 1px; }
-.weather__temps { margin-left: auto; text-align: right; font-variant-numeric: tabular-nums; }
-.weather__max { font-size: 21px; font-weight: 700; font-family: var(--font-display); }
-.weather__min { font-size: 13px; color: var(--ink-soft); }
-.weather__rain { font-size: 12.5px; color: var(--water); font-weight: 600; }
-.weather__stamp { font-size: 11.5px; color: var(--ink-faint); margin-top: 8px; }
-.weather--empty { display: flex; align-items: center; gap: 10px; color: var(--ink-faint); font-size: 14px; }
-.weather__swim {
-  margin-top: 10px; font-size: 13.5px; color: #285063;
-  background: #FFFFFFAA; border-radius: var(--r-sm); padding: 9px 11px;
-}
-
-/* Ruta del día */
-.route { background: var(--cream-2); border-radius: var(--r-lg); padding: 15px 16px; }
-.route__label { font-size: 11.5px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--forest); }
-.route__steps { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 8px 0 12px; }
-.route__step { font-size: 13.5px; font-weight: 600; }
-.route__arrow { color: var(--ink-faint); font-size: 13px; }
 
 /* ---------------------------------------------------------
    Tarjeta de destino
@@ -301,27 +262,6 @@ button { font: inherit; }
   background: var(--cream); border-radius: var(--r-sm); padding: 12px 14px;
 }
 .phone-row b { color: var(--terra); font-variant-numeric: tabular-nums; white-space: nowrap; }
-
-/* ---------------------------------------------------------
-   Barra inferior (aparece al dejar la portada)
-   --------------------------------------------------------- */
-.bottombar {
-  position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
-  padding: 10px 14px calc(10px + var(--safe-b));
-  background: rgba(251,247,240,.94); backdrop-filter: blur(10px);
-  border-top: 1px solid var(--line);
-  transform: translateY(110%); transition: transform .25s ease;
-}
-.bottombar.show { transform: none; }
-.bottombar button, .bottombar a {
-  background: transparent; border: 0; cursor: pointer;
-  display: flex; flex-direction: column; align-items: center; gap: 3px;
-  padding: 6px 4px; border-radius: var(--r-sm); color: var(--ink-soft);
-}
-.bottombar .ico { font-size: 19px; line-height: 1; }
-.bottombar .lbl { font-size: 11.5px; font-weight: 600; }
-.bottombar [aria-current="true"] { color: var(--forest); }
 
 /* ---------------------------------------------------------
    Varios

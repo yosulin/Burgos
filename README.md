@@ -14,15 +14,13 @@ Base del viaje: **Hotel Rural La Torre de Bisjueces** (C. San Juan 58, Bisjueces
 
 ## Qué hace
 
-- **Portada** con el viaje de un vistazo y accesos a ruta, tiempo y hotel.
+- **Portada** con el viaje de un vistazo.
 - **Plano** del fin de semana en la pestaña Info: los seis puntos en su posición
   real, coloreados por día, con tiempos en coche y escala.
 - **Tarjeta grande por destino:** ilustración, duración, horario orientativo,
   qué ver y botón a Maps. Lo secundario se despliega con *Ver detalles*.
 - **Comer** en tarjeta propia, con botones de llamar y Maps por restaurante.
-- **Tiempo** de Open-Meteo (sin API key ni servidor), integrado en cada día.
-- **Rutas completas** del sábado y del domingo en un solo enlace de Maps,
-  y rutas de regreso a Donostia y a Valladolid.
+- **Rutas de regreso** a Donostia y a Valladolid.
 - **Offline:** una vez abierta con conexión funciona sin cobertura.
 - **Instalable** en el móvil, con checklist de visitas y de equipaje guardados
   en el propio dispositivo.
@@ -30,10 +28,9 @@ Base del viaje: **Hotel Rural La Torre de Bisjueces** (C. San Juan 58, Bisjueces
 ## Estructura
 
 ```
-index.html          Shell: portada, pestañas, barra inferior
+index.html          Shell: portada y pestañas
 app.js              Render de días, tarjetas, info y PWA
 data.js             ⬅️ Todo el contenido del viaje (editar aquí)
-weather.js          Previsión Open-Meteo + caché offline
 styles.css          Sistema visual (tokens propios, sin framework)
 sw.js               Service Worker
 manifest.json       Manifiesto PWA
@@ -62,7 +59,7 @@ y coordenadas. Los horarios son deliberadamente orientativos
 (`10:30 aprox.`, `Después de comer`, `Según reserva`).
 
 Al publicar cambios, **sube la versión de caché** en `sw.js`
-(`merindades-v8` → `v9`) y el `?v=8` de `index.html`, para que los móviles
+(`merindades-v9` → `v10`) y el `?v=9` de `index.html`, para que los móviles
 que ya tengan la app instalada recojan la versión nueva.
 
 ## Publicar

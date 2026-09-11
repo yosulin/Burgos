@@ -7,8 +7,6 @@
   var K_PACK = 'merindades-2026:equipaje';
   var K_TAB  = 'merindades-2026:pestana';
 
-  var SWIM_TEMP = 24;   /* °C mínimos para sugerir bañador */
-  var SWIM_RAIN = 30;   /* % máximo de probabilidad de lluvia */
 
   /* ---------- utilidades ---------- */
 
@@ -50,13 +48,6 @@
   function mapsPlace(query) {
     return 'https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent(query);
   }
-  function mapsRoute(r) {
-    var u = 'https://www.google.com/maps/dir/?api=1&origin=' + encodeURIComponent(r.origin) +
-            '&destination=' + encodeURIComponent(r.destination) + '&travelmode=driving';
-    if (r.waypoints && r.waypoints.length) u += '&waypoints=' + encodeURIComponent(r.waypoints.join('|'));
-    return u;
-  }
-
   /* ---------- almacenamiento ---------- */
 
   function load(key) {
@@ -86,47 +77,6 @@
     t.hidden = false;
     clearTimeout(toastTimer);
     toastTimer = setTimeout(function () { t.hidden = true; }, 2000);
-  }
-
-  /* ---------- tiempo ---------- */
-
-  var clima = window.Weather ? window.Weather.get() : null;
-
-  function prevision(spotId) {
-    return clima && clima.spots ? clima.spots[spotId] : null;
-  }
-
-  function buenDiaDeBano(f) {
-    return !!f && typeof f.max === 'number' && f.max >= SWIM_TEMP &&
-           (typeof f.rain !== 'number' || f.rain <= SWIM_RAIN);
-  }
-
-  function weatherHtml(spotId, sugerirBano) {
-    var f = prevision(spotId);
-    if (!f) {
-      return '<section class="weather weather--empty" id="weather"><span>🌡️</span>' +
-             '<span>Previsión no disponible</span></section>';
-    }
-    var d = window.Weather.describe(f.code);
-    var viento = (typeof f.wind === 'number' && f.wind >= 25)
-      ? ' · 💨 ' + Math.round(f.wind) + ' km/h' : '';
-    var bano = (sugerirBano && buenDiaDeBano(f))
-      ? '<p class="weather__swim">🏊 Puede ser buen día para llevar bañador.</p>' : '';
-
-    return '<section class="weather" id="weather">' +
-      '<div class="weather__row">' +
-        '<span class="weather__icon" aria-hidden="true">' + d[0] + '</span>' +
-        '<div><p class="weather__state">' + esc(d[1]) + '</p>' +
-        '<p class="weather__meta">' + esc(f.label) + viento + '</p></div>' +
-        '<div class="weather__temps">' +
-          '<p class="weather__max">' + Math.round(f.max) + '°<span class="weather__min"> / ' + Math.round(f.min) + '°</span></p>' +
-          '<p class="weather__rain">' + (typeof f.rain === 'number' ? f.rain + '% lluvia' : '—') + '</p>' +
-        '</div>' +
-      '</div>' + bano +
-      '<p class="weather__stamp">' +
-        (navigator.onLine ? 'Última actualización ' : 'Sin conexión · última actualización ') +
-        esc(window.Weather.updatedAt(clima)) + '</p>' +
-    '</section>';
   }
 
   /* ---------- piezas ---------- */
@@ -261,21 +211,6 @@
       '<p class="day__intro">' + esc(day.intro) + '</p>';
     frag.appendChild(head);
 
-    var w = document.createElement('div');
-    w.innerHTML = weatherHtml(day.weatherSpot, day.id === 'day-2');
-    frag.appendChild(w.firstChild);
-
-    var pasos = day.route.steps.map(function (s, i) {
-      return (i ? '<span class="route__arrow">→</span>' : '') + '<span class="route__step">' + esc(s) + '</span>';
-    }).join('');
-    var r = document.createElement('section');
-    r.className = 'route';
-    r.innerHTML =
-      '<p class="route__label">' + esc(day.route.label) + '</p>' +
-      '<div class="route__steps">' + pasos + '</div>' +
-      btn(mapsRoute(day.route), 'Abrir la ruta en Maps', 'btn--primary', ICON.pin);
-    frag.appendChild(r);
-
     day.stops.forEach(function (s) {
       if (s.kind === 'destino') frag.appendChild(stopDestino(s));
       else if (s.kind === 'comida') frag.appendChild(stopComida(s));
@@ -313,14 +248,9 @@
   }
 
   function renderInfo() {
-    var t = DATA.trip, info = DATA.info;
+    var info = DATA.info;
     var host = document.createElement('div');
     var html = '';
-
-    html += acc('🏨', 'Hotel',
-      '<p><b>' + esc(t.hotel.name) + '</b><br>' + esc(t.hotel.address) + '</p>' +
-      '<p>' + esc(t.group) + '</p>' +
-      btn(mapsTo(t.hotel.lat, t.hotel.lng), 'Cómo llegar al hotel', 'btn--primary', ICON.pin), true);
 
     html += acc('🗺', 'Mapa del fin de semana',
       '<figure class="mapfig">' +
@@ -328,10 +258,6 @@
         'Ojo Guareña y Puentedey el domingo, y el alojamiento en Bisjueces." loading="lazy" />' +
         '<figcaption>Los puntos están en su posición real; los tiempos son en coche.</figcaption>' +
       '</figure>', true);
-
-    html += acc('☀️', 'Tiempo',
-      t.weatherSpots.map(function (s) { return weatherHtml(s.id, false); }).join('') +
-      '<button class="btn btn--soft btn--small" type="button" id="weather-refresh">Actualizar previsión</button>');
 
     var rest = '';
     DATA.days.forEach(function (d) {
@@ -423,7 +349,6 @@
     try { localStorage.setItem(K_TAB, id); } catch (e) {}
     renderTabs();
     render();
-    actualizarAccesos();
     var holder = $('#tabs-holder');
     if (scroll !== false && holder) {
       window.scrollTo({ top: holder.offsetTop, behavior: 'smooth' });
@@ -437,21 +362,6 @@
     var t = TABS.filter(function (x) { return x.id === actual; })[0];
     main.appendChild(t && t.day ? renderDay(t.day) : renderInfo());
     montarInstalacion();
-  }
-
-  /* ---------- accesos rápidos ---------- */
-
-  function diaActivo() {
-    var t = TABS.filter(function (x) { return x.id === actual; })[0];
-    return (t && t.day) || DATA.days[0];
-  }
-
-  function actualizarAccesos() {
-    var d = diaActivo();
-    var url = mapsRoute(d.route);
-    var qr = $('#quick-route'); if (qr) qr.href = url;
-    var br = $('#bb-route'); if (br) br.href = url;
-    attr('#bb-info', 'aria-current', actual === 'info' ? 'true' : 'false');
   }
 
   /* ---------- interacciones (delegadas) ---------- */
@@ -496,31 +406,7 @@
       ab.setAttribute('aria-expanded', String(!open));
       return;
     }
-
-    if (e.target.closest('#weather-refresh')) {
-      if (!navigator.onLine) { toast('Sin conexión'); return; }
-      cargarClima().then(function () { toast('Previsión actualizada'); });
-    }
   });
-
-  var qw = $('#quick-weather');
-  if (qw) qw.addEventListener('click', function () {
-    if (actual === 'info') irA(DATA.days[0].id, false);
-    var w = $('#weather');
-    if (w) w.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  });
-
-  var bi = $('#bb-info');
-  if (bi) bi.addEventListener('click', function () { irA('info'); });
-
-  /* ---------- clima (nunca bloquea el arranque) ---------- */
-
-  function cargarClima() {
-    if (!window.Weather) return Promise.resolve();
-    return window.Weather.refresh(DATA.trip.weatherSpots).then(function (p) {
-      if (p) { clima = p; render(); }
-    }).catch(function () {});
-  }
 
   /* ---------- instalación ---------- */
 
@@ -547,20 +433,17 @@
     var c = $('#offline-chip');
     if (c) c.hidden = navigator.onLine;
   }
-  window.addEventListener('online', function () { estadoRed(); cargarClima(); });
+  window.addEventListener('online', estadoRed);
   window.addEventListener('offline', function () { estadoRed(); render(); });
 
-  /* ---------- barra inferior: solo fuera de la portada ---------- */
+  /* ---------- pestañas pegadas al salir de la portada ---------- */
 
   function observarPortada() {
-    var barra = $('#bottombar');
     var holder = $('#tabs-holder');
     var portada = $('.hero__body');
-    if (!barra || !holder || !portada) return;
-    if (!('IntersectionObserver' in window)) { barra.classList.add('show'); return; }
+    if (!holder || !portada || !('IntersectionObserver' in window)) return;
     new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {
-        barra.classList.toggle('show', !en.isIntersecting);
         holder.classList.toggle('stuck', !en.isIntersecting);
       });
     }, { rootMargin: '-1px 0px 0px 0px', threshold: 0 }).observe(portada);
@@ -591,13 +474,10 @@
     txt('#hero-dates', t.dates);
     txt('#hero-places', t.places);
     var hi = $('#hero-img'); if (hi) hi.src = t.hero;
-    var qh = $('#quick-hotel'); if (qh) qh.href = mapsTo(t.hotel.lat, t.hotel.lng);
-    var bh = $('#bb-hotel'); if (bh) bh.href = mapsTo(t.hotel.lat, t.hotel.lng);
     txt('#foot', t.hotel.name + ' · ' + t.group);
 
     renderTabs();
     render();
-    actualizarAccesos();
     estadoRed();
     observarPortada();
 
@@ -608,8 +488,6 @@
         });
       });
     }
-
-    cargarClima();
   }
 
   if (!DATA) {

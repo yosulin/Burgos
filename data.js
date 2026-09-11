@@ -23,10 +23,6 @@ window.TRIP_DATA = {
       { "label": "Ruta a Donostia", "query": "Donostia-San Sebastián" },
       { "label": "Ruta a Valladolid", "query": "Valladolid" }
     ],
-    "weatherSpots": [
-      { "id": "frias",     "label": "Tobera / Frías",          "date": "2026-09-12", "lat": 42.7631, "lng": -3.2972 },
-      { "id": "puentedey", "label": "Ojo Guareña / Puentedey", "date": "2026-09-13", "lat": 42.9756, "lng": -3.6853 }
-    ]
   },
 
   "days": [
@@ -36,14 +32,6 @@ window.TRIP_DATA = {
       "date": "Sábado 12 de septiembre",
       "title": "Frías, Tobera y Tobalina",
       "intro": "Quedamos en Frías, mañana entre el pueblo y Tobera, y comemos allí. La tarde se decide sobre la marcha: Tobalina si apetece baño, o más Frías sin prisa. Dormimos en Bisjueces.",
-      "weatherSpot": "frias",
-      "route": {
-        "label": "Ruta del sábado",
-        "steps": ["Frías", "Tobera", "Tobalina", "Hotel"],
-        "origin": "42.7631,-3.2972",
-        "waypoints": ["42.7561,-3.3105", "42.7876,-3.1957"],
-        "destination": "42.8931,-3.5694"
-      },
       "stops": [
         {
           "id": "frias",
@@ -155,14 +143,6 @@ window.TRIP_DATA = {
       "date": "Domingo 13 de septiembre",
       "title": "Ojo Guareña y Puentedey",
       "intro": "La cueva-ermita por la mañana, con pase reservado a las 11:30, y luego bajamos a Puentedey a comer y a despedirnos.",
-      "weatherSpot": "puentedey",
-      "route": {
-        "label": "Ruta del domingo",
-        "steps": ["Hotel", "Ojo Guareña", "Puentedey"],
-        "origin": "42.8931,-3.5694",
-        "waypoints": ["43.0336,-3.6644"],
-        "destination": "42.9756,-3.6853"
-      },
       "stops": [
         {
           "id": "salida-domingo",
