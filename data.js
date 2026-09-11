@@ -2,8 +2,8 @@
 // Los horarios son ORIENTATIVOS a propósito: la app los muestra como tales.
 // La única hora cerrada es el pase de la cueva-ermita de San Bernabé,
 // domingo 13 a las 11:30, que ya está pagado.
-// Las imágenes son ilustraciones propias (assets/images). Para usar fotos
-// reales basta con dejar el archivo en esa carpeta y cambiar aquí la ruta.
+// Las fotos están en assets/images. Las ilustraciones SVG originales siguen
+// en esa carpeta por si alguna foto se quiere sustituir.
 window.TRIP_DATA = {
   "trip": {
     "title": "Las Merindades en Familia",
@@ -38,7 +38,7 @@ window.TRIP_DATA = {
           "kind": "destino",
           "name": "Frías",
           "subtitle": "Aquí quedamos · mañana y lo que quede de tarde",
-          "image": "assets/images/frias.svg",
+          "image": "assets/images/frias.jpg",
           "time": "10:30 aprox.",
           "duration": "2 h + tarde",
           "intro": "Punto de encuentro del fin de semana y centro del día. La villa más pequeña de España, colgada sobre la peña de toba. Sin agenda: paseo, miradores y lo que apetezca.",
@@ -63,7 +63,7 @@ window.TRIP_DATA = {
           "id": "tobera",
           "kind": "destino",
           "name": "Tobera",
-          "image": "assets/images/tobera.svg",
+          "image": "assets/images/tobera.jpg",
           "subtitle": "A cinco minutos de Frías",
           "time": "11:45 aprox.",
           "duration": "1 - 1,5 h",
@@ -100,7 +100,7 @@ window.TRIP_DATA = {
           "kind": "destino",
           "name": "Cascada de Pedrosa de Tobalina",
           "subtitle": "Tarde opcional · lo decidimos en la comida",
-          "image": "assets/images/tobalina.svg",
+          "image": "assets/images/tobalina.webp",
           "time": "Media tarde, si apetece",
           "duration": "1,5 - 2 h",
           "intro": "El río Jerea se despeña unos 12 metros sobre una plataforma de roca de casi 100 metros de ancho, con una poza debajo que es zona de baño. A 25 minutos de Frías, al otro lado del valle.",
@@ -159,7 +159,7 @@ window.TRIP_DATA = {
           "kind": "destino",
           "name": "Ojo Guareña",
           "subtitle": "Cueva-ermita de San Bernabé · pase de las 11:30",
-          "image": "assets/images/ojoguarena.svg",
+          "image": "assets/images/ojoguarena.jpg",
           "time": "11:30 · entradas hechas",
           "duration": "45 min de visita",
           "intro": "Una ermita metida dentro de la roca, en uno de los mayores complejos kársticos de la península. Se recorren 400 metros de galerías y hay una proyección de 10 minutos.",
@@ -201,7 +201,7 @@ window.TRIP_DATA = {
           "id": "puentedey",
           "kind": "destino",
           "name": "Puentedey",
-          "image": "assets/images/puentedey.svg",
+          "image": "assets/images/puentedey.jpg",
           "time": "Después de comer",
           "duration": "1,5 h",
           "intro": "El pueblo se asienta sobre un puente natural que el río Nela excavó en la roca: 15 metros de alto, 34 de ancho y 75 de largo. Se ve desde arriba y desde abajo.",

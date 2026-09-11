@@ -9,7 +9,7 @@
    - Estilos, imágenes e iconos: CACHÉ PRIMERO, revalidando en segundo plano.
    - Todo lo externo (Google Maps) va directo a la red y nunca se cachea. */
 
-const CACHE = 'merindades-v10';
+const CACHE = 'merindades-v11';
 
 const CORE = [
   './',
@@ -20,11 +20,11 @@ const CORE = [
   './manifest.json',
   './assets/images/hero.svg',
   './assets/images/mapa.svg',
-  './assets/images/tobalina.svg',
-  './assets/images/frias.svg',
-  './assets/images/tobera.svg',
-  './assets/images/puentedey.svg',
-  './assets/images/ojoguarena.svg',
+  './assets/images/frias.jpg',
+  './assets/images/tobera.jpg',
+  './assets/images/tobalina.webp',
+  './assets/images/ojoguarena.jpg',
+  './assets/images/puentedey.jpg',
   './assets/icons/icon.svg',
   './assets/icons/icon-192.png',
   './assets/icons/icon-512.png',

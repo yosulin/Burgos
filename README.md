@@ -43,15 +43,17 @@ Sin dependencias ni paso de compilación: se edita y se sube.
 
 ## Imágenes
 
-`assets/images/` contiene **ilustraciones propias en SVG** hechas para esta guía
-(Frías, Tobera, Tobalina, Puentedey, Ojo Guareña, el plano y la portada). Son placeholders de calidad,
-pensados para sustituirse por fotos reales cuando las tengáis:
+`assets/images/` contiene las **fotos de cada destino** (`frias.jpg`,
+`tobera.jpg`, `tobalina.webp`, `ojoguarena.jpg`, `puentedey.jpg`), recortadas
+a 16:9 y comprimidas para que entren en la caché offline sin engordar la app.
+La portada y el plano siguen siendo SVG propios, y las ilustraciones
+originales de cada destino se conservan por si se quiere volver a ellas.
 
-1. Deja la foto en `assets/images/` (por ejemplo `frias.jpg`, apaisada 16:9).
-2. Cambia la ruta en `data.js` (`"image": "assets/images/frias.jpg"`).
-3. Añádela a la lista `CORE` de `sw.js` para que también funcione sin conexión.
+Para cambiar una foto: deja el archivo en esa carpeta, actualiza la ruta en
+`data.js` y, si cambia el nombre, la lista `CORE` de `sw.js`.
 
-No se enlazan imágenes externas: todo se sirve desde el propio repositorio.
+**Pendiente:** falta añadir los créditos (autor y licencia) de cada
+fotografía en la pestaña Info.
 
 ## Editar el viaje
 
@@ -60,7 +62,7 @@ y coordenadas. Los horarios son deliberadamente orientativos
 (`10:30 aprox.`, `Después de comer`, `Según reserva`).
 
 Al publicar cambios, **sube la versión de caché** en `sw.js`
-(`merindades-v10` → `v11`) y el `?v=10` de `index.html`, para que los móviles
+(`merindades-v11` → `v12`) y el `?v=11` de `index.html`, para que los móviles
 que ya tengan la app instalada recojan la versión nueva.
 
 ## Publicar
