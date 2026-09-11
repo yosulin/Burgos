@@ -13,11 +13,19 @@
   <link rel="manifest" href="manifest.json" />
   <link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="assets/icons/icon-192.png" />
-  <link rel="stylesheet" href="styles.css?v=9" />
+  <link rel="stylesheet" href="styles.css?v=10" />
 </head>
 <body>
 
   <span class="offline-chip" id="offline-chip" hidden>Sin conexión</span>
+
+  <!-- Aviso de instalación: solo si la app no está ya instalada -->
+  <aside class="install-bar" id="install-bar" hidden>
+    <span class="install-bar__ico" aria-hidden="true">📲</span>
+    <p class="install-bar__txt" id="install-bar-txt">Instala la guía y la tendrás sin cobertura.</p>
+    <button class="install-bar__cta" id="install-bar-cta" type="button" hidden>Instalar</button>
+    <button class="install-bar__x" id="install-bar-x" type="button" aria-label="Cerrar el aviso">✕</button>
+  </aside>
 
   <!-- Portada -->
   <header class="hero">
@@ -47,7 +55,7 @@
 
   <div class="toast" id="toast" hidden></div>
 
-  <script src="data.js?v=9"></script>
-  <script src="app.js?v=9"></script>
+  <script src="data.js?v=10"></script>
+  <script src="app.js?v=10"></script>
 </body>
 </html>

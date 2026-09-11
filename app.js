@@ -6,6 +6,7 @@
   var K_DONE = 'merindades-2026:visitado';
   var K_PACK = 'merindades-2026:equipaje';
   var K_TAB  = 'merindades-2026:pestana';
+  var K_BAR  = 'merindades-2026:aviso-instalar';
 
 
   /* ---------- utilidades ---------- */
@@ -411,10 +412,68 @@
   /* ---------- instalación ---------- */
 
   var prompt = null;
+
+  function yaInstalada() {
+    return (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) ||
+           navigator.standalone === true;
+  }
+
+  function esIOS() {
+    return /iphone|ipad|ipod/i.test(navigator.userAgent) ||
+           (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  }
+
+  function avisoDescartado() {
+    try { return localStorage.getItem(K_BAR) === '1'; } catch (e) { return false; }
+  }
+
+  function ocultarAviso(recordar) {
+    var bar = $('#install-bar');
+    if (bar) bar.hidden = true;
+    if (recordar) { try { localStorage.setItem(K_BAR, '1'); } catch (e) {} }
+  }
+
+  /* El aviso solo aparece si la guía no está instalada, no se ha cerrado antes
+     y hay forma de instalarla: el navegador nos ha ofrecido el diálogo, o
+     estamos en iOS, donde se hace a mano desde Compartir. */
+  function montarAviso() {
+    var bar = $('#install-bar');
+    if (!bar || yaInstalada() || avisoDescartado()) return;
+
+    var cta = $('#install-bar-cta');
+    if (prompt) {
+      cta.hidden = false;
+      bar.hidden = false;
+    } else if (esIOS()) {
+      txt('#install-bar-txt', 'Añádela a la pantalla de inicio: Compartir → «Añadir a inicio».');
+      cta.hidden = true;
+      bar.hidden = false;
+    }
+  }
+
   window.addEventListener('beforeinstallprompt', function (e) {
     e.preventDefault();
     prompt = e;
+    montarAviso();
     montarInstalacion();
+  });
+
+  window.addEventListener('appinstalled', function () {
+    prompt = null;
+    ocultarAviso(true);
+  });
+
+  var barX = $('#install-bar-x');
+  if (barX) barX.addEventListener('click', function () { ocultarAviso(true); });
+
+  var barCta = $('#install-bar-cta');
+  if (barCta) barCta.addEventListener('click', function () {
+    if (!prompt) { ocultarAviso(true); return; }
+    prompt.prompt();
+    prompt.userChoice.then(function (r) {
+      prompt = null;
+      ocultarAviso(!!r && r.outcome === 'accepted');
+    });
   });
 
   function montarInstalacion() {
@@ -479,6 +538,7 @@
     renderTabs();
     render();
     estadoRed();
+    montarAviso();
     observarPortada();
 
     if ('serviceWorker' in navigator) {

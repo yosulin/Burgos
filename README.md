@@ -22,8 +22,9 @@ Base del viaje: **Hotel Rural La Torre de Bisjueces** (C. San Juan 58, Bisjueces
 - **Comer** en tarjeta propia, con botones de llamar y Maps por restaurante.
 - **Rutas de regreso** a Donostia y a Valladolid.
 - **Offline:** una vez abierta con conexión funciona sin cobertura.
-- **Instalable** en el móvil, con checklist de visitas y de equipaje guardados
-  en el propio dispositivo.
+- **Instalable** en el móvil: aviso arriba del todo mientras no lo esté, que
+  se puede cerrar con la ✕ y no vuelve a salir. Checklist de visitas y de
+  equipaje guardados en el propio dispositivo.
 
 ## Estructura
 
@@ -59,7 +60,7 @@ y coordenadas. Los horarios son deliberadamente orientativos
 (`10:30 aprox.`, `Después de comer`, `Según reserva`).
 
 Al publicar cambios, **sube la versión de caché** en `sw.js`
-(`merindades-v9` → `v10`) y el `?v=9` de `index.html`, para que los móviles
+(`merindades-v10` → `v11`) y el `?v=10` de `index.html`, para que los móviles
 que ya tengan la app instalada recojan la versión nueva.
 
 ## Publicar
